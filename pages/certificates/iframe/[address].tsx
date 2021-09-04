@@ -6,6 +6,7 @@ const CertificateIframePage = () => {
   return (
     <Main style={{ width: '80%', margin: 'auto' }}>
       <h2>{address}</h2>
+      {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
       <a
         href="/certificates/sample"
         target="_blank"
