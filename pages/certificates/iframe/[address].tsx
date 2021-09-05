@@ -2,7 +2,7 @@ import { useState } from 'react'
 import styled from 'styled-components'
 
 const CertificateIframePage = () => {
-  const [address, setAddress] = useState('0x000000000000')
+  const [address, setAddress] = useState('0x0000...0000')
   return (
     <Main style={{ width: '80%', margin: 'auto' }}>
       <h2>{address}</h2>
@@ -12,7 +12,7 @@ const CertificateIframePage = () => {
         target="_blank"
         style={{ color: 'dodgerblue', textDecoration: 'underline' }}
       >
-        Show detail
+        See detail
       </a>
       <Table>
         <tbody>
@@ -34,11 +34,11 @@ const CertificateIframePage = () => {
           <tr>
             <td>？</td>
             <td>Website</td>
-            <td>https://example.com/mypage</td>
+            <td>https://example.com/page-not-responding</td>
           </tr>
         </tbody>
       </Table>
-      <div>Published at: yyyy-MM-ddTHH:mm:ssZ</div>
+      <div>At: yyyy-MM-ddTHH:mm:ssZ</div>
     </Main>
   )
 }

@@ -17,7 +17,7 @@ const EvidenceDescription: {
 } as const
 
 const ClaimPage = () => {
-  const [address, setAddress] = useState('0xx000000000000')
+  const [address, setAddress] = useState('0x000000000000')
   return (
     <main style={{ width: '50%', margin: 'auto' }}>
       <form>
