@@ -18,7 +18,7 @@ const Home: NextPage = () => {
         <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
             <h2>Claime Registry &rarr;</h2>
-            <p>Store your ownership claims via smart contract.</p>
+            <p>Store your claims of ownership via smart contract.</p>
           </a>
 
           <a
