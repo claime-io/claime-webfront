@@ -16,7 +16,7 @@ const Home: NextPage = () => {
           Have you interested in Claime? Our repositories are below.
         </p>
         <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
+          <a href="https://github.com/bridges-inc/claime-registry" className={styles.card}>
             <h2>Claime Registry &rarr;</h2>
             <p>Store your claims of ownership via smart contract.</p>
           </a>
