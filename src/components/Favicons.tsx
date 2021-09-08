@@ -1,5 +1,7 @@
+import Head from 'next/head'
+
 export const Favicons = () => (
-  <>
+  <Head>
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -29,5 +31,5 @@ export const Favicons = () => (
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta name="msapplication-config" content="/favicons/browserconfig.xml" />
     <meta name="theme-color" content="#ffffff" />
-  </>
+  </Head>
 )
