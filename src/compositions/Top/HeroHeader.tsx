@@ -9,6 +9,7 @@ import {
   fontWeightSemiBold,
 } from 'src/styles/font'
 import { ContentGuide } from 'src/styles/global-styles'
+import { defaultShadow } from 'src/styles/mixins'
 import styled from 'styled-components'
 
 export const HeroHeader: VFC = () => (
@@ -61,7 +62,7 @@ const DescriptionDiv = styled.div`
     height: 46px;
     border-radius: 8px;
     background: ${white};
-    box-shadow: 8px 8px 3px #00000029;
+    box-shadow: ${defaultShadow};
     text-align: center;
     font-size: 16px;
     font-weight: ${fontWeightSemiBold};
