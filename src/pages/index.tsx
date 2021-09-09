@@ -1,12 +1,5 @@
 import type { NextPage } from 'next'
-import { Header } from 'src/components/Header'
+import { Top } from 'src/compositions/Top'
 
-const Top: NextPage = () => {
-  return (
-    <>
-      <Header />
-    </>
-  )
-}
-
-export default Top
+const TopPage: NextPage = () => <Top />
+export default TopPage

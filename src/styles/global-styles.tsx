@@ -19,7 +19,6 @@ const Styles = createGlobalStyle`
     font-family: ${fontFamilyEn};
     font-weight: ${fontWeightRegular};
     font-size: 16px;
-    letter-spacing: -0.04em;
     background-color: ${white};
     color: ${black};
     min-height: 100vh;
