@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 import { black, white } from './colors'
 import { fontFamilyEn, fontWeightRegular } from './font'
 import { noScrollbar } from './mixins'
@@ -18,6 +18,8 @@ const Styles = createGlobalStyle`
   body {
     font-family: ${fontFamilyEn};
     font-weight: ${fontWeightRegular};
+    font-size: 16px;
+    letter-spacing: -0.04em;
     background-color: ${white};
     color: ${black};
     min-height: 100vh;
@@ -33,4 +35,13 @@ const Styles = createGlobalStyle`
       ${noScrollbar};
     }
   }
+`
+
+export const ContentGuide = styled.div`
+  width: 100%;
+  max-width: 1248px;
+  padding-right: 24px;
+  padding-left: 24px;
+  margin-left: auto;
+  margin-right: auto;
 `
