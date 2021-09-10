@@ -10,20 +10,24 @@ import {
 import { ContentGuide } from 'src/styles/global-styles'
 import { breakpoint, defaultShadow, flexCenter } from 'src/styles/mixins'
 import styled from 'styled-components'
+import { useContactModal } from './ContactModal'
 
-export const Banner: VFC = () => (
-  <BannerSection>
-    <Image src={backgroundImageSrc} alt="" />
-    <ContentGuide>
-      <h2>Get in touch</h2>
-      <p>
-        If you have any questions or inquiries about Clame, please feel free to
-        contact us using this contact form
-      </p>
-      <button>Contact form</button>
-    </ContentGuide>
-  </BannerSection>
-)
+export const Banner: VFC = () => {
+  const { open } = useContactModal()
+  return (
+    <BannerSection>
+      <Image src={backgroundImageSrc} alt="" />
+      <ContentGuide>
+        <h2>Get in touch</h2>
+        <p>
+          If you have any questions or inquiries about Clame, please feel free
+          to contact us using this contact form
+        </p>
+        <button onClick={open}>Contact form</button>
+      </ContentGuide>
+    </BannerSection>
+  )
+}
 
 const BannerSection = styled.section`
   margin-top: 96px;
