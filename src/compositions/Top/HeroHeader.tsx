@@ -9,7 +9,7 @@ import {
   fontWeightSemiBold,
 } from 'src/styles/font'
 import { ContentGuide } from 'src/styles/global-styles'
-import { defaultShadow } from 'src/styles/mixins'
+import { breakpoint, defaultShadow } from 'src/styles/mixins'
 import styled from 'styled-components'
 
 export const HeroHeader: VFC = () => (
@@ -32,19 +32,31 @@ export const HeroHeader: VFC = () => (
 const HeroHeaderDiv = styled.div`
   position: relative;
   width: 100%;
-  height: 736px;
+  height: 520px;
   ${ContentGuide} {
     position: relative;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     height: 100%;
+  }
+  svg {
+    display: none;
+  }
+  @media ${breakpoint.l} {
+    height: 736px;
+    svg {
+      display: unset;
+    }
+    ${ContentGuide} {
+      justify-content: space-between;
+    }
   }
 `
 const DescriptionDiv = styled.div`
   max-width: 708px;
   h1 {
-    font-size: 104px;
+    font-size: 48px;
     font-weight: ${fontWeightBold};
     letter-spacing: -0.04em;
     line-height: 1.0769;
@@ -66,5 +78,16 @@ const DescriptionDiv = styled.div`
     text-align: center;
     font-size: 16px;
     font-weight: ${fontWeightSemiBold};
+  }
+  @media ${breakpoint.m} {
+    h1 {
+      font-size: 72px;
+      white-space: pre-wrap;
+    }
+  }
+  @media ${breakpoint.l} {
+    h1 {
+      font-size: 104px;
+    }
   }
 `

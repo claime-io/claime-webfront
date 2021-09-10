@@ -40,12 +40,12 @@ export const flexCenter = css`
 
 const size = {
   s: '480px',
-  m: '896px',
-  l: '960px',
+  m: '560px',
+  l: '1280px',
 }
 
 export const breakpoint = {
-  s: `screen and (max-width:${size.s})`,
-  m: `screen and (max-width:${size.m})`,
-  l: `screen and (max-width:${size.l})`,
+  s: `screen and (min-width:${size.s})`,
+  m: `screen and (min-width:${size.m})`,
+  l: `screen and (min-width:${size.l})`,
 }
