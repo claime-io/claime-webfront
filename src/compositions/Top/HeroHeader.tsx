@@ -2,6 +2,7 @@ import { VFC } from 'react'
 import { backgroundImageSrc } from 'src/assets/images'
 import { ClaimeLogoLarge } from 'src/assets/svgs/lpImages'
 import { Image } from 'src/elements/Image'
+import { Link } from 'src/elements/Link'
 import { white } from 'src/styles/colors'
 import {
   fontWeightBold,
@@ -10,6 +11,7 @@ import {
 } from 'src/styles/font'
 import { ContentGuide } from 'src/styles/global-styles'
 import { breakpoint, defaultShadow } from 'src/styles/mixins'
+import { SUPPORT_URL } from 'src/utils/routes'
 import styled from 'styled-components'
 
 export const HeroHeader: VFC = () => (
@@ -22,7 +24,7 @@ export const HeroHeader: VFC = () => (
           An open source product that ties blockchain wallet ownership to Web
           2.0, such as websites and social accounts.
         </p>
-        <button>Supporting development</button>
+        <StyledLink href={SUPPORT_URL}>Support development</StyledLink>
       </DescriptionDiv>
       <ClaimeLogoLarge />
     </ContentGuide>
@@ -53,6 +55,17 @@ const HeroHeaderDiv = styled.div`
     }
   }
 `
+const StyledLink = styled(Link)`
+  display: block;
+  width: 238px;
+  padding: 15px;
+  border-radius: 8px;
+  background: ${white};
+  box-shadow: ${defaultShadow};
+  text-align: center;
+  font-size: 16px;
+  font-weight: ${fontWeightSemiBold};
+`
 const DescriptionDiv = styled.div`
   max-width: 708px;
   h1 {
@@ -68,16 +81,8 @@ const DescriptionDiv = styled.div`
     font-size: 18px;
     font-weight: ${fontWeightMedium};
   }
-  button {
+  ${StyledLink} {
     margin-top: 48px;
-    width: 238px;
-    height: 46px;
-    border-radius: 8px;
-    background: ${white};
-    box-shadow: ${defaultShadow};
-    text-align: center;
-    font-size: 16px;
-    font-weight: ${fontWeightSemiBold};
   }
   @media ${breakpoint.m} {
     h1 {
