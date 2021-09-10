@@ -2,6 +2,7 @@ import { VFC } from 'react'
 import { Link } from 'src/elements/Link'
 import { fontWeightMedium } from 'src/styles/font'
 import { ContentGuide } from 'src/styles/global-styles'
+import { breakpoint } from 'src/styles/mixins'
 import { GITHUB_URL } from 'src/utils/routes'
 import styled from 'styled-components'
 import { Logo } from '../Logo'
@@ -20,7 +21,8 @@ export const Header: VFC = () => (
   </>
 )
 
-const HEADER_HEIGHT = '80px'
+const HEADER_HEIGHT = '64px'
+const HEADER_HEIGHT_LARGE = '80px'
 const StyledHeader = styled.header`
   position: fixed;
   top: 0;
@@ -38,6 +40,9 @@ const StyledHeader = styled.header`
     align-items: center;
     height: 100%;
   }
+  @media ${breakpoint.m} {
+    height: ${HEADER_HEIGHT_LARGE};
+  }
 `
 
 const Navigation = styled.nav`
@@ -48,4 +53,7 @@ const Navigation = styled.nav`
 
 const HeaderSpacer = styled.div`
   padding-top: ${HEADER_HEIGHT};
+  @media ${breakpoint.m} {
+    padding-top: ${HEADER_HEIGHT_LARGE};
+  }
 `
