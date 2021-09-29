@@ -45,13 +45,13 @@ export const FirstSection: VFC = () => (
 
 export const SecondSection: VFC = () => (
   <Section>
-    <Description>
+    <SecondDescription>
       <h2>Real-time verification results</h2>
       <p>
         You can associate ownership of your Web 3.0 assets with your Web 2.0
         assets through various means, such as TXT records, Tags and Tweets.
       </p>
-    </Description>
+    </SecondDescription>
     <ImageDiv>
       <Image2 />
     </ImageDiv>
@@ -98,6 +98,9 @@ const Description = styled.div`
       margin-top: 28px;
     }
   }
+`
+const SecondDescription = styled(Description)`
+  margin: 0 80px;
 `
 
 const PropertyIcon = styled.div<{ background: string }>`
