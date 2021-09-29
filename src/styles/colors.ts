@@ -6,6 +6,8 @@ export const orange = '#FF9F1C'
 export const red = '#F92A82'
 export const pink = '#F7567C'
 
+export const discord = '#5865F2'
+
 export const gradient = `linear-gradient(135deg, ${orange}, ${red}, ${lightBlue})`
 
 // tmp
