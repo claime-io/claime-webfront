@@ -1,0 +1,46 @@
+import styled, { createGlobalStyle } from 'styled-components'
+import { black, white } from './colors'
+import { fontFamilyEn, fontWeightRegular } from './font'
+import { noScrollbar } from './mixins'
+
+export const GlobalStyles = () => {
+  return (
+    <>
+      <Styles />
+    </>
+  )
+}
+
+const Styles = createGlobalStyle`
+  img {
+    vertical-align: bottom;
+  }
+  body {
+    font-family: ${fontFamilyEn};
+    font-weight: ${fontWeightRegular};
+    font-size: 16px;
+    background-color: ${white};
+    color: ${black};
+    min-height: 100vh;
+    > div#__next {
+      height: 100%;
+      display: flex;
+      flex-flow: column;
+      main {
+        flex: 1;
+      }
+    }
+    div {
+      ${noScrollbar};
+    }
+  }
+`
+
+export const ContentGuide = styled.div`
+  width: 100%;
+  max-width: 1248px;
+  padding-right: 24px;
+  padding-left: 24px;
+  margin-left: auto;
+  margin-right: auto;
+`

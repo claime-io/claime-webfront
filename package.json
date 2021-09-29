@@ -14,9 +14,11 @@
     "next": "11.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "styled-components": "^5.3.1"
+    "styled-components": "^5.3.1",
+    "swr": "^1.0.0"
   },
   "devDependencies": {
+    "@svgr/webpack": "^5.5.0",
     "@types/jest": "^27.0.1",
     "@types/react": "17.0.19",
     "@types/styled-components": "^5.1.13",
