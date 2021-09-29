@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 export const Footer = styled.footer`
   height: 48px;
+  padding: 24px 0;
   ${flexCenter};
   background: ${black};
   color: ${white};

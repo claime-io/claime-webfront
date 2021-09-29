@@ -17,7 +17,6 @@ export const Header: VFC = () => (
         </Navigation>
       </ContentGuide>
     </StyledHeader>
-    <HeaderSpacer />
   </>
 )
 
@@ -51,7 +50,7 @@ const Navigation = styled.nav`
   letter-spacing: -0.04em;
 `
 
-const HeaderSpacer = styled.div`
+export const HeaderSpacer = styled.div`
   padding-top: ${HEADER_HEIGHT};
   @media ${breakpoint.m} {
     padding-top: ${HEADER_HEIGHT_LARGE};
