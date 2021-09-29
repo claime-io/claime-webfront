@@ -1,3 +1,4 @@
+import { BackIcon } from 'src/assets/svgs'
 import { fontWeightBold } from 'src/styles/font'
 import styled from 'styled-components'
 
@@ -17,4 +18,11 @@ export const SubHeading = styled.h3`
 export const Description = styled.p`
   text-align: center;
   line-height: 1.5;
+`
+
+export const ModalBackIcon = styled(BackIcon)`
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  cursor: pointer;
 `

@@ -11,8 +11,13 @@
     "test:once": "jest"
   },
   "dependencies": {
+    "@web3-react/core": "^6.1.9",
+    "@web3-react/injected-connector": "^6.0.7",
+    "@web3-react/walletconnect-connector": "^6.2.4",
+    "ethers": "^5.4.7",
     "next": "11.1.2",
     "react": "17.0.2",
+    "react-device-detect": "^2.0.0",
     "react-dom": "17.0.2",
     "styled-components": "^5.3.1",
     "swr": "^1.0.0"

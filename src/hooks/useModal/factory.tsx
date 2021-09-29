@@ -1,6 +1,6 @@
 import { VFC } from 'react'
 import { Modal } from 'src/components/Modal'
-import useSWR from 'swr'
+import { useSWRLocal } from '../useSWRLocal'
 
 type UseModalInterface = <T>(Component: VFC<ModalContentProps<T>>) => {
   open: (props: T) => void
@@ -17,15 +17,15 @@ export const createModal = (
   } = {},
 ) => {
   const useModal: UseModalInterface = (Component) => {
-    const { mutate } = useSWR(`modal-${key}`, null)
+    const { mutate } = useSWRLocal<any>(`modal-${key}`)
     const open = (props: any) => mutate({ Component, props })
-    const close = () => mutate(null, true)
+    const close = () => mutate(null)
     return { open, close }
   }
 
   const ModalFC = () => {
-    const { data, mutate } = useSWR(`modal-${key}`, null)
-    const close = () => mutate(null, true)
+    const { data, mutate } = useSWRLocal<any>(`modal-${key}`)
+    const close = () => mutate(null)
     return (
       <Modal
         isOpen={!!data}

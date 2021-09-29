@@ -8,6 +8,13 @@ export const pink = '#F7567C'
 
 export const gradient = `linear-gradient(135deg, ${orange}, ${red}, ${lightBlue})`
 
+// tmp
+export const gray = '#63666A'
+export const purple = '#3c249c'
+export const darkpurple = '#1b1641'
+export const errorColor = '#F31431'
+export const disabledColor = '#b5b5b5'
+
 export type Colors =
   | typeof black
   | typeof white
