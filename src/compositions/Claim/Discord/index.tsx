@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { DiscordLogo } from 'src/assets/svgs'
+import { CiclesLoading } from 'src/components/Loading'
 import {
   FullScreenContainer,
   initializeDiscordParticles,
@@ -63,6 +64,7 @@ export const Discord = () => {
                 <h2>Verifying now...</h2>
               </button>
               <p>It may take a few minutes to verify.</p>
+              <CiclesLoading />
             </>
           )}
           {status === 'succeeded' && (

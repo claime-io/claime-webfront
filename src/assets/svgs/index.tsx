@@ -1,3 +1,4 @@
+import CircleStroke from './circle_stroke.svg'
 import ClaimeLogo from './claime_logo.svg'
 import ClaimeLogoText from './claime_logo_text.svg'
 import BackIcon from './icon_back.svg'
@@ -24,4 +25,5 @@ export {
   ColorfulCircleIcon,
   CopyIcon,
   ExternalLinkIcon,
+  CircleStroke,
 }
