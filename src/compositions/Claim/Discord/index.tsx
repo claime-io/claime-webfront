@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { DiscordLogo } from 'src/assets/svgs'
+import { DiscordParticles, FullScreenContainer } from 'src/components/Particles'
 import { useWalletModal } from 'src/components/WalletModal'
 import { discord, white } from 'src/styles/colors'
 import { flexCenter } from 'src/styles/mixins'
@@ -12,6 +13,9 @@ export const Discord = () => {
   }, [])
   return (
     <Main>
+      <FullScreenContainer>
+        <DiscordParticles />
+      </FullScreenContainer>
       <DiscordLogo />
     </Main>
   )
