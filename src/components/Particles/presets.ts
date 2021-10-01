@@ -3,10 +3,10 @@ import { IOptions, RecursivePartial, SingleOrMultiple } from 'tsparticles'
 export const presets: SingleOrMultiple<RecursivePartial<IOptions>> = {
   particles: {
     number: {
-      value: 80,
+      value: 20,
       density: {
         enable: true,
-        value_area: 800,
+        value_area: 400,
       },
     },
     color: {
@@ -55,7 +55,7 @@ export const presets: SingleOrMultiple<RecursivePartial<IOptions>> = {
     move: {
       enable: true,
       speed: 6,
-      direction: 'top',
+      direction: 'none',
       random: true,
       straight: false,
       out_mode: 'out',

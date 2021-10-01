@@ -13,7 +13,6 @@ const WalletModal: VFC<ModalContentProps<WalletModalProps>> = ({
   closeModal,
 }) => {
   const { account } = useWallet()
-  console.log(account)
   return (
     <>
       {account ? (

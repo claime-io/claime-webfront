@@ -1,9 +1,14 @@
 import merge from 'merge-deep'
-import { useEffect } from 'react'
+import { VFC } from 'react'
 import { discordIconSrc } from 'src/assets/images'
 import styled from 'styled-components'
 import { tsParticles } from 'tsparticles'
 import { presets } from './presets'
+
+const PARTICLE_TYPES = ['discord'] as const
+
+type ParticleType = typeof PARTICLE_TYPES[number]
+const particleId = (type: ParticleType) => `tsparticles-${type}`
 
 const discordOptions: typeof presets = {
   particles: {
@@ -18,27 +23,18 @@ const discordOptions: typeof presets = {
     size: {
       value: 20,
     },
-    move: {},
   },
 }
 
-const initializeDiscord = () =>
+export const initializeDiscordParticles = () =>
   tsParticles.loadFromArray(
-    'tsparticles',
+    particleId('discord'),
     [merge(presets, discordOptions) as any],
     1,
   )
 
-const particles = tsParticles.domItem(0)
-
-export const DiscordParticles = () => {
-  useEffect(() => {
-    initializeDiscord().then(() => {
-      particles?.play()
-      console.log(particles?.sourceOptions)
-    })
-  }, [])
-  return <Particles id="tsparticles" />
+export const Particles: VFC<{ type: ParticleType }> = ({ type }) => {
+  return <ParticlesDiv id={particleId(type)} />
 }
 
 export const FullScreenContainer = styled.div`
@@ -49,7 +45,7 @@ export const FullScreenContainer = styled.div`
   left: 0;
 `
 
-const Particles = styled.div`
+const ParticlesDiv = styled.div`
   width: 100%;
   height: 100%;
 `
