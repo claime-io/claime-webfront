@@ -5,15 +5,19 @@ import { Heading, ModalBackIcon, SubHeading } from 'src/components/Modal/styles'
 import { connector } from 'src/external/wallets'
 import { hasMetaMask } from 'src/external/wallets/metamask'
 import { useWallet, WalletType } from 'src/hooks/useWallet'
+import { breakpoint } from 'src/styles/mixins'
 import { METAMASK_URL } from 'src/utils/routes'
 import styled from 'styled-components'
 import { ConnectingWallet } from './ConnectingWallet'
+import { SelectWalletHeading } from './SelectWalletHeading'
+import { WalletModalTheme } from './types'
 import { WalletOption } from './WalletOption'
 
 export const SelectWallet: VFC<{
+  theme?: WalletModalTheme
   onBack?: VoidFunction
   closeModal: VoidFunction
-}> = ({ onBack, closeModal }) => {
+}> = ({ theme, onBack, closeModal }) => {
   const { activeWalletType, connect } = useWallet()
 
   const [errors, setErrors] = useState()
@@ -23,7 +27,6 @@ export const SelectWallet: VFC<{
     setErrors(undefined)
     try {
       await connect(connector(type))
-      closeModal()
     } catch (err: any) {
       setErrors(err)
     }
@@ -52,44 +55,59 @@ export const SelectWallet: VFC<{
         <>
           {onBack && <ModalBackIcon onClick={onBack} />}
           <Layout>
-            <Heading>Connect Wallet</Heading>
-            <SubHeading>
-              Connect to your wallet to validate your ticket to the Discord
-              channel
-            </SubHeading>
-            {!isMobile && (
-              <WalletOption
-                type="Metamask"
-                Icon={MetamaskIcon}
-                notInstalled={!hasMetaMask()}
-                onNotInstalled={() => window.open(METAMASK_URL, '_blank')}
-                hasEnabled={activeWalletType === 'Metamask'}
-                onAlreadyEnabled={onBack}
-                onClick={() => handleConnect('Metamask')}
-              />
-            )}
-            <WalletOption
-              type="WalletConnect"
-              Icon={WalletConnectIcon}
-              hasEnabled={activeWalletType === 'WalletConnect'}
-              onAlreadyEnabled={onBack}
-              onClick={() => handleConnect('WalletConnect')}
-            />
+            <Content>
+              <SelectWalletHeading theme={theme} />
+              <WalletsDiv>
+                {!isMobile && (
+                  <WalletOption
+                    type="Metamask"
+                    Icon={MetamaskIcon}
+                    notInstalled={!hasMetaMask()}
+                    onNotInstalled={() => window.open(METAMASK_URL, '_blank')}
+                    hasEnabled={activeWalletType === 'Metamask'}
+                    onAlreadyEnabled={onBack}
+                    onClick={() => handleConnect('Metamask')}
+                  />
+                )}
+                <WalletOption
+                  type="WalletConnect"
+                  label="Wallet Connect"
+                  Icon={WalletConnectIcon}
+                  hasEnabled={activeWalletType === 'WalletConnect'}
+                  onAlreadyEnabled={onBack}
+                  onClick={() => handleConnect('WalletConnect')}
+                />
+              </WalletsDiv>
+            </Content>
           </Layout>
         </>
       )}
     </>
   )
 }
-
+const WalletsDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: -12px;
+  > * {
+    margin: 12px;
+  }
+`
+const Content = styled.div`
+  max-width: 400px;
+`
 const Layout = styled.div`
   ${Heading} {
     margin-bottom: 16px;
+    svg {
+      width: 100%;
+    }
   }
   ${SubHeading} {
     margin-bottom: 40px;
   }
-  button:not(:last-child) {
-    margin-bottom: 24px;
+  @media ${breakpoint.l} {
+    padding: 24px 40px;
   }
 `

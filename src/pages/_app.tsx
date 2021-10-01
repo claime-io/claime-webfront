@@ -1,9 +1,11 @@
+import { Web3ReactProvider } from '@web3-react/core'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { VFC } from 'react'
 import { Favicons } from 'src/components/Favicons'
 import { Header } from 'src/components/Header'
 import { Footer } from 'src/compositions/Top/styles'
+import { getLibrary } from 'src/external/wallets'
 import { ModalPortal } from 'src/hooks/useModal'
 import { GlobalStyles } from 'src/styles/global-styles'
 import 'src/styles/globals.css'
@@ -21,10 +23,12 @@ const MyApp: VFC<AppProps> = ({ Component, pageProps, router: { asPath } }) => {
       </Head>
       <Favicons />
       <GlobalStyles />
-      <Header />
-      <Component {...pageProps} />
-      <Footer>©︎2021 CLAME</Footer>
-      <ModalPortal />
+      <Web3ReactProvider getLibrary={getLibrary}>
+        <Header />
+        <Component {...pageProps} />
+        <Footer>©︎2021 CLAME</Footer>
+        <ModalPortal />
+      </Web3ReactProvider>
     </>
   )
 }

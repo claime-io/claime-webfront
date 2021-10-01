@@ -2,12 +2,13 @@ import { AbstractConnector } from '@web3-react/abstract-connector'
 import { useWeb3React } from '@web3-react/core'
 import { ethers } from 'ethers'
 import { useCallback, useEffect } from 'react'
+import { hasMetaMask, metamaskConnector } from 'src/external/wallets/metamask'
 import { useSWRLocal } from '../useSWRLocal'
 
 export type WalletType = 'Metamask' | 'WalletConnect'
-export type WalletConnector = {
+export type WalletConnector<T extends AbstractConnector = AbstractConnector> = {
   type: WalletType
-  connector: AbstractConnector
+  connector: T
   onConnect?: () => Promise<void>
   onDisconnect?: VoidFunction
 }
@@ -53,12 +54,50 @@ export const useWallet = (): WalletInterface => {
   }, [deactivate, activeWalletType, onDisconnect])
 
   useEffect(() => {
-    if (library) {
-      const provider = library as ethers.providers.Web3Provider
-      mutateWeb3Provider(provider)
-      mutateSigner(provider.getSigner())
-    }
+    if (!library) return
+    const provider = library as ethers.providers.Web3Provider
+    mutateWeb3Provider(provider)
+    mutateSigner(provider.getSigner())
   }, [library])
+
+  useEffect(() => {
+    if (activeWalletType !== 'Metamask') return
+    const { ethereum } = window
+    const removeAllListners = () => {
+      ethereum.removeAllListeners('chainChanged')
+      ethereum.removeAllListeners('accountsChanged')
+    }
+    if (ethereum && hasMetaMask() && signer !== null) {
+      removeAllListners()
+      ethereum.on('chainChanged', (accounts: string[]) => {
+        if (!accounts.length) {
+          disconnect()
+          return
+        }
+        connect(metamaskConnector).catch((error) => {
+          console.error('Failed to activate after accounts changed', error)
+        })
+      })
+      ethereum.on('accountsChanged', () =>
+        connect(metamaskConnector).catch((error) => {
+          console.error('Failed to activate after chain changed', error)
+        }),
+      )
+    }
+    return () => {
+      if (ethereum && ethereum.removeListener) removeAllListners()
+    }
+  }, [connect, disconnect, signer, activeWalletType])
+
+  useEffect(() => {
+    if (active) return
+    metamaskConnector.connector.isAuthorized().then((isAuthorized) => {
+      if (!isAuthorized) return
+      connect(metamaskConnector).catch((error) =>
+        console.log('Error by trying to connect MetaMask', error),
+      )
+    })
+  }, [connect, active])
 
   return {
     error,

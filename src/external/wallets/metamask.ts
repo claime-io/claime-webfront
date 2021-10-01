@@ -13,12 +13,14 @@ export const hasMetaMask = (): boolean => {
 }
 
 const onConnect = async () => {
-  if (hasMetaMask()) return Promise.reject('Please make Metamask available')
+  if (!hasMetaMask()) return Promise.reject('Please make Metamask available')
   await window.ethereum.request({ method: 'eth_requestAccounts' })
 }
 
-export const metamaskConnector = (): WalletConnector => ({
+const connector = new InjectedConnector({})
+
+export const metamaskConnector: WalletConnector<InjectedConnector> = {
   type: 'Metamask',
-  connector: new InjectedConnector({}),
+  connector,
   onConnect,
-})
+}

@@ -19,7 +19,7 @@ const onDisconnect = () => {
   connector.close()
 }
 
-export const walletConnectConnector: WalletConnector = {
+export const walletConnectConnector: WalletConnector<WalletConnectConnector> = {
   type: 'WalletConnect',
   connector,
   onConnect,

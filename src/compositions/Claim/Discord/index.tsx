@@ -1,9 +1,15 @@
+import { useEffect } from 'react'
 import { DiscordLogo } from 'src/assets/svgs'
-import { discord } from 'src/styles/colors'
+import { useWalletModal } from 'src/components/WalletModal'
+import { discord, white } from 'src/styles/colors'
 import { flexCenter } from 'src/styles/mixins'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const Discord = () => {
+  const { open } = useWalletModal()
+  useEffect(() => {
+    open({ theme: 'discord' }, { styles: discordModalStyle, inescapable: true })
+  }, [])
   return (
     <Main>
       <DiscordLogo />
@@ -14,4 +20,9 @@ export const Discord = () => {
 const Main = styled.main`
   background: ${discord};
   ${flexCenter};
+`
+
+const discordModalStyle = css`
+  background: ${discord};
+  color: ${white};
 `

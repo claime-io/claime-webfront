@@ -1,21 +1,25 @@
 import React, { VFC } from 'react'
 import { ModalContentProps, useGlobalModal } from 'src/hooks/useModal'
+import { useWallet } from 'src/hooks/useWallet'
 import { AddressInfo } from './AddressInfo'
 import { SelectWallet } from './SelectWallet'
+import { WalletModalTheme } from './types'
 
 type WalletModalProps = {
-  account: string | null | undefined
+  theme?: WalletModalTheme
 }
 const WalletModal: VFC<ModalContentProps<WalletModalProps>> = ({
-  account,
+  theme,
   closeModal,
 }) => {
+  const { account } = useWallet()
+  console.log(account)
   return (
     <>
       {account ? (
         <AddressInfo address={account} closeModal={closeModal} />
       ) : (
-        <SelectWallet closeModal={closeModal} />
+        <SelectWallet theme={theme} closeModal={closeModal} />
       )}
     </>
   )
