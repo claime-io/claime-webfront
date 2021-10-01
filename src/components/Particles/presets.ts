@@ -42,16 +42,26 @@ export const presets: SingleOrMultiple<RecursivePartial<IOptions>> = {
         sync: false,
       },
     },
+    rotate: {
+      value: 0,
+      random: true,
+      direction: 'random',
+      animation: {
+        enable: true,
+        speed: 5,
+        sync: false,
+      },
+    },
     move: {
       enable: true,
       speed: 6,
-      direction: 'none',
+      direction: 'top',
       random: true,
       straight: false,
       out_mode: 'out',
       bounce: false,
       attract: {
-        enable: false,
+        enable: true,
         rotateX: 600,
         rotateY: 1200,
       },
