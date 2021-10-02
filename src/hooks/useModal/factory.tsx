@@ -3,20 +3,23 @@ import { Modal } from 'src/components/Modal'
 import { SimpleInterpolation } from 'styled-components'
 import { useSWRLocal } from '../useSWRLocal'
 
-type ModalProps<T = {}> = T & {
+export type ModalOption = {
+  styles?: SimpleInterpolation
+  inescapable?: boolean
+}
+type ModalProps<T> = T & {
   onClose?: VoidFunction
 }
+type ModalOpener<P> = P extends ModalProps<P>
+  ? (props: ModalProps<P>, option?: ModalOption) => void
+  : (option?: ModalOption) => void
+
 type UseModalInterface = <T>(Component: VFC<ModalContentProps<T>>) => {
-  open: (props: ModalProps<T>, option?: ModalOption) => void
+  open: ModalOpener<T>
   close: VoidFunction
 }
 export type ModalContentProps<T> = T & {
   closeModal: VoidFunction
-}
-
-export type ModalOption = {
-  styles?: SimpleInterpolation
-  inescapable?: boolean
 }
 
 export type ModalState<T = any> = {
