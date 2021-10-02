@@ -9,11 +9,11 @@ import { Heading, SubHeading } from 'src/components/Modal/styles'
 import { getExplorer } from 'src/constants/chains'
 import { Link } from 'src/elements/Link'
 import { useWallet } from 'src/hooks/useWallet'
-import { black, white } from 'src/styles/colors'
 import { fontWeightMedium } from 'src/styles/font'
-import { defaultShadow, flexCenter } from 'src/styles/mixins'
+import { flexCenter } from 'src/styles/mixins'
 import { shortenAddress } from 'src/utils/address'
 import styled from 'styled-components'
+import { CtaButton } from '../Button'
 
 export const AddressInfo: VFC<{
   address: string
@@ -52,41 +52,20 @@ export const AddressInfo: VFC<{
       </ActionAreaDiv>
       <ButtonAreaDiv>
         {activeWalletType == 'WalletConnect' && (
-          <StyledCtaButton
+          <CtaButton
             onClick={async () => {
               await disconnect()
               closeModal()
             }}
           >
             Disconnect
-          </StyledCtaButton>
+          </CtaButton>
         )}
-        <StyledCtaButton onClick={closeModal}>OK</StyledCtaButton>
+        <CtaButton onClick={closeModal}>OK</CtaButton>
       </ButtonAreaDiv>
     </Layout>
   )
 }
-
-const StyledCtaButton = styled.button`
-  display: block;
-  width: 100%;
-  padding: 0 24px;
-  max-width: 96px;
-  height: 32px;
-  font-size: 12px;
-  letter-spacing: 0.016em;
-  font-weight: ${fontWeightMedium};
-  text-align: center;
-  background: ${white};
-  border-radius: 16px;
-  box-shadow: ${defaultShadow};
-  color: ${black};
-  :hover,
-  :focus {
-    background: ${black};
-    color: ${white};
-  }
-`
 
 const ButtonAreaDiv = styled.div`
   ${flexCenter};
