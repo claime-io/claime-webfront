@@ -83,7 +83,7 @@ export const Discord = () => {
                 </div>
                 <div>
                   <p>Your EOA</p>
-                  <p>{shortenAddress(account)}</p>
+                  <p>{account ? shortenAddress(account) : '-'}</p>
                 </div>
               </InformationDiv>
               <p>
