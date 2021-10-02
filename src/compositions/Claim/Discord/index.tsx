@@ -13,7 +13,12 @@ import { flexCenter } from 'src/styles/mixins'
 import styled, { css } from 'styled-components'
 import { Container } from 'tsparticles'
 
-type Status = 'connecting' | 'verifying' | 'failed' | 'succeeded'
+type Status =
+  | 'connecting'
+  | 'confirmation'
+  | 'verifying'
+  | 'failed'
+  | 'succeeded'
 
 export const Discord = () => {
   const { open } = useWalletModal()
@@ -24,7 +29,7 @@ export const Discord = () => {
     open(
       {
         theme: 'discord',
-        onClose: () => setStatus('verifying'),
+        onClose: () => setStatus('confirmation'),
       },
       { styles: discordModalStyle, inescapable: true },
     )
@@ -33,6 +38,9 @@ export const Discord = () => {
   useEffect(() => {
     if (!particles) return
     if (status === 'connecting') {
+      setBgScale(0)
+    }
+    if (status === 'confirmation') {
       setBgScale(0)
     }
     if (status === 'verifying') {
@@ -60,8 +68,28 @@ export const Discord = () => {
         </FullScreenContainer>
         <Content>
           {status === 'connecting' && (
+            <button onClick={() => setStatus('confirmation')}>
+              <DiscordLogo />
+            </button>
+          )}
+          {status === 'confirmation' && (
             <button onClick={() => setStatus('verifying')}>
               <DiscordLogo />
+              <p>Your Discord ID: XXXXX</p>
+              <p>Your EOA: 0x0000000</p>
+              <div>
+                <p>
+                  You can store the binding of your discord ID and EOA to Claime
+                  Smart Contract so that you will be verify automatically when
+                  you need to verify your NFT ownership.
+                </p>
+              </div>
+              <p>
+                Or you can verify with only your signature as one time
+                verification
+              </p>
+              <button>Store</button>
+              <button>Sign only</button>
             </button>
           )}
           {status === 'verifying' && (

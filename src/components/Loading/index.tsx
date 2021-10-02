@@ -15,58 +15,93 @@ export const CiclesLoading = styled(({ className }) => (
   </Circles>
 ))``
 
+const keyframes1 = keyframes`
+  0%{
+    opacity: 0;
+  }
+  50%{
+    opacity: 100;
+  }
+  100%{
+    opacity: 0;
+  }
+`
+const animation1 = css`
+  :nth-child(1) {
+    animation: ${keyframes1} 1.5s ease-in-out infinite;
+  }
+`
+const keyframes2 = keyframes`
+  0%{
+    opacity: 0;
+  }
+  50%{
+    opacity: 100;
+  }
+  100%{
+    opacity: 0;
+  }
+`
+const animation2 = css`
+  :nth-child(2) {
+    animation: ${keyframes2} 4.5s ease-in-out infinite;
+  }
+`
 const keyframes3 = keyframes`
-  0%,100% {
-    stroke-dasharray: 20px 40px 120px 50px;
+  0% {
+    stroke-dasharray: 90px;
     transform: rotate(0deg);
   }
-  50% {
-    stroke-dasharray: 0;
-    transform: rotate(180deg)
+  100% {
+    stroke-dasharray: 90px;
+    transform: rotate(360deg)
   }
 `
 const animation3 = css`
   :nth-child(3) {
-    stroke-dasharray: 20px 40px 120px 50px;
-    animation: ${keyframes3} 3s ease-in-out infinite;
+    /* stroke-dasharray: 120; */
+    animation: ${keyframes3} 1.5s ease-in-out infinite;
   }
 `
 const keyframes4 = keyframes`
-  0%,100% {
-    stroke-dasharray: 120px;
+  0% {
+    stroke-dasharray: 320px;
     transform: rotate(0deg);
   }
-  50% {
-    stroke-dasharray: 140px;
-    transform: rotate(180deg)
+  100% {
+    stroke-dasharray: 320px;
+    transform: rotate(360deg)
   }
 `
 const animation4 = css`
   :nth-child(4) {
     stroke-dasharray: 120px;
-    animation: ${keyframes4} 2.5s ease-in-out infinite;
+    animation: ${keyframes4} 4.5s ease-in-out infinite;
   }
 `
 const keyframes5 = keyframes`
-  0%,100% {
-    transform: rotate(0deg);
+  0%{
+    opacity: 0;
   }
-  50% {
-    transform: rotate(180deg)
+  50%{
+    opacity: 100;
+  }
+  100%{
+    opacity: 0;
   }
 `
 const animation5 = css`
   :nth-child(5) {
-    stroke-dasharray: 20px 40px;
-    animation: ${keyframes5} 2s ease-in-out infinite;
+    stroke-dasharray: 0;
+    animation: ${keyframes5} 1.5s ease-in-out infinite;
   }
 `
 const keyframes6 = keyframes`
-  0%,100% {
+  0% {
     transform: rotate(0deg);
   }
-  50% {
-    transform: rotate(180deg)
+  100% {
+    transform: rotate(360deg)
   }
 `
 const animation6 = css`
@@ -85,6 +120,8 @@ const Circles = styled.div`
     stroke: ${white};
     border-top: transparent;
     fill: transparent;
+    ${animation1};
+    ${animation2};
     ${animation3};
     ${animation4};
     ${animation5};
