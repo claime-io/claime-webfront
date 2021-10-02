@@ -1,37 +1,15 @@
-import merge from 'merge-deep'
 import { VFC } from 'react'
-import { discordIconSrc } from 'src/assets/images'
 import styled, { css } from 'styled-components'
 import { tsParticles } from 'tsparticles'
-import { presets } from './presets'
+import { discordOptions } from './discord'
 
 const PARTICLE_TYPES = ['discord'] as const
 
 type ParticleType = typeof PARTICLE_TYPES[number]
 const particleId = (type: ParticleType) => `tsparticles-${type}`
 
-const discordOptions: typeof presets = {
-  particles: {
-    shape: {
-      image: {
-        src: discordIconSrc,
-        width: 121,
-        height: 92,
-      },
-      type: 'image',
-    },
-    size: {
-      value: 20,
-    },
-  },
-}
-
 export const initializeDiscordParticles = () =>
-  tsParticles.loadFromArray(
-    particleId('discord'),
-    [merge(presets, discordOptions) as any],
-    1,
-  )
+  tsParticles.loadFromArray(particleId('discord'), [discordOptions as any], 1)
 
 export const Particles: VFC<{ type: ParticleType }> = ({ type }) => {
   return <ParticlesDiv id={particleId(type)} />
