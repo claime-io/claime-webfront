@@ -52,6 +52,10 @@ export const Discord = () => {
     if (status === 'succeeded') {
       particles.options.particles.move.direction = 'top'
       particles.options.particles.move.speed = 24
+      particles.options.particles.collisions.mode = 'bounce'
+      particles.options.particles.size.value = 120
+      particles.options.particles.size.random.enable
+      particles.options.particles.number.density.value_area = 100000
       particles.refresh()
     }
     if (status === 'failed') {
