@@ -17,10 +17,12 @@ export const CiclesLoading = styled(({ className }) => (
 
 const keyframes3 = keyframes`
   0%,100% {
-    stroke-dashoffset: 600px;
+    stroke-dasharray: 20px 40px 120px 50px;
+    transform: rotate(0deg);
   }
   50% {
-    stroke-dashoffset: 0px;
+    stroke-dasharray: 0;
+    transform: rotate(180deg)
   }
 `
 const animation3 = css`
@@ -32,11 +34,11 @@ const animation3 = css`
 const keyframes4 = keyframes`
   0%,100% {
     stroke-dasharray: 120px;
-    stroke-dashoffset: 0px;
+    transform: rotate(0deg);
   }
   50% {
     stroke-dasharray: 140px;
-    stroke-dashoffset: 200px;
+    transform: rotate(180deg)
   }
 `
 const animation4 = css`
@@ -47,10 +49,10 @@ const animation4 = css`
 `
 const keyframes5 = keyframes`
   0%,100% {
-    stroke-dashoffset: 400px;
+    transform: rotate(0deg);
   }
   50% {
-    stroke-dashoffset: 200px;
+    transform: rotate(180deg)
   }
 `
 const animation5 = css`
@@ -61,10 +63,10 @@ const animation5 = css`
 `
 const keyframes6 = keyframes`
   0%,100% {
-    stroke-dashoffset: 600px;
+    transform: rotate(0deg);
   }
   50% {
-    stroke-dashoffset: 0px;
+    transform: rotate(180deg)
   }
 `
 const animation6 = css`
@@ -81,6 +83,7 @@ const Circles = styled.div`
   svg {
     ${absoluteFill};
     stroke: ${white};
+    border-top: transparent;
     fill: transparent;
     ${animation3};
     ${animation4};
