@@ -46,12 +46,16 @@ export const Discord = () => {
     if (status === 'verifying') {
       particles.options.particles.move.direction = 'none'
       particles.options.particles.move.speed = 0.1
+      particles.options.particles.rotate.animation.speed = 1
+      particles.options.particles.opacity.animation.speed = 0.1
       particles.refresh()
       setBgScale(1)
     }
     if (status === 'succeeded') {
       particles.options.particles.move.direction = 'top'
       particles.options.particles.move.speed = 24
+      particles.options.particles.rotate.animation.speed = 5
+      particles.options.particles.opacity.animation.speed = 1.5
       particles.options.particles.collisions.mode = 'bounce'
       particles.options.particles.size.value = 120
       particles.options.particles.size.random.enable
@@ -59,6 +63,7 @@ export const Discord = () => {
       particles.refresh()
     }
     if (status === 'failed') {
+      particles.options.particles.collisions.mode = 'destroy'
       particles.options.particles.move.direction = 'bottom'
       particles.options.particles.move.speed = 6
       particles.refresh()
