@@ -21,8 +21,12 @@ const discordOptions: typeof presets = {
       type: 'image',
     },
     size: {
+      // anim:
+      random: false,
       value: 20,
     },
+    move: { enable: false },
+    rotate: { animation: { enable: false } },
   },
 }
 
