@@ -1,7 +1,7 @@
 import merge from 'merge-deep'
 import { VFC } from 'react'
 import { discordIconSrc } from 'src/assets/images'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { tsParticles } from 'tsparticles'
 import { presets } from './presets'
 
@@ -37,12 +37,16 @@ export const Particles: VFC<{ type: ParticleType }> = ({ type }) => {
   return <ParticlesDiv id={particleId(type)} />
 }
 
-export const FullScreenContainer = styled.div`
+export const FullScreenContainer = styled.div<{ scale?: number }>`
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
+  transition: 0.5s transform ease-out;
+  ${({ scale = 1 }) => css`
+    transform: scale(${scale});
+  `}
 `
 
 const ParticlesDiv = styled.div`

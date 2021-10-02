@@ -3,11 +3,14 @@ import { Modal } from 'src/components/Modal'
 import { SimpleInterpolation } from 'styled-components'
 import { useSWRLocal } from '../useSWRLocal'
 
+type ModalProps<T = {}> = T & {
+  onClose?: VoidFunction
+}
 type UseModalInterface = <T>(Component: VFC<ModalContentProps<T>>) => {
-  open: (props: T, option?: ModalOption) => void
+  open: (props: ModalProps<T>, option?: ModalOption) => void
   close: VoidFunction
 }
-export type ModalContentProps<T = void> = T & {
+export type ModalContentProps<T> = T & {
   closeModal: VoidFunction
 }
 
@@ -38,7 +41,10 @@ export const createModal = (
 
   const ModalFC = () => {
     const { data, mutate } = useSWRLocal<ModalState | null>(`modal-${key}`)
-    const close = () => mutate(null)
+    const close = () => {
+      mutate(null)
+      data?.props.onClose && data?.props.onClose()
+    }
     const option = data?.option || {}
     const inescapable = config.inescapable || option.inescapable
     return (

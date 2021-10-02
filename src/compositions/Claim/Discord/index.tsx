@@ -19,25 +19,31 @@ export const Discord = () => {
   const { open } = useWalletModal()
   const [particles, setParticles] = useState<Container>()
   const [status, setStatus] = useState<Status>('connecting')
+  const [bgScale, setBgScale] = useState(0)
   useEffect(() => {
-    open({ theme: 'discord' }, { styles: discordModalStyle, inescapable: true })
+    open(
+      {
+        theme: 'discord',
+        onClose: () => setStatus('verifying'),
+      },
+      { styles: discordModalStyle, inescapable: true },
+    )
     initializeDiscordParticles().then((particles) => setParticles(particles))
   }, [])
   useEffect(() => {
     if (!particles) return
     if (status === 'connecting') {
-      particles.options.particles.move.direction = 'none'
-      particles.options.particles.move.speed = 6
-      particles.refresh()
+      setBgScale(0)
     }
     if (status === 'verifying') {
       particles.options.particles.move.direction = 'none'
-      particles.options.particles.move.speed = 8
+      particles.options.particles.move.speed = 0.1
       particles.refresh()
+      setBgScale(1)
     }
     if (status === 'succeeded') {
       particles.options.particles.move.direction = 'top'
-      particles.options.particles.move.speed = 12
+      particles.options.particles.move.speed = 24
       particles.refresh()
     }
     if (status === 'failed') {
@@ -49,7 +55,7 @@ export const Discord = () => {
   return (
     <>
       <Main>
-        <FullScreenContainer>
+        <FullScreenContainer scale={bgScale}>
           <Particles type="discord" />
         </FullScreenContainer>
         <Content>
