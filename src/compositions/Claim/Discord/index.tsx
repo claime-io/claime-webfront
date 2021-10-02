@@ -6,6 +6,7 @@ import {
   initializeDiscordParticles,
   Particles,
 } from 'src/components/Particles'
+import { falling, rising, slow } from 'src/components/Particles/discord'
 import { useWalletModal } from 'src/components/WalletModal'
 import { discord, white } from 'src/styles/colors'
 import { fontWeightBold, fontWeightRegular } from 'src/styles/font'
@@ -13,16 +14,18 @@ import { flexCenter } from 'src/styles/mixins'
 import styled, { css } from 'styled-components'
 import { Container } from 'tsparticles'
 
-type Status =
-  | 'connecting'
-  | 'confirmation'
-  | 'verifying'
-  | 'failed'
-  | 'succeeded'
+const STATUS_TYPES = [
+  'connecting',
+  'confirmation',
+  'verifying',
+  'succeeded',
+  'failed',
+]
+type Status = typeof STATUS_TYPES[number]
 
 export const Discord = () => {
   const { open } = useWalletModal()
-  const [particles, setParticles] = useState<Container>()
+  const [particlesContainer, setParticlesContainer] = useState<Container>()
   const [status, setStatus] = useState<Status>('connecting')
   const [bgScale, setBgScale] = useState(0)
   useEffect(() => {
@@ -33,40 +36,27 @@ export const Discord = () => {
       },
       { styles: discordModalStyle, inescapable: true },
     )
-    initializeDiscordParticles().then((particles) => setParticles(particles))
+    initializeDiscordParticles().then((contanier) =>
+      setParticlesContainer(contanier),
+    )
   }, [])
   useEffect(() => {
-    if (!particles) return
-    if (status === 'connecting') {
-      setBgScale(0)
-    }
-    if (status === 'confirmation') {
-      setBgScale(0)
-    }
-    if (status === 'verifying') {
-      particles.options.particles.move.direction = 'none'
-      particles.options.particles.move.speed = 0.1
-      particles.options.particles.rotate.animation.speed = 1
-      particles.options.particles.opacity.animation.speed = 0.1
-      particles.refresh()
-      setBgScale(1)
-    }
-    if (status === 'succeeded') {
-      particles.options.particles.move.direction = 'top'
-      particles.options.particles.move.speed = 24
-      particles.options.particles.rotate.animation.speed = 5
-      particles.options.particles.opacity.animation.speed = 1.5
-      particles.options.particles.collisions.mode = 'bounce'
-      particles.options.particles.size.value = 120
-      particles.options.particles.size.random.enable
-      particles.options.particles.number.density.value_area = 100000
-      particles.refresh()
-    }
-    if (status === 'failed') {
-      particles.options.particles.collisions.mode = 'destroy'
-      particles.options.particles.move.direction = 'bottom'
-      particles.options.particles.move.speed = 6
-      particles.refresh()
+    if (!particlesContainer) return
+    setBgScale(1)
+    switch (status) {
+      case 'connecting':
+      case 'confirmation':
+        setBgScale(0)
+        return
+      case 'verifying':
+        slow(particlesContainer)
+        return
+      case 'succeeded':
+        rising(particlesContainer)
+        return
+      case 'failed':
+        falling(particlesContainer)
+        return
     }
   }, [status])
   return (
@@ -76,13 +66,9 @@ export const Discord = () => {
           <Particles type="discord" />
         </FullScreenContainer>
         <Content>
-          {status === 'connecting' && (
-            <button onClick={() => setStatus('confirmation')}>
-              <DiscordLogo />
-            </button>
-          )}
+          {status === 'connecting' && <DiscordLogo />}
           {status === 'confirmation' && (
-            <button onClick={() => setStatus('verifying')}>
+            <>
               <DiscordLogo />
               <p>Your Discord ID: XXXXX</p>
               <p>Your EOA: 0x0000000</p>
@@ -99,33 +85,36 @@ export const Discord = () => {
               </p>
               <button>Store</button>
               <button>Sign only</button>
-            </button>
+            </>
           )}
           {status === 'verifying' && (
             <>
-              <button onClick={() => setStatus('succeeded')}>
-                <h2>Verifying now...</h2>
-              </button>
+              <h2>Verifying now...</h2>
               <p>It may take a few minutes to verify.</p>
               <CiclesLoading />
             </>
           )}
-          {status === 'succeeded' && (
-            <button onClick={() => setStatus('failed')}>
-              <h2>Verification success!</h2>
-            </button>
-          )}
+          {status === 'succeeded' && <h2>Verification success!</h2>}
           {status === 'failed' && (
             <>
-              <button onClick={() => setStatus('connecting')}>
-                <h2>Verification failed.</h2>
-              </button>
+              <h2>Verification failed.</h2>
               <p>
                 Your verification has failed. Do you want to verify again with
                 another wallet?
               </p>
             </>
           )}
+          <button
+            onClick={() => {
+              const nextIndex =
+                (STATUS_TYPES.findIndex((each) => each === status) + 1) %
+                STATUS_TYPES.length
+              setStatus(STATUS_TYPES[nextIndex])
+            }}
+            style={{ fontSize: 32, marginTop: 32 }}
+          >
+            Go Next State
+          </button>
         </Content>
       </Main>
     </>

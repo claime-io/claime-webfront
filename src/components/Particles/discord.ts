@@ -1,4 +1,5 @@
 import { discordIconSrc } from 'src/assets/images'
+import { Container } from 'tsparticles'
 import { presets } from './presets'
 
 export const discordOptions: typeof presets = {
@@ -280,4 +281,31 @@ export const discordOptions: typeof presets = {
   responsive: [],
   themes: [],
   zLayers: 100,
+}
+
+export const slow = (contaier: Container) => {
+  contaier.options.particles.move.direction = 'none'
+  contaier.options.particles.move.speed = 0.1
+  contaier.options.particles.rotate.animation.speed = 1
+  contaier.options.particles.opacity.animation.speed = 0.5
+  contaier.refresh()
+}
+
+export const rising = (contaier: Container) => {
+  contaier.options.particles.move.direction = 'top'
+  contaier.options.particles.move.speed = 24
+  contaier.options.particles.rotate.animation.speed = 5
+  contaier.options.particles.opacity.animation.speed = 1.5
+  contaier.options.particles.collisions.mode = 'bounce'
+  contaier.options.particles.size.value = 120
+  contaier.options.particles.size.random.enable
+  contaier.options.particles.number.density.value_area = 100000
+  contaier.refresh()
+}
+
+export const falling = (contaier: Container) => {
+  contaier.options.particles.move.direction = 'bottom'
+  contaier.options.particles.move.speed = 6
+  contaier.options.particles.collisions.mode = 'destroy'
+  contaier.refresh()
 }
