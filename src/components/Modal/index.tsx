@@ -54,7 +54,7 @@ const Contents = styled.div<{ styles?: SimpleInterpolation }>`
     width: fit-content;
     margin: 0 auto;
     padding: 40px 32px;
-    border-radius: 56px;
+    border-radius: 24px;
     ${({ styles = defaultStyle }) => styles};
   }
 
@@ -62,6 +62,7 @@ const Contents = styled.div<{ styles?: SimpleInterpolation }>`
     width: 80vw;
     > div {
       padding: 40px 52px;
+      border-radius: 56px;
     }
   }
   @media ${breakpoint.l} {

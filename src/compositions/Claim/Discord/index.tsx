@@ -14,8 +14,9 @@ import {
   fontWeightBold,
   fontWeightMedium,
   fontWeightRegular,
+  fontWeightSemiBold,
 } from 'src/styles/font'
-import { flexCenter } from 'src/styles/mixins'
+import { breakpoint, flexCenter } from 'src/styles/mixins'
 import { shortenAddress } from 'src/utils/address'
 import styled, { css } from 'styled-components'
 import { Container } from 'tsparticles'
@@ -75,41 +76,41 @@ export const Discord = () => {
         <Content>
           {status === 'confirmation' && (
             <>
-              <h2>Verify your NFT ownership</h2>
+              <Heading>Verify your NFT ownership</Heading>
               <InformationDiv>
                 <div>
-                  <p>Your Discord ID</p>
-                  <p>XXXXX</p>
+                  <Text>Your Discord ID</Text>
+                  <Text>XXXXX</Text>
                 </div>
                 <div>
-                  <p>Your EOA</p>
-                  <p>{account ? shortenAddress(account) : '-'}</p>
+                  <Text>Your EOA</Text>
+                  <Text>{account ? shortenAddress(account) : '-'}</Text>
                 </div>
               </InformationDiv>
-              <p>
-                {`You can store the binding of your discord ID and EOA to the Claime Smart Contract so that you will be verify automatically when you need to verify your NFT ownership.\n\nOr you can verify with only your signature as one time verification.`}
-              </p>
+              <Text>
+                {`You can store the binding of your discord ID and EOA to the Claime Smart Contract so that you will be verified automatically when you need to verify your NFT ownership again or in another server.\n\nOr you can verify with only your signature as one time verification.`}
+              </Text>
               <ButtonsDiv>
                 <DiscordCta>Sign only</DiscordCta>
-                <DiscordCta>Store</DiscordCta>
+                <DiscordCta>Sign and Store</DiscordCta>
               </ButtonsDiv>
             </>
           )}
           {status === 'verifying' && (
             <>
-              <h2>Verifying now...</h2>
-              <p>It may take a few minutes to verify.</p>
+              <Heading>Verifying now...</Heading>
+              <Text>It may take a few minutes to verify.</Text>
               <CiclesLoading />
             </>
           )}
-          {status === 'succeeded' && <h2>Verification success!</h2>}
+          {status === 'succeeded' && <Heading>Verification success!</Heading>}
           {status === 'failed' && (
             <>
-              <h2>Verification failed.</h2>
-              <p>
+              <Heading>Verification failed.</Heading>
+              <Text>
                 Your verification has failed. Do you want to verify again with
                 another wallet?
-              </p>
+              </Text>
               <ButtonsDiv>
                 <DiscordCta
                   onClick={() => {
@@ -175,25 +176,35 @@ const discordModalStyle = css`
 `
 const InformationDiv = styled.div`
   width: 80%;
+
   > div {
     margin-top: 12px;
     width: 100%;
     display: flex;
     justify-content: space-between;
+    flex-direction: column;
     p {
-      font-size: 24px;
+      font-size: 18px;
       font-weight: ${fontWeightMedium};
+    }
+  }
+  @media ${breakpoint.m} {
+    > div {
+      flex-direction: row;
+      p {
+        font-size: 24px;
+      }
     }
   }
 `
 const DiscordCta = styled(CtaButton)`
-  height: 64px;
+  height: 40px;
   width: 240px;
-  border-radius: 32px;
+  border-radius: 24px;
   background: ${white};
   border: 1px solid ${discord};
   color: ${discord};
-  font-size: 24px;
+  font-size: 18px;
   font-weight: ${fontWeightBold};
   :hover,
   :focus {
@@ -201,14 +212,41 @@ const DiscordCta = styled(CtaButton)`
     border: 1px solid ${white};
     color: ${white};
   }
+  @media ${breakpoint.m} {
+    height: 64px;
+    border-radius: 32px;
+    font-size: 24px;
+  }
 `
 const ButtonsDiv = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-direction: column;
   > button {
-    margin: 0 20px;
+    margin: 20px;
   }
+  @media ${breakpoint.m} {
+    flex-direction: row;
+  }
+`
+
+const Heading = styled.h1`
+  font-size: 24px;
+  font-weight: ${fontWeightSemiBold};
+  letter-spacing: -0.04em;
+
+  @media ${breakpoint.m} {
+    font-size: 64px;
+    font-weight: ${fontWeightBold};
+  }
+`
+const Text = styled.p`
+  font-size: 18px;
+  font-weight: ${fontWeightRegular};
+  max-width: 640px;
+  white-space: pre-wrap;
+  line-height: 1.4;
 `
 const Content = styled.div`
   position: relative;
@@ -216,20 +254,9 @@ const Content = styled.div`
   flex-direction: column;
   color: ${white};
   text-align: center;
-  h2 {
-    font-size: 64px;
-    font-weight: ${fontWeightBold};
-    letter-spacing: -0.04em;
-  }
-  h2 + * {
-    margin-top: 64px;
-  }
-  p {
-    font-size: 18px;
-    font-weight: ${fontWeightRegular};
-    max-width: 640px;
-    white-space: pre-wrap;
-    line-height: 1.4;
+  padding: 128px 20px 64px;
+  ${Heading} + * {
+    margin-top: 24px;
   }
   ${CiclesLoading} {
     margin-top: 64px;
@@ -238,7 +265,16 @@ const Content = styled.div`
     margin-bottom: 32px;
   }
   ${ButtonsDiv} {
-    margin-top: 64px;
+    margin-top: 24px;
+  }
+  @media ${breakpoint.m} {
+    padding: unset;
+    ${Heading} + * {
+      margin-top: 64px;
+    }
+    ${ButtonsDiv} {
+      margin-top: 64px;
+    }
   }
 `
 

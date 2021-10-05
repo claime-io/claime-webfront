@@ -101,6 +101,7 @@ const Layout = styled.div`
   ${Heading} {
     margin-bottom: 16px;
     svg {
+      height: auto;
       width: 100%;
     }
   }
