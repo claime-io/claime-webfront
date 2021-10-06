@@ -9,7 +9,7 @@
     "lint": "next lint",
     "test": "jest --watch",
     "test:once": "jest",
-    "gen:contract": "typechain --target ethers-v5 --out-dir src/__generated__/contract 'contract.json'"
+    "gen:contract": "typechain --target ethers-v5 --out-dir src/__generated__/contract 'registry-contract.json'"
   },
   "dependencies": {
     "@web3-react/core": "^6.1.9",

@@ -4,7 +4,10 @@
 
 import { Contract, Signer, utils } from "ethers";
 import { Provider } from "@ethersproject/providers";
-import type { Contract, ContractInterface } from "../Contract";
+import type {
+  RegistryContract,
+  RegistryContractInterface,
+} from "../RegistryContract";
 
 const _abi = [
   {
@@ -301,15 +304,15 @@ const _abi = [
   },
 ];
 
-export class Contract__factory {
+export class RegistryContract__factory {
   static readonly abi = _abi;
-  static createInterface(): ContractInterface {
-    return new utils.Interface(_abi) as ContractInterface;
+  static createInterface(): RegistryContractInterface {
+    return new utils.Interface(_abi) as RegistryContractInterface;
   }
   static connect(
     address: string,
     signerOrProvider: Signer | Provider
-  ): Contract {
-    return new Contract(address, _abi, signerOrProvider) as Contract;
+  ): RegistryContract {
+    return new Contract(address, _abi, signerOrProvider) as RegistryContract;
   }
 }

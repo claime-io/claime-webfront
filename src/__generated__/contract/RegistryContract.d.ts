@@ -19,7 +19,7 @@ import { Listener, Provider } from "@ethersproject/providers";
 import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
-interface ContractInterface extends ethers.utils.Interface {
+interface RegistryContractInterface extends ethers.utils.Interface {
   functions: {
     "allClaimKeys(address,uint256)": FunctionFragment;
     "allClaimRefs(address)": FunctionFragment;
@@ -126,7 +126,7 @@ export type ClaimUpdatedEvent = TypedEvent<
   }
 >;
 
-export class Contract extends BaseContract {
+export class RegistryContract extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -167,7 +167,7 @@ export class Contract extends BaseContract {
     toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
-  interface: ContractInterface;
+  interface: RegistryContractInterface;
 
   functions: {
     allClaimKeys(
