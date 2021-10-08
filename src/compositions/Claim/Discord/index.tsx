@@ -1,5 +1,6 @@
 import { useEffect, useState, VFC } from 'react'
 import { DiscordVerificationParams } from 'src/api/discord'
+import { discordAppApiClient } from 'src/api/discordAppApiClient'
 import { CtaButton } from 'src/components/Button'
 import { CiclesLoading } from 'src/components/Loading'
 import {
@@ -39,7 +40,7 @@ type DiscordProps = {
 
 export const Discord: VFC<DiscordProps> = ({ params }) => {
   const { open } = useWalletModal()
-  const { account, signer, chainId } = useWallet()
+  const { account, chainId } = useWallet()
   const [particlesContainer, setParticlesContainer] = useState<Container>()
   const [status, setStatus] = useState<Status>('connecting')
   const [bgScale, setBgScale] = useState(0)
@@ -47,10 +48,19 @@ export const Discord: VFC<DiscordProps> = ({ params }) => {
 
   const doSign = async () => {
     const [signature, message] = await sign(discordUserIDClaim(params.userId))
+    const res = await discordAppApiClient.postDiscordVerify({
+      discord: params,
+      eoa: { signature, message },
+    })
+    console.log(res)
   }
   const store = async () => {
-    const res = await register(discordUserIDClaim(params.userId))
-    console.log(await toRawTxWithSignature(res, chainId))
+    const tx = await register(discordUserIDClaim(params.userId))
+    const res = await discordAppApiClient.postDiscordVerify({
+      discord: params,
+      eoa: await toRawTxWithSignature(tx, chainId),
+    })
+    console.log(res)
   }
   useEffect(() => {
     open(
