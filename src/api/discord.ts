@@ -1,7 +1,7 @@
 export type DiscordVerificationParams = {
   userId: string
   guildId: string
-  timestamp: string
-  validity: string
+  timestamp: number
+  validity: number
   signature: string
 }

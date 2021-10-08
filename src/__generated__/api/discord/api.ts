@@ -40,51 +40,83 @@ import {
 /**
  *
  * @export
- * @interface InlineObject
+ * @interface DiscordVerifyDiscord
  */
-export interface InlineObject {
+export interface DiscordVerifyDiscord {
   /**
    *
    * @type {string}
-   * @memberof InlineObject
+   * @memberof DiscordVerifyDiscord
    */
   userId: string
   /**
    *
    * @type {string}
-   * @memberof InlineObject
+   * @memberof DiscordVerifyDiscord
    */
   guildId: string
   /**
    *
    * @type {number}
-   * @memberof InlineObject
+   * @memberof DiscordVerifyDiscord
    */
   validity: number
   /**
    *
    * @type {number}
-   * @memberof InlineObject
+   * @memberof DiscordVerifyDiscord
    */
   timestamp: number
   /**
    *
    * @type {string}
-   * @memberof InlineObject
+   * @memberof DiscordVerifyDiscord
+   */
+  signature: string
+}
+/**
+ * either \"message\" or \"rawTx\" is required.
+ * @export
+ * @interface DiscordVerifyEoa
+ */
+export interface DiscordVerifyEoa {
+  /**
+   *
+   * @type {string}
+   * @memberof DiscordVerifyEoa
    */
   signature: string
   /**
    *
    * @type {string}
-   * @memberof InlineObject
+   * @memberof DiscordVerifyEoa
    */
   message?: string
   /**
    *
    * @type {string}
-   * @memberof InlineObject
+   * @memberof DiscordVerifyEoa
    */
   rawTx?: string
+}
+/**
+ *
+ * @export
+ * @interface InlineObject
+ */
+export interface InlineObject {
+  /**
+   *
+   * @type {DiscordVerifyDiscord}
+   * @memberof InlineObject
+   */
+  discord: DiscordVerifyDiscord
+  /**
+   *
+   * @type {DiscordVerifyEoa}
+   * @memberof InlineObject
+   */
+  eoa: DiscordVerifyEoa
 }
 
 /**
