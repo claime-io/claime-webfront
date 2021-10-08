@@ -1,7 +1,6 @@
 {
-  "name": "certifier-webfront",
+  "name": "claime-webfront",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
     "dev": "next dev -p 3003",
     "build": "next build",
@@ -9,7 +8,9 @@
     "lint": "next lint",
     "test": "jest --watch",
     "test:once": "jest",
-    "gen:contract": "typechain --target ethers-v5 --out-dir src/__generated__/contract 'registry-contract.json'"
+    "gen:contract": "typechain --target ethers-v5 --out-dir src/__generated__/contract ./specs/registry-contract.json",
+    "gen:restapi": "openapi-generator-cli generate -g typescript-axios -i ./specs/discord-app-api.yaml -o ./src/__generated__/restapi && prettier -w src/__generated__/restapi/**/*.ts",
+    "update:restapi": "curl https://raw.githubusercontent.com/bridges-inc/claime-verifier/dev/docs/discord-app-api.yaml -o ./specs/discord-app-api.yaml"
   },
   "dependencies": {
     "@web3-react/core": "^6.1.9",
@@ -27,6 +28,7 @@
     "tsparticles": "^1.35.2"
   },
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.4.12",
     "@svgr/webpack": "^5.5.0",
     "@typechain/ethers-v5": "^7.1.2",
     "@types/jest": "^27.0.1",
