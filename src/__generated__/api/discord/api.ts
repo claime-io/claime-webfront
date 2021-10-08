@@ -40,83 +40,83 @@ import {
 /**
  *
  * @export
- * @interface DiscordVerifyDiscord
+ * @interface InlineObject
  */
-export interface DiscordVerifyDiscord {
+export interface InlineObject {
+  /**
+   *
+   * @type {VerifyDiscord}
+   * @memberof InlineObject
+   */
+  discord: VerifyDiscord
+  /**
+   *
+   * @type {VerifyEoa}
+   * @memberof InlineObject
+   */
+  eoa: VerifyEoa
+}
+/**
+ *
+ * @export
+ * @interface VerifyDiscord
+ */
+export interface VerifyDiscord {
   /**
    *
    * @type {string}
-   * @memberof DiscordVerifyDiscord
+   * @memberof VerifyDiscord
    */
   userId: string
   /**
    *
    * @type {string}
-   * @memberof DiscordVerifyDiscord
+   * @memberof VerifyDiscord
    */
   guildId: string
   /**
    *
    * @type {number}
-   * @memberof DiscordVerifyDiscord
+   * @memberof VerifyDiscord
    */
   validity: number
   /**
    *
    * @type {number}
-   * @memberof DiscordVerifyDiscord
+   * @memberof VerifyDiscord
    */
   timestamp: number
   /**
    *
    * @type {string}
-   * @memberof DiscordVerifyDiscord
+   * @memberof VerifyDiscord
    */
   signature: string
 }
 /**
  * either \"message\" or \"rawTx\" is required.
  * @export
- * @interface DiscordVerifyEoa
+ * @interface VerifyEoa
  */
-export interface DiscordVerifyEoa {
+export interface VerifyEoa {
   /**
    *
    * @type {string}
-   * @memberof DiscordVerifyEoa
+   * @memberof VerifyEoa
    */
   signature: string
   /**
    *
    * @type {string}
-   * @memberof DiscordVerifyEoa
+   * @memberof VerifyEoa
    */
   message?: string
   /**
    *
    * @type {string}
-   * @memberof DiscordVerifyEoa
+   * @memberof VerifyEoa
    */
   rawTx?: string
-}
-/**
- *
- * @export
- * @interface InlineObject
- */
-export interface InlineObject {
-  /**
-   *
-   * @type {DiscordVerifyDiscord}
-   * @memberof InlineObject
-   */
-  discord: DiscordVerifyDiscord
-  /**
-   *
-   * @type {DiscordVerifyEoa}
-   * @memberof InlineObject
-   */
-  eoa: DiscordVerifyEoa
 }
 
 /**
@@ -133,7 +133,7 @@ export const DefaultApiAxiosParamCreator = function (
      * @throws {RequiredError}
      */
     postDiscordApp: async (options: any = {}): Promise<RequestArgs> => {
-      const localVarPath = `/discord/app`
+      const localVarPath = `/`
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
       let baseOptions
@@ -173,7 +173,7 @@ export const DefaultApiAxiosParamCreator = function (
       inlineObject?: InlineObject,
       options: any = {},
     ): Promise<RequestArgs> => {
-      const localVarPath = `/discord/verify`
+      const localVarPath = `/verify`
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
       let baseOptions
