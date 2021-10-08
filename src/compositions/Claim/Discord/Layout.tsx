@@ -31,14 +31,17 @@ export const Layout: VFC<LayoutProps> = ({ ...confirmationProps }) => {
   const handleSubmit =
     (submit: () => Promise<{ status: number }>) => async () => {
       setStatus('verifying')
-      const res = await submit()
+      const res = await submit().catch(() => ({ status: -1 }))
       if (res.status === 403) {
         setStatus('expired')
+        return
       }
       if (res.status !== 200) {
         setStatus('failed')
+        return
       }
       setStatus('succeeded')
+      return
     }
 
   const openWalletModal = () => {
