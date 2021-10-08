@@ -1,4 +1,5 @@
 import { VFC } from 'react'
+import { shortenAddress } from 'src/utils/address'
 import { ButtonsDiv, DiscordCta, Heading, InformationDiv, Text } from './styles'
 
 export type ConfirmationProps = {
@@ -23,7 +24,7 @@ export const Confirmation: VFC<ConfirmationProps> = ({
       </div>
       <div>
         <Text>Your EOA</Text>
-        <Text>{account || '-'}</Text>
+        <Text>{account ? shortenAddress(account) : '-'}</Text>
       </div>
     </InformationDiv>
     <Text>
