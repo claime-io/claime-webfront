@@ -12,7 +12,8 @@ import 'src/styles/globals.css'
 import 'src/styles/reset.css'
 import { extractPathname, SERVICE_URL } from 'src/utils/routes'
 
-const MyApp: VFC<AppProps> = ({ Component, pageProps, router: { asPath } }) => {
+const MyApp: VFC<AppProps> = ({ Component, pageProps, router }) => {
+  const { asPath } = router
   const pageUrl = `${SERVICE_URL}${extractPathname(asPath)}`
   return (
     <>
@@ -25,7 +26,7 @@ const MyApp: VFC<AppProps> = ({ Component, pageProps, router: { asPath } }) => {
       <GlobalStyles />
       <Web3ReactProvider getLibrary={getLibrary}>
         <Header />
-        <Component {...pageProps} />
+        <Component query={router.query} {...pageProps} />
         <Footer>©︎2021 CLAME</Footer>
         <ModalPortal />
       </Web3ReactProvider>

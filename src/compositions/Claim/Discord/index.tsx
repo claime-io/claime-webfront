@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, VFC } from 'react'
+import { DiscordVerificationParams } from 'src/api/discord'
 import { CtaButton } from 'src/components/Button'
 import { CiclesLoading } from 'src/components/Loading'
 import {
@@ -8,7 +9,9 @@ import {
 } from 'src/components/Particles'
 import { falling, rising, slow } from 'src/components/Particles/discord'
 import { useWalletModal } from 'src/components/WalletModal'
+import { useContract } from 'src/hooks/useContract'
 import { useWallet } from 'src/hooks/useWallet'
+import { discordUserIDClaim } from 'src/models'
 import { discord, white } from 'src/styles/colors'
 import {
   fontWeightBold,
@@ -18,9 +21,9 @@ import {
 } from 'src/styles/font'
 import { breakpoint, flexCenter } from 'src/styles/mixins'
 import { shortenAddress } from 'src/utils/address'
+import { toRawTxWithSignature } from 'src/utils/transaction'
 import styled, { css } from 'styled-components'
 import { Container } from 'tsparticles'
-
 const STATUS_TYPES = [
   'connecting',
   'confirmation',
@@ -30,12 +33,25 @@ const STATUS_TYPES = [
 ]
 type Status = typeof STATUS_TYPES[number]
 
-export const Discord = () => {
+type DiscordProps = {
+  params: DiscordVerificationParams
+}
+
+export const Discord: VFC<DiscordProps> = ({ params }) => {
   const { open } = useWalletModal()
-  const { account } = useWallet()
+  const { account, signer, chainId } = useWallet()
   const [particlesContainer, setParticlesContainer] = useState<Container>()
   const [status, setStatus] = useState<Status>('connecting')
   const [bgScale, setBgScale] = useState(0)
+  const { register, sign } = useContract()
+
+  const doSign = async () => {
+    const [signature, message] = await sign(discordUserIDClaim(params.userId))
+  }
+  const store = async () => {
+    const res = await register(discordUserIDClaim(params.userId))
+    console.log(await toRawTxWithSignature(res, chainId))
+  }
   useEffect(() => {
     open(
       {
@@ -80,7 +96,7 @@ export const Discord = () => {
               <InformationDiv>
                 <div>
                   <Text>Your Discord ID</Text>
-                  <Text>XXXXX</Text>
+                  <Text>{params.userId}</Text>
                 </div>
                 <div>
                   <Text>Your EOA</Text>
@@ -91,8 +107,8 @@ export const Discord = () => {
                 {`You can store the binding of your discord ID and EOA to the Claime Smart Contract so that you will be verified automatically when you need to verify your NFT ownership again or in another server.\n\nOr you can verify with only your signature as one time verification.`}
               </Text>
               <ButtonsDiv>
-                <DiscordCta>Sign only</DiscordCta>
-                <DiscordCta>Sign and Store</DiscordCta>
+                <DiscordCta onClick={doSign}>Sign only</DiscordCta>
+                <DiscordCta onClick={store}>Sign and Store</DiscordCta>
               </ButtonsDiv>
             </>
           )}
