@@ -15,20 +15,7 @@ paths:
         content:
           application/json:
             schema:
-              description: ''
               type: object
-              x-examples:
-                example-1:
-                  discord:
-                    userId: '0000'
-                    guildId: '0000'
-                    validity: '0000'
-                    timestamp: '0000'
-                    signature: '0000'
-                  eoa:
-                    signature: '0x0000'
-                    message: '0x0000'
-                    rawTx: '0x0000'
               properties:
                 discord:
                   type: object
@@ -64,8 +51,6 @@ paths:
               required:
                 - discord
                 - eoa
-            examples: {}
-    parameters: []
   /:
     post:
       operationId: post-discord-app
@@ -73,4 +58,3 @@ paths:
       responses:
         '200':
           description: OK
-    parameters: []
