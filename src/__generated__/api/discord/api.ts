@@ -76,16 +76,16 @@ export interface VerifyDiscord {
   guildId: string
   /**
    *
-   * @type {number}
+   * @type {string}
    * @memberof VerifyDiscord
    */
-  validity: number
+  validity: string
   /**
    *
-   * @type {number}
+   * @type {string}
    * @memberof VerifyDiscord
    */
-  timestamp: number
+  timestamp: string
   /**
    *
    * @type {string}
