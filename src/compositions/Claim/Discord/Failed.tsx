@@ -9,8 +9,8 @@ export const Failed: VFC<FailedProps> = ({ changeAccount }) => (
   <>
     <Heading>Verification failed.</Heading>
     <Text>
-      Your verification has failed. Do you want to verify again with another
-      wallet?
+      Failed to verify your NFT ownership. If you have mischoiced address, you
+      can change to another address and try again.
     </Text>
     <ButtonsDiv>
       <DiscordCta onClick={changeAccount}>Try Again</DiscordCta>
