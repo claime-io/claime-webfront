@@ -31,7 +31,11 @@ export const Layout: VFC<LayoutProps> = ({ ...confirmationProps }) => {
   const handleSubmit =
     (submit: () => Promise<{ status: number }>) => async () => {
       setStatus('verifying')
-      const res = await submit().catch(() => ({ status: -1 }))
+      const res = await submit().catch((err) => {
+        console.log(JSON.stringify(err))
+        return { status: -1 }
+      })
+      console.log(res)
       if (res.status === 403) {
         setStatus('expired')
         return
