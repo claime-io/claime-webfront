@@ -15,13 +15,16 @@ const Styles = createGlobalStyle`
   img {
     vertical-align: bottom;
   }
+  html {
+    height: 100%;
+  }
   body {
     font-family: ${fontFamilyEn};
     font-weight: ${fontWeightRegular};
     font-size: 16px;
     background-color: ${white};
     color: ${black};
-    min-height: 100vh;
+    height: 100%;
     > div#__next {
       height: 100%;
       display: flex;
@@ -33,6 +36,9 @@ const Styles = createGlobalStyle`
     div {
       ${noScrollbar};
     }
+    button:disabled {
+      cursor: not-allowed;
+    } 
   }
 `
 

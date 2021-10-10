@@ -23,7 +23,7 @@ export const Banner: VFC = () => {
           If you have any questions or inquiries about Clame, please feel free
           to contact us using this contact form
         </p>
-        <button onClick={open}>Contact form</button>
+        <button onClick={() => open()}>Contact form</button>
       </ContentGuide>
     </BannerSection>
   )
