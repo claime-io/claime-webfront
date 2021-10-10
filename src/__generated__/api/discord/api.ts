@@ -85,12 +85,6 @@ export interface VerifyDiscord {
    * @type {string}
    * @memberof VerifyDiscord
    */
-  timestamp: string
-  /**
-   *
-   * @type {string}
-   * @memberof VerifyDiscord
-   */
   signature: string
 }
 /**
