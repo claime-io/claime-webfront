@@ -1,6 +1,5 @@
 import { useCallback, useMemo } from 'react'
 import { getContractAddress } from 'src/constants/contractAddresses'
-import { DEFAULT_GAS_LIMIT } from 'src/constants/misc'
 import { Claim } from 'src/models'
 import { RegistryContract__factory } from 'src/__generated__/contract'
 import { useWallet } from './useWallet'
@@ -17,9 +16,7 @@ export const useContract = () => {
   const register = useCallback(
     async ({ propertyType, propertyId, evidence, method = '' }: Claim) => {
       if (!contract) throw new Error()
-      return contract.register(propertyType, propertyId, evidence, method, {
-        gasLimit: DEFAULT_GAS_LIMIT,
-      })
+      return contract.register(propertyType, propertyId, evidence, method)
     },
     [contract],
   )
