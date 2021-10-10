@@ -106,10 +106,10 @@ export const Layout: VFC<LayoutProps> = ({ ...confirmationProps }) => {
           {status === 'succeeded' && <Heading>Verification success!</Heading>}
           {status === 'failed' && <Failed changeAccount={openWalletModal} />}
           {status === 'expired' && (
-            <Heading>
-              This session has been expired. Please try again via another url we
-              just sent.
-            </Heading>
+            <>
+              <Heading>Session Expired.</Heading>
+              <Text> Please try again via another url we just sent.</Text>
+            </>
           )}
         </Content>
       </Main>
