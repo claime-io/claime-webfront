@@ -52,14 +52,7 @@ export const AddressInfo: VFC<{
       </ActionAreaDiv>
       <ButtonAreaDiv>
         {activeWalletType == 'WalletConnect' && (
-          <CtaButton
-            onClick={async () => {
-              await disconnect()
-              closeModal()
-            }}
-          >
-            Disconnect
-          </CtaButton>
+          <CtaButton onClick={disconnect}>Disconnect</CtaButton>
         )}
         <CtaButton onClick={closeModal}>OK</CtaButton>
       </ButtonAreaDiv>
