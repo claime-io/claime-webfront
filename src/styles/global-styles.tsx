@@ -36,6 +36,9 @@ const Styles = createGlobalStyle`
     div {
       ${noScrollbar};
     }
+    button:disabled {
+      cursor: not-allowed;
+    } 
   }
 `
 

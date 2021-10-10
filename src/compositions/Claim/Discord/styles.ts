@@ -10,6 +10,7 @@ import { breakpoint } from 'src/styles/mixins'
 import styled from 'styled-components'
 
 export const DiscordCta = styled(CtaButton)`
+  position: relative;
   height: 40px;
   width: 240px;
   border-radius: 24px;
@@ -18,8 +19,8 @@ export const DiscordCta = styled(CtaButton)`
   color: ${discord};
   font-size: 18px;
   font-weight: ${fontWeightBold};
-  :hover,
-  :focus {
+  :enabled:hover,
+  :enabled:focus {
     background: ${discord};
     border: 1px solid ${white};
     color: ${white};

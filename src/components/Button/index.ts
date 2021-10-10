@@ -19,8 +19,8 @@ export const CtaButton = styled.button`
   font-weight: ${fontWeightMedium};
   text-align: center;
   white-space: nowrap;
-  :hover,
-  :focus {
+  :enabled:hover,
+  :enabled:focus {
     background: ${black};
     color: ${white};
   }
