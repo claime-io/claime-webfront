@@ -7,10 +7,10 @@ type FailedProps = {
 
 export const Failed: VFC<FailedProps> = ({ changeAccount }) => (
   <>
-    <Heading>Verification failed.</Heading>
+    <Heading>Failed to verify...</Heading>
     <Text>
-      Failed to verify your NFT ownership. If you have mischoiced address, you
-      can change to another address and try again.
+      If you have mischoiced the address, you can change it to another and try
+      it again.
     </Text>
     <ButtonsDiv>
       <DiscordCta onClick={changeAccount}>Try Again</DiscordCta>

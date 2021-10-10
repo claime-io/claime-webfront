@@ -13,18 +13,20 @@ type DiscordProps = {
 
 export const Discord: VFC<DiscordProps> = ({ params }) => {
   const { account, chainId } = useWallet()
-  const { register, sign } = useContract()
+  const contract = useContract()
 
-  const doSign = async () => {
-    const [signature, message] = await sign(discordUserIDClaim(params.userId))
+  const sign = async () => {
+    const [signature, message] = await contract.sign(
+      discordUserIDClaim(params.userId),
+    )
     return discordAppApiClient.postDiscordVerify({
       discord: params,
       eoa: { signature, message },
     })
   }
 
-  const store = async () => {
-    const tx = await register(discordUserIDClaim(params.userId))
+  const link = async () => {
+    const tx = await contract.register(discordUserIDClaim(params.userId))
     return discordAppApiClient.postDiscordVerify({
       discord: params,
       eoa: await toRawTxWithSignature(tx, chainId),
@@ -32,11 +34,6 @@ export const Discord: VFC<DiscordProps> = ({ params }) => {
   }
 
   return (
-    <Layout
-      userId={params.userId}
-      account={account}
-      sign={doSign}
-      store={store}
-    />
+    <Layout userId={params.userId} account={account} sign={sign} link={link} />
   )
 }

@@ -6,14 +6,14 @@ export type ConfirmationProps = {
   userId: string
   account: string | null | undefined
   sign: () => Promise<any>
-  store: () => Promise<any>
+  link: () => Promise<any>
 }
 
 export const Confirmation: VFC<ConfirmationProps> = ({
   userId,
   account,
   sign,
-  store,
+  link,
 }) => (
   <>
     <Heading>Verify your NFT ownership</Heading>
@@ -28,11 +28,11 @@ export const Confirmation: VFC<ConfirmationProps> = ({
       </div>
     </InformationDiv>
     <Text>
-      {`You can store the binding of your discord ID and EOA to the Claime Smart Contract so that you will be verified automatically when you need to verify your NFT ownership again or in another server.\n\nOr you can verify with only your signature as one time verification.`}
+      {`To prove ownership of the NFT, please sign it with the address where you own the NFT.\n\nYou can link the Discord ID with EOA on the Claime smart contract, and the verification will be completed automatically next time.\n(The function of the auto-verification is currently under development...)`}
     </Text>
     <ButtonsDiv>
-      <DiscordCta onClick={sign}>Sign only</DiscordCta>
-      <DiscordCta onClick={store}>Sign and Store</DiscordCta>
+      <DiscordCta onClick={sign}>Sign</DiscordCta>
+      <DiscordCta onClick={link}>Link</DiscordCta>
     </ButtonsDiv>
   </>
 )

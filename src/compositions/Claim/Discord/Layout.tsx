@@ -20,7 +20,7 @@ type LayoutProps = {
   userId: string
   account: string | null | undefined
   sign: () => Promise<{ status: number }>
-  store: () => Promise<{ status: number }>
+  link: () => Promise<{ status: number }>
 }
 export const Layout: VFC<LayoutProps> = ({ ...confirmationProps }) => {
   const { open } = useWalletModal()
@@ -93,7 +93,7 @@ export const Layout: VFC<LayoutProps> = ({ ...confirmationProps }) => {
             <Confirmation
               {...confirmationProps}
               sign={handleSubmit(confirmationProps.sign)}
-              store={handleSubmit(confirmationProps.store)}
+              link={handleSubmit(confirmationProps.link)}
             />
           )}
           {status === 'verifying' && (
@@ -103,12 +103,17 @@ export const Layout: VFC<LayoutProps> = ({ ...confirmationProps }) => {
               <CiclesLoading />
             </>
           )}
-          {status === 'succeeded' && <Heading>Verification success!</Heading>}
+          {status === 'succeeded' && (
+            <>
+              <Heading>Succesfully verified!</Heading>
+              <Text>You can close this tab or window.</Text>
+            </>
+          )}
           {status === 'failed' && <Failed changeAccount={openWalletModal} />}
           {status === 'expired' && (
             <>
               <Heading>Session Expired.</Heading>
-              <Text> Please try again via another url we just sent.</Text>
+              <Text>Please try again from the URL we just sent you.</Text>
             </>
           )}
         </Content>
