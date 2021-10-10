@@ -15,9 +15,8 @@ export const ConnectingWallet: VFC<{
   onBack: () => void
   errors: any
   type: WalletType
-  closeModal: VoidFunction
   retry: (type: WalletType) => Promise<void>
-}> = ({ onBack, errors, retry, type, closeModal }) => {
+}> = ({ onBack, errors, retry, type }) => {
   return (
     <>
       <ModalBackIcon onClick={onBack} />
