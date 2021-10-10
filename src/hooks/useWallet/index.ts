@@ -39,7 +39,7 @@ export const useWallet = (): WalletInterface => {
     async ({ type, connector, onConnect, onDisconnect }) => {
       if (onConnect) await onConnect()
       await activate(connector, undefined, true)
-      await mutateOnDisconnect(onDisconnect ? onDisconnect : null)
+      await mutateOnDisconnect(onDisconnect ? () => onDisconnect : null)
       await mutateWalletType(type)
     },
     [activate],

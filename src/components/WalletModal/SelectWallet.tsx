@@ -48,7 +48,6 @@ export const SelectWallet: VFC<{
           onBack={cancel}
           errors={errors}
           type={connectingWalletType}
-          closeModal={closeModal}
           retry={handleConnect}
         />
       ) : (
