@@ -11,27 +11,37 @@ import {
 } from 'src/styles/font'
 import { ContentGuide } from 'src/styles/global-styles'
 import { breakpoint, defaultShadow } from 'src/styles/mixins'
-import { SUPPORT_URL } from 'src/utils/routes'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-export const HeroHeader: VFC = () => (
-  <HeroHeaderDiv>
+type HeroHeaderProps = {
+  heading: string
+  description: string
+  cta?: {
+    label: string
+    url: string
+  }
+  full?: boolean
+}
+export const HeroHeader: VFC<HeroHeaderProps> = ({
+  heading,
+  description,
+  cta,
+  full,
+}) => (
+  <HeroHeaderDiv full={full}>
     <Image src={backgroundImageSrc} alt="" />
     <ContentGuide>
       <DescriptionDiv>
-        <h1>{'Make\nyour ownership verifiable'}</h1>
-        <p>
-          An open source product that ties blockchain wallet ownership to Web
-          2.0, such as websites and social accounts.
-        </p>
-        <StyledLink href={SUPPORT_URL}>Support development</StyledLink>
+        <h1>{heading}</h1>
+        <p>{description}</p>
+        {cta && <StyledLink href={cta.url}>{cta.label}</StyledLink>}
       </DescriptionDiv>
       <ClaimeLogoLarge />
     </ContentGuide>
   </HeroHeaderDiv>
 )
 
-const HeroHeaderDiv = styled.div`
+const HeroHeaderDiv = styled.div<{ full?: boolean }>`
   position: relative;
   width: 100%;
   height: 520px;
@@ -54,6 +64,11 @@ const HeroHeaderDiv = styled.div`
       justify-content: space-between;
     }
   }
+  ${({ full }) =>
+    full &&
+    css`
+      height: 100% !important;
+    `}
 `
 const StyledLink = styled(Link)`
   display: block;
@@ -68,12 +83,12 @@ const StyledLink = styled(Link)`
 `
 const DescriptionDiv = styled.div`
   max-width: 708px;
+  white-space: pre-wrap;
   h1 {
     font-size: 48px;
     font-weight: ${fontWeightBold};
     letter-spacing: -0.04em;
     line-height: 1.0769;
-    white-space: pre-wrap;
   }
   p {
     width: 85%;
