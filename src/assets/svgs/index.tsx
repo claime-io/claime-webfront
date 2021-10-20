@@ -9,6 +9,7 @@ import DiscordIcon from './icon_discord.svg'
 import ExternalLinkIcon from './icon_external_link.svg'
 import LoadingIcon from './icon_loading.svg'
 import MetamaskIcon from './icon_metamask.svg'
+import SearchIcon from './icon_search.svg'
 import WalletConnectIcon from './icon_walletconnect.svg'
 import DiscordLogo from './logo_discord.svg'
 
@@ -24,6 +25,7 @@ export {
   CheckIcon,
   ColorfulCircleIcon,
   CopyIcon,
+  SearchIcon,
   ExternalLinkIcon,
   CircleStroke,
 }

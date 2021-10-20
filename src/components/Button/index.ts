@@ -1,7 +1,7 @@
 import { black, white } from 'src/styles/colors'
 import { fontWeightMedium } from 'src/styles/font'
 import { defaultShadow } from 'src/styles/mixins'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const CtaButton = styled.button`
   display: block;
@@ -24,4 +24,12 @@ export const CtaButton = styled.button`
     background: ${black};
     color: ${white};
   }
+`
+
+export const ctaStyle = css`
+  padding: 16px 24px;
+  border-radius: 20px;
+  box-shadow: 0px 3px 6px #00000020;
+  font-size: 16px;
+  font-weight: ${fontWeightMedium};
 `
