@@ -8,15 +8,14 @@ type LinkBaseProps = {
   className?: string
 }
 
-type InternalLink = { href?: `/${string}` }
+type InternalLink = { href?: `/${string}` | '/' }
 
 type InternalLinkProps = {
   newTab?: boolean
 } & NextLinkProps
 
 type ExternalLinkProps = {
-  newTab?: never
-  children: ReactNode
+  newTab?: boolean
 } & AnchorHTMLAttributes<HTMLAnchorElement>
 
 type LinkProps<T extends LinkBaseProps> = T & T extends InternalLink
@@ -34,7 +33,7 @@ export const Link: LinkFC = ({
   className,
   ...props
 }) => {
-  if (href && (href.startsWith('/') || newTab))
+  if (href && href.startsWith('/') && !newTab)
     return (
       <NextLink href={href} {...props} passHref>
         <StyledAnchorLink className={className} disabled={!href}>

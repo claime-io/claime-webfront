@@ -4,6 +4,7 @@ import ClaimeLogoText from './claime_logo_text.svg'
 import ArrowRightIcon from './icon_arrow_right.svg'
 import BackIcon from './icon_back.svg'
 import CheckIcon from './icon_check.svg'
+import CloseIcon from './icon_close.svg'
 import ColorfulCircleIcon from './icon_colorful_circle.svg'
 import CopyIcon from './icon_copy.svg'
 import DiscordIcon from './icon_discord.svg'
@@ -46,4 +47,5 @@ export {
   DomainIcon,
   ArrowRightIcon,
   ExLinkIcon,
+  CloseIcon,
 }

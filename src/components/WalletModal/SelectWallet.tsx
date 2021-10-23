@@ -5,6 +5,7 @@ import { Heading, ModalBackIcon, SubHeading } from 'src/components/Modal/styles'
 import { connector } from 'src/external/wallets'
 import { hasMetaMask } from 'src/external/wallets/metamask'
 import { useWallet, WalletType } from 'src/hooks/useWallet'
+import { white } from 'src/styles/colors'
 import { breakpoint } from 'src/styles/mixins'
 import { METAMASK_URL } from 'src/utils/routes'
 import styled from 'styled-components'
@@ -94,9 +95,10 @@ const WalletsDiv = styled.div`
   }
 `
 const Content = styled.div`
-  max-width: 400px;
+  width: 500px;
 `
 const Layout = styled.div`
+  color: ${white};
   ${Heading} {
     margin-bottom: 16px;
     svg {

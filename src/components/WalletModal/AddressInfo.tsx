@@ -9,6 +9,7 @@ import { Heading, SubHeading } from 'src/components/Modal/styles'
 import { getExplorer } from 'src/constants/chains'
 import { Link } from 'src/elements/Link'
 import { useWallet } from 'src/hooks/useWallet'
+import { white } from 'src/styles/colors'
 import { fontWeightMedium } from 'src/styles/font'
 import { flexCenter } from 'src/styles/mixins'
 import { shortenAddress } from 'src/utils/address'
@@ -96,6 +97,7 @@ const AddressLabelDiv = styled.div`
 `
 
 const Layout = styled.div`
+  color: ${white};
   ${Heading} {
     margin-bottom: 24px;
   }

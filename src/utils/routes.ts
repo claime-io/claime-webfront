@@ -1,6 +1,7 @@
 import { HOSTNAME } from './env'
 
 export const TOP = '/'
+export const DISCLAIMER = '/' // TODO
 export const eoaDetails = (eoa: string) => `/${eoa}/details`
 
 export const SERVICE_URL = `https://${HOSTNAME}`
