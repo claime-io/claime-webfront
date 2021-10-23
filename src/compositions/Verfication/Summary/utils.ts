@@ -48,3 +48,12 @@ export const urlByProperty = (type: SupportedPropertyType, id: string) => {
       return ''
   }
 }
+
+export const idByProperty = (type: SupportedPropertyType, id: string) => {
+  switch (type) {
+    case 'Twitter Account':
+      return `@${id}`
+    default:
+      return id
+  }
+}

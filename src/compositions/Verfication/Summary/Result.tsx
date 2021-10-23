@@ -8,7 +8,13 @@ import {
 } from 'src/styles/font'
 import { flexCenter } from 'src/styles/mixins'
 import styled, { css } from 'styled-components'
-import { colorByStatus, IconByStatus, IconByType, urlByProperty } from './utils'
+import {
+  colorByStatus,
+  IconByStatus,
+  IconByType,
+  idByProperty,
+  urlByProperty,
+} from './utils'
 
 type ResultProps = {
   type: SupportedPropertyType
@@ -25,7 +31,7 @@ export const Result: VFC<ResultProps> = ({ type, id, status }) => (
       {IconByStatus(status)()}
       <p>{status}</p>
       <a href={urlByProperty(type, id)} target="_blank" rel="noreferrer">
-        {id}
+        {idByProperty(type, id)}
       </a>
     </Content>
   </ResultDiv>
