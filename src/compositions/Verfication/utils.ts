@@ -11,6 +11,8 @@ import { failed, unknown, verified } from 'src/styles/colors'
 
 const CLAIM_KEY = 'claime-ownership-claim'
 
+export const claim = (eoa: string) => `${CLAIM_KEY}=${eoa}`
+
 export const colorByStatus = (status: VerificationStatus) =>
   status === 'Verified' ? verified : status === 'Failed' ? failed : unknown
 
