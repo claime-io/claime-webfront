@@ -1,13 +1,12 @@
 import { Dayjs } from 'dayjs'
 import { VFC } from 'react'
-import { AppLayout } from 'src/compositions/AppLayout'
 import { SupportedPropertyType, VerificationStatus } from 'src/models'
 import { fontWeightBold } from 'src/styles/font'
 import styled from 'styled-components'
 import { Address } from './Address'
 import { Results } from './Results'
 
-export type VerificationSummaryProps = {
+export type SummaryProps = {
   eoa: string
   results: {
     type: SupportedPropertyType
@@ -17,14 +16,12 @@ export type VerificationSummaryProps = {
   at: Dayjs
 }
 
-export const VerificationSummary: VFC<VerificationSummaryProps> = (props) => (
-  <AppLayout>
-    <Main>
-      <h1>Ownership Verification Result</h1>
-      <Address eoa={props.eoa} />
-      <Results {...props} />
-    </Main>
-  </AppLayout>
+export const Summary: VFC<SummaryProps> = (props) => (
+  <Main>
+    <h1>Ownership Verification Result</h1>
+    <Address eoa={props.eoa} />
+    <Results {...props} />
+  </Main>
 )
 
 const Main = styled.main`
