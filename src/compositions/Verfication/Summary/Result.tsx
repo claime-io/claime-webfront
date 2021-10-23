@@ -14,7 +14,7 @@ import {
   IconByType,
   idByProperty,
   urlByProperty,
-} from './utils'
+} from '../utils'
 
 type ResultProps = {
   type: SupportedPropertyType

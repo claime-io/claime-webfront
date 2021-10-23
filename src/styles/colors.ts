@@ -24,6 +24,7 @@ export const _border = '#747578'
 export const verified = '#06D6A0'
 export const failed = '#FF595E'
 export const unknown = '#747578'
+export const codeblock = '#7C7F8380'
 
 export type Colors =
   | typeof black

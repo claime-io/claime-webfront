@@ -9,6 +9,8 @@ import {
 import { SupportedPropertyType, VerificationStatus } from 'src/models'
 import { failed, unknown, verified } from 'src/styles/colors'
 
+const CLAIM_KEY = 'claime-ownership-claim'
+
 export const colorByStatus = (status: VerificationStatus) =>
   status === 'Verified' ? verified : status === 'Failed' ? failed : unknown
 
@@ -43,7 +45,24 @@ export const urlByProperty = (type: SupportedPropertyType, id: string) => {
     case 'Website':
       return id
     case 'Domain':
-      return `https://www.nslookup.io/dns-records/${id}`
+      return `https://${id}`
+    default:
+      return ''
+  }
+}
+
+export const evidenceUrlByProperty = (
+  type: SupportedPropertyType,
+  id: string,
+  evidence: string,
+) => {
+  switch (type) {
+    case 'Twitter Account':
+      return `https://twitter.com/${id}/status/${evidence}`
+    case 'Website':
+      return evidence
+    case 'Domain':
+      return `https://www.nslookup.io/dns-records/${evidence}`
     default:
       return ''
   }
@@ -57,3 +76,10 @@ export const idByProperty = (type: SupportedPropertyType, id: string) => {
       return id
   }
 }
+
+export const summaryByResult = (status: VerificationStatus, actual: string) =>
+  status === 'Verified'
+    ? 'Claim matched:'
+    : actual?.includes(CLAIM_KEY)
+    ? 'Claim does not matched:'
+    : 'Claim not found.'

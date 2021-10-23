@@ -8,6 +8,7 @@ import ColorfulCircleIcon from './icon_colorful_circle.svg'
 import CopyIcon from './icon_copy.svg'
 import DiscordIcon from './icon_discord.svg'
 import DomainIcon from './icon_domain.svg'
+import ExLinkIcon from './icon_ex-link.svg'
 import ExternalLinkIcon from './icon_external_link.svg'
 import FailedIcon from './icon_failed.svg'
 import LoadingIcon from './icon_loading.svg'
@@ -44,4 +45,5 @@ export {
   WebsiteIcon,
   DomainIcon,
   ArrowRightIcon,
+  ExLinkIcon,
 }
