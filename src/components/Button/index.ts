@@ -29,7 +29,7 @@ export const CtaButton = styled.button`
 export const ctaStyle = css`
   padding: 16px 24px;
   border-radius: 20px;
-  box-shadow: 0px 3px 6px #00000020;
+  box-shadow: 0px 3px 6px #00000029;
   font-size: 16px;
   font-weight: ${fontWeightMedium};
 `

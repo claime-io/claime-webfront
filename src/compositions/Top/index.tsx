@@ -40,7 +40,7 @@ const InputDiv = styled.div`
   padding: 14px 16px;
   background-color: ${_inputbg};
   border-radius: 40px;
-  box-shadow: 0px 3px 6px #00000020 inset;
+  box-shadow: 0px 3px 6px #00000029 inset;
   font-size: 28px;
   svg {
     border-radius: 50%;
