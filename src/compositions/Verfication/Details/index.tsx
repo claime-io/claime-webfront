@@ -1,7 +1,7 @@
 import Router from 'next/router'
 import { VFC } from 'react'
 import { ArrowRightIcon } from 'src/assets/svgs'
-import { ctaStyle } from 'src/components/Button'
+import { ctaStyle } from 'src/components/Cta'
 import { _lightgreen } from 'src/styles/colors'
 import { fontWeightBold, fontWeightRegular } from 'src/styles/font'
 import styled from 'styled-components'
@@ -27,7 +27,6 @@ export const Details: VFC<DetailsProps> = ({ eoa, results }) => (
 const CtaButton = styled.button`
   display: block;
   width: fit-content;
-  margin: 0 auto;
   ${ctaStyle};
   background-color: ${_lightgreen};
   svg {
@@ -56,7 +55,7 @@ const Main = styled.main`
     margin-top: 56px;
   }
   ${CtaButton} {
-    margin-top: 120px;
+    margin-top: 120px auto 0;
   }
   padding-bottom: 120px;
 `

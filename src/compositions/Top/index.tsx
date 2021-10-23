@@ -1,11 +1,12 @@
 import Router from 'next/router'
 import { useRef, VFC } from 'react'
 import { SearchIcon } from 'src/assets/svgs'
-import { ctaStyle } from 'src/components/Button'
-import { black, white, _inputbg, _lightgreen } from 'src/styles/colors'
+import { CtaLink } from 'src/components/Cta'
+import { black, white, _inputbg } from 'src/styles/colors'
 import { fontWeightBold, fontWeightRegular } from 'src/styles/font'
 import { flexCenter } from 'src/styles/mixins'
 import { fireOnKeys } from 'src/utils/listner'
+import { CLAIM } from 'src/utils/routes'
 import styled from 'styled-components'
 import { AppLayout } from '../AppLayout'
 
@@ -21,7 +22,7 @@ export const Top: VFC = () => {
         <Section>
           <h2>
             If you would like to claim your digital assets
-            <Button>Get Started</Button>
+            <CtaLink href={CLAIM}>Get Started</CtaLink>
           </h2>
         </Section>
       </Main>
@@ -69,11 +70,6 @@ const InputDiv = styled.div`
   }
 `
 
-const Button = styled.button`
-  ${ctaStyle};
-  background-color: ${_lightgreen};
-`
-
 const Section = styled.section`
   ${flexCenter};
   flex-direction: column;
@@ -95,7 +91,7 @@ const Main = styled.main`
     margin-top: 32px;
     font-size: 20px;
     font-weight: ${fontWeightRegular};
-    ${Button} {
+    ${CtaLink} {
       margin-left: 24px;
     }
   }

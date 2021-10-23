@@ -1,20 +1,10 @@
-import { Dayjs } from 'dayjs'
 import { VFC } from 'react'
-import { SupportedPropertyType, VerificationStatus } from 'src/models'
 import { fontWeightBold } from 'src/styles/font'
 import styled from 'styled-components'
 import { Address } from './Address'
-import { Results } from './Results'
+import { Results, ResultsProps } from './Results'
 
-export type SummaryProps = {
-  eoa: string
-  results: {
-    type: SupportedPropertyType
-    id: string
-    status: VerificationStatus
-  }[]
-  at: Dayjs
-}
+export type SummaryProps = ResultsProps
 
 export const Summary: VFC<SummaryProps> = (props) => (
   <Main>

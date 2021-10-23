@@ -70,7 +70,7 @@ const EOAVerificationResultPage: Page<
   VerificationResultStaticProps,
   VerificationContext
 > = ({ eoa, results, at, ...props }) => {
-  const [_, type] = props.query.eoa_slug
+  const [_, type] = props.query.eoa_slug || []
   useEffect(() => {
     if (type && !PAGE_TYPES.includes(type as any))
       Router.replace(eoaSummary(eoa), undefined, { shallow: true })

@@ -14,7 +14,7 @@ import { fontWeightMedium } from 'src/styles/font'
 import { flexCenter } from 'src/styles/mixins'
 import { shortenAddress } from 'src/utils/address'
 import styled from 'styled-components'
-import { CtaButton } from '../Button'
+import { CtaButton } from '../Cta'
 
 export const AddressInfo: VFC<{
   address: string

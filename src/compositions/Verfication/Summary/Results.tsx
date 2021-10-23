@@ -1,10 +1,9 @@
 import { Dayjs } from 'dayjs'
 import { VFC } from 'react'
 import { ArrowRightIcon } from 'src/assets/svgs'
-import { ctaStyle } from 'src/components/Button'
-import { Link } from 'src/elements/Link'
+import { CtaLink } from 'src/components/Cta'
 import { SupportedPropertyType, VerificationStatus } from 'src/models'
-import { _border, _lightgreen } from 'src/styles/colors'
+import { _border } from 'src/styles/colors'
 import { fontWeightMedium, fontWeightSemiBold } from 'src/styles/font'
 import { centerLine } from 'src/styles/mixins'
 import { eoaDetails } from 'src/utils/routes'
@@ -16,6 +15,7 @@ export type ResultsProps = {
   results: {
     type: SupportedPropertyType
     id: string
+    method: string
     status: VerificationStatus
   }[]
   at: Dayjs
@@ -33,7 +33,7 @@ const ResultsComponent: VFC<ResultsProps & { className?: string }> = ({
       <>
         <Items>
           {results.map((each) => (
-            <Result key={`${each.type}_${each.id}`} {...each} />
+            <Result key={`${each.type}_${each.id}_${each.method}`} {...each} />
           ))}
           <div />
         </Items>
@@ -52,14 +52,6 @@ const NotFound = styled.p`
   font-size: 32px;
   font-weight: ${fontWeightSemiBold};
   text-align: center;
-`
-
-const CtaLink = styled(Link)`
-  display: block;
-  width: fit-content;
-  margin: 0 auto;
-  ${ctaStyle};
-  background-color: ${_lightgreen};
 `
 
 const Items = styled.div`
@@ -86,5 +78,9 @@ const Timestamp = styled.p`
 const ResultSection = styled.section`
   ${Timestamp} {
     margin-bottom: 72px;
+  }
+  ${CtaLink} {
+    display: block;
+    margin: 0 auto;
   }
 `

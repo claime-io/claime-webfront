@@ -7,7 +7,7 @@ import { ContentGuide } from 'src/styles/global-styles'
 import { shortenAddress } from 'src/utils/address'
 import { GITHUB_URL, TOP } from 'src/utils/routes'
 import styled, { css } from 'styled-components'
-import { ctaStyle } from '../Button'
+import { ctaStyle } from '../Cta'
 import { Logo } from '../Logo'
 import { useWalletModal } from '../WalletModal'
 

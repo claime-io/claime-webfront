@@ -11,5 +11,5 @@ export type Page<P = {}, Q = {}, IP = P> = NextPage<
 >
 
 type Query<Q, T> = {
-  [key in keyof Q]: T
+  [key in keyof Q]: T | undefined
 }
