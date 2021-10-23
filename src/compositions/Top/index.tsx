@@ -1,9 +1,11 @@
-import { VFC } from 'react'
+import Router from 'next/router'
+import { useRef, VFC } from 'react'
 import { SearchIcon } from 'src/assets/svgs'
 import { ctaStyle } from 'src/components/Button'
 import { black, white, _inputbg, _lightgreen } from 'src/styles/colors'
 import { fontWeightBold, fontWeightRegular } from 'src/styles/font'
 import { flexCenter } from 'src/styles/mixins'
+import { fireOnKeys } from 'src/utils/listner'
 import styled from 'styled-components'
 import { AppLayout } from '../AppLayout'
 
@@ -14,12 +16,7 @@ export const Top: VFC = () => {
         <h1>No more scams and frauds</h1>
         <Section>
           <h2>Enter the wallet address you wish to verify.</h2>
-          <InputDiv>
-            <button>
-              <SearchIcon />
-            </button>
-            <input />
-          </InputDiv>
+          <Search />
         </Section>
         <Section>
           <h2>
@@ -29,6 +26,22 @@ export const Top: VFC = () => {
         </Section>
       </Main>
     </AppLayout>
+  )
+}
+
+const Search = () => {
+  const inputEl = useRef<HTMLInputElement>(null)
+  const search = () => {
+    if (!inputEl.current?.value) return
+    Router.push(inputEl.current.value)
+  }
+  return (
+    <InputDiv>
+      <button onClick={search}>
+        <SearchIcon />
+      </button>
+      <input ref={inputEl} onKeyPress={fireOnKeys(search, 'Enter')} />
+    </InputDiv>
   )
 }
 

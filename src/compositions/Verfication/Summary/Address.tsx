@@ -4,6 +4,7 @@ import { ReloadIcon } from 'src/assets/svgs'
 import { black, _inputbg } from 'src/styles/colors'
 import { fontWeightRegular } from 'src/styles/font'
 import { flexCenter } from 'src/styles/mixins'
+import { fireOnKeys } from 'src/utils/listner'
 import styled from 'styled-components'
 
 export type AddressProps = {
@@ -15,15 +16,18 @@ const AddressComponent: VFC<AddressProps & { className?: string }> = ({
   className,
 }) => {
   const inputEl = useRef<HTMLInputElement>(null)
+  const search = () => {
+    if (!inputEl.current?.value) return
+    Router.push(inputEl.current.value)
+  }
   return (
     <AddressDiv className={className}>
-      <input ref={inputEl} defaultValue={eoa} />
-      <IconButton
-        onClick={() => {
-          if (!inputEl.current?.value) return
-          Router.push(`/${inputEl.current.value}`)
-        }}
-      >
+      <input
+        ref={inputEl}
+        defaultValue={eoa}
+        onKeyPress={fireOnKeys(search, 'Enter')}
+      />
+      <IconButton onClick={search}>
         <ReloadIcon />
       </IconButton>
     </AddressDiv>

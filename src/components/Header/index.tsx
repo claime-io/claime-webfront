@@ -5,7 +5,7 @@ import { black, white } from 'src/styles/colors'
 import { fontWeightLight } from 'src/styles/font'
 import { ContentGuide } from 'src/styles/global-styles'
 import { shortenAddress } from 'src/utils/address'
-import { GITHUB_URL } from 'src/utils/routes'
+import { GITHUB_URL, TOP } from 'src/utils/routes'
 import styled, { css } from 'styled-components'
 import { ctaStyle } from '../Button'
 import { Logo } from '../Logo'
@@ -17,7 +17,9 @@ export const Header: VFC = () => {
   return (
     <StyledHeader>
       <ContentGuide>
-        <Logo />
+        <Link href={TOP}>
+          <Logo />
+        </Link>
         <Navigation>
           <Link href={GITHUB_URL}>GitHub</Link>
           <Button onClick={() => open({})} connected={!!account}>
