@@ -81,5 +81,5 @@ export const summaryByResult = (status: VerificationStatus, actual: string) =>
   status === 'Verified'
     ? 'Claim matched:'
     : actual?.includes(CLAIM_KEY)
-    ? 'Claim does not matched:'
+    ? 'Claim not matched:'
     : 'Claim not found.'
