@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="15" height="12" viewBox="0 0 15 12">
+  <g fill="currentColor" transform="translate(937.188 1239.697)">
+    <g transform="translate(-937.188 -1239.697)">
+        <g transform="translate(0 5.143)">
+          <path d="M160.121,1118.065v1.715h-9.684a.857.857,0,0,1,0-1.715Z" transform="translate(-149.579 -1118.065)"/>
+        </g>
+        <g transform="translate(6.101)">
+          <path d="M926.643,621.481h0l-.006.017h0a.86.86,0,0,1-.241.342l-5.907,5.14a.857.857,0,1,1-1.126-1.293l4.182-3.639h-5.751v-1.714h5.751l-4.182-3.639a.857.857,0,0,1,1.126-1.293l5.91,5.143h0a.862.862,0,0,1,.253.393h0a.94.94,0,0,1,.023.094h0A.855.855,0,0,1,926.643,621.481Z" transform="translate(-917.793 -615.194)"/>
+        </g>
+    </g>
+  </g>
+</svg>

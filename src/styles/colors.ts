@@ -20,6 +20,10 @@ export const disabledColor = '#b5b5b5'
 // new
 export const _inputbg = '#EBF2FA'
 export const _lightgreen = '#BAFF29'
+export const _border = '#747578'
+export const verified = '#06D6A0'
+export const failed = '#FF595E'
+export const unknown = '#747578'
 
 export type Colors =
   | typeof black

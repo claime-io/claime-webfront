@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <g fill="currentColor" transform="translate(-2921.63 -837.551)">
+    <g transform="translate(2921.63 837.551)">
+      <path d="M2981.63,957.551a59.826,59.826,0,1,1,23.356-4.717A59.628,59.628,0,0,1,2981.63,957.551Zm0-111.443a51.269,51.269,0,1,0,20.023,4.041A51.117,51.117,0,0,0,2981.63,846.108Z" transform="translate(-2921.63 -837.551)"/>
+    </g>
+    <ellipse cx="8.226" cy="10.493" rx="8.226" ry="10.493" transform="translate(2995.175 879.488)"/>
+    <ellipse cx="8.226" cy="10.493" rx="8.226" ry="10.493" transform="translate(2951.633 879.488)"/>
+    <g transform="translate(2957.587 917.065)">
+      <path d="M3265.769,1510.247h-39.528a4.278,4.278,0,1,1,0-8.557h39.528a4.278,4.278,0,0,1,0,8.557Z" transform="translate(-3221.962 -1501.69)"/>
+    </g>
+  </g>
+</svg>
