@@ -10,14 +10,14 @@ import {
   fontWeightRegular,
 } from 'src/styles/font'
 import { flexCenter } from 'src/styles/mixins'
-import styled from 'styled-components'
 import {
   evidenceUrlByProperty,
   IconByType,
   idByProperty,
   summaryByResult,
   urlByProperty,
-} from '../utils'
+} from 'src/utils/claim'
+import styled from 'styled-components'
 
 export type ResultProps = {
   type: SupportedPropertyType

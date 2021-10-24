@@ -7,14 +7,14 @@ import {
   fontWeightSemiBold,
 } from 'src/styles/font'
 import { flexCenter } from 'src/styles/mixins'
-import styled, { css } from 'styled-components'
 import {
   colorByStatus,
   IconByStatus,
   IconByType,
   idByProperty,
   urlByProperty,
-} from '../utils'
+} from 'src/utils/claim'
+import styled, { css } from 'styled-components'
 
 type ResultProps = {
   type: SupportedPropertyType

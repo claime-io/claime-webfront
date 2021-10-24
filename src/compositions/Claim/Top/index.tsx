@@ -1,6 +1,5 @@
 import Router from 'next/router'
 import { VFC } from 'react'
-import { IconByType } from 'src/compositions/Verfication/utils'
 import { SupportedPropertyType } from 'src/models'
 import { black, white, _lightgreen } from 'src/styles/colors'
 import {
@@ -9,9 +8,10 @@ import {
   fontWeightSemiBold,
 } from 'src/styles/font'
 import { flexCenter } from 'src/styles/mixins'
+import { IconByType } from 'src/utils/claim'
 import { claimProperty } from 'src/utils/routes'
 import styled from 'styled-components'
-import { PAGE_TYPE_DICT } from '..'
+import { PAGE_TYPE_DICT } from '../common'
 
 export const ClaimTop: VFC = () => (
   <Main>

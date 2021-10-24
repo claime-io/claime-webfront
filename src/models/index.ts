@@ -9,9 +9,7 @@ export type SupportedPropertyType = typeof SUPPORTED_PROPERTY_TYPES[number]
 
 export type VerificationStatus = 'Verified' | 'Failed' | 'Unknown'
 
-export const SUPPORTED_METHODS: {
-  [key in SupportedPropertyType]: readonly string[]
-} = {
+export const SUPPORTED_METHODS = {
   'Twitter Account': ['', 'Tweet'],
   Domain: ['', 'TXT'],
   Website: ['', 'MetaTag'],
@@ -40,5 +38,5 @@ export const isSupported = (type: string, method: string) => {
   if (!isSupportedPropetyType(type)) return false
   const methods = SUPPORTED_METHODS[type]
   if (!methods) return false
-  return methods.includes(method)
+  return (methods as readonly string[]).includes(method)
 }
