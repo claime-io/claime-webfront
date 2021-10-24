@@ -55,7 +55,7 @@ const Main = styled.main`
     margin-top: 56px;
   }
   ${CtaButton} {
-    margin-top: 120px auto 0;
+    margin: 120px auto 0;
   }
   padding-bottom: 120px;
 `
