@@ -1,41 +1,54 @@
 import { VFC } from 'react'
 import { CtaLink, ctaStyle } from 'src/components/Cta'
+import { useWallet } from 'src/hooks/useWallet'
+import { SupportedMethod, SupportedPropertyType } from 'src/models'
 import { _lightgreen } from 'src/styles/colors'
 import { fontWeightBold, fontWeightRegular } from 'src/styles/font'
 import styled from 'styled-components'
-import { useClaim } from './useClaim'
+import { useClaim } from '../useClaim'
 
-export const Domain: VFC = () => {
+type ClaimingFormFC = <T extends SupportedPropertyType>(props: {
+  propertyType: T
+  method: SupportedMethod<T>
+  toClaimInput?: Parameters<typeof useClaim>[2]
+  placeholder: string
+  EvidenceFC: VFC<{ eoa: string }>
+}) => JSX.Element
+export const ClaimingForm: ClaimingFormFC = ({
+  propertyType,
+  method,
+  toClaimInput,
+  placeholder,
+  EvidenceFC,
+}) => {
+  const { account } = useWallet()
   const {
-    account,
-    txtRecord,
-    domain,
+    input,
     claimable,
     errorMessage,
-    onChangeDomain,
-    registerDomain,
+    onChangeInput,
     verify,
-  } = useClaim()
+    registetClaim,
+  } = useClaim(propertyType, method, toClaimInput)
   return (
     <Main>
-      <h1>Claim Domain Ownership</h1>
+      <h1>Claim {propertyType} Ownership</h1>
       <ClaimingDiv>
         {account ? (
           <>
-            <p>Add TXT record</p>
-            <code>{txtRecord}</code>
+            <EvidenceFC eoa={account} />
             <VerificationDiv>
               <Input
-                placeholder="Enter your domain"
-                value={domain}
-                onChange={onChangeDomain}
+                placeholder={placeholder}
+                value={input}
+                onChange={onChangeInput}
               />
-              <CtaButton onClick={verify} disabled={!domain}>
+              <CtaButton onClick={verify} disabled={!input}>
                 Verify
               </CtaButton>
             </VerificationDiv>
             {errorMessage && <p>{errorMessage}</p>}
-            <CtaButton onClick={registerDomain} disabled={!claimable}>
+            <CtaButton onClick={registetClaim} disabled={!claimable}>
               Claim
             </CtaButton>
           </>
@@ -84,7 +97,7 @@ const ClaimingDiv = styled.div`
   ${VerificationDiv} {
     margin-top: 64px;
   }
-  > ${CtaLink}, > ${CtaButton} {
+  > ${CtaLink},> ${CtaButton} {
     display: block;
     margin: 64px auto 0;
   }

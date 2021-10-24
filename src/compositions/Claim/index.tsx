@@ -1,10 +1,8 @@
 import { VFC } from 'react'
 import { AppLayout } from 'src/compositions/AppLayout'
+import { Domain, Twitter } from './ClaimingForm'
 import { PageType } from './common'
-import { Domain } from './Domain'
 import { ClaimTop } from './Top'
-import { Twitter } from './Twitter'
-
 export * from './common'
 
 export const Claim: VFC<{ type?: PageType }> = ({ type }) => {

@@ -16,6 +16,9 @@ export const SUPPORTED_METHODS = {
   'Discord User ID': [],
 } as const
 
+export type SupportedMethod<T extends SupportedPropertyType> =
+  typeof SUPPORTED_METHODS[T][number]
+
 export type Claim = {
   propertyType: SupportedPropertyType
   propertyId: string
