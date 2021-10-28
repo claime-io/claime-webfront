@@ -2,7 +2,7 @@ import { Dayjs } from 'dayjs'
 import { VFC } from 'react'
 import { ArrowRightIcon } from 'src/assets/svgs'
 import { CtaLink } from 'src/components/Cta'
-import { SupportedPropertyType, VerificationStatus } from 'src/models'
+import { SupportedPropertyType, VerificationResultType } from 'src/models'
 import { _border } from 'src/styles/colors'
 import { fontWeightMedium, fontWeightSemiBold } from 'src/styles/font'
 import { centerLine } from 'src/styles/mixins'
@@ -16,7 +16,7 @@ export type ResultsProps = {
     type: SupportedPropertyType
     id: string
     method: string
-    status: VerificationStatus
+    result: VerificationResultType
   }[]
   at: Dayjs
 }

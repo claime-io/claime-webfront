@@ -6,18 +6,18 @@ import {
   VerifiedIcon,
   WebsiteIcon,
 } from 'src/assets/svgs'
-import { SupportedPropertyType, VerificationStatus } from 'src/models'
+import { SupportedPropertyType, VerificationResultType } from 'src/models'
 import { failed, unknown, verified } from 'src/styles/colors'
 
 const CLAIM_KEY = 'claime-ownership-claim'
 
 export const toEvidence = (eoa: string) => `${CLAIM_KEY}=${eoa}`
 
-export const colorByStatus = (status: VerificationStatus) =>
-  status === 'Verified' ? verified : status === 'Failed' ? failed : unknown
+export const colorByStatus = (result: VerificationResultType) =>
+  result === 'Verified' ? verified : result === 'Failed' ? failed : unknown
 
-export const IconByStatus = (status: VerificationStatus) => {
-  switch (status) {
+export const IconByStatus = (result: VerificationResultType) => {
+  switch (result) {
     case 'Verified':
       return VerifiedIcon
     case 'Failed':
@@ -79,9 +79,18 @@ export const idByProperty = (type: SupportedPropertyType, id: string) => {
   }
 }
 
-export const summaryByResult = (status: VerificationStatus, actual: string) =>
-  status === 'Verified'
+export const summaryByResult = (
+  result: VerificationResultType,
+  id: string,
+  actual?: {
+    id: string
+    evidence: string
+  },
+) =>
+  result === 'Verified'
     ? 'Claim matched:'
-    : actual?.includes(CLAIM_KEY)
+    : id !== actual?.id
+    ? 'Property ID not matched'
+    : actual?.evidence?.includes(CLAIM_KEY)
     ? 'Claim not matched:'
     : 'Claim not found.'

@@ -9,7 +9,11 @@ import {
   VerificationResult,
   VerificationResultProps,
 } from 'src/compositions/Verfication'
-import { isSupported, SupportedPropertyType } from 'src/models'
+import {
+  isSupported,
+  SupportedPropertyType,
+  VerificationResultType,
+} from 'src/models'
 import { Page } from 'src/types'
 import { eoaSummary } from 'src/utils/routes'
 
@@ -41,20 +45,28 @@ export const getStaticProps: GetStaticProps<any, VerificationContext> = async ({
       }),
     )
   }
-  const res = await verifierApiClient.eoaGet(eoa)
+  const res = await verifierApiClient.get(eoa)
   const props: VerificationResultStaticProps = {
     eoa: eoa,
     results:
       res.data
-        ?.filter((each) => isSupported(each.propertyType, each.method))
-        .map((each) => ({
-          type: each.propertyType as SupportedPropertyType,
-          id: each.propertyId,
-          status: each.verified ? 'Verified' : 'Failed',
-          actual: each.actual,
-          at: each.at,
-          method: each.method,
-          evidence: each.evidence,
+        ?.filter(({ claim: { propertyType, method } }) =>
+          isSupported(propertyType, method),
+        )
+        .map(({ claim, result, actual, at, error }) => ({
+          type: claim.propertyType as SupportedPropertyType,
+          id: claim.propertyId,
+          method: claim.method,
+          evidence: claim.evidence,
+          result: result as VerificationResultType,
+          actual: actual
+            ? {
+                id: actual.propertyId,
+                evidence: actual.evidence,
+              }
+            : undefined,
+          at: at,
+          error,
         })) || [],
     at: dayjs().toString(),
   }

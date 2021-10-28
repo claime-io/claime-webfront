@@ -40,51 +40,100 @@ import {
 /**
  *
  * @export
- * @interface InlineResponse200
+ * @interface Claim
  */
-export interface InlineResponse200 {
+export interface Claim {
   /**
    *
    * @type {string}
-   * @memberof InlineResponse200
+   * @memberof Claim
    */
   propertyType: string
   /**
    *
    * @type {string}
-   * @memberof InlineResponse200
+   * @memberof Claim
    */
   propertyId: string
   /**
    *
    * @type {string}
-   * @memberof InlineResponse200
-   */
-  evidence: string
-  /**
-   *
-   * @type {string}
-   * @memberof InlineResponse200
+   * @memberof Claim
    */
   method: string
   /**
    *
-   * @type {boolean}
-   * @memberof InlineResponse200
+   * @type {string}
+   * @memberof Claim
    */
-  verified: boolean
+  evidence: string
+}
+/**
+ *
+ * @export
+ * @interface VerifierOutput
+ */
+export interface VerifierOutput {
   /**
    *
    * @type {string}
-   * @memberof InlineResponse200
+   * @memberof VerifierOutput
    */
-  actual: string
+  result: VerifierOutputResultEnum
   /**
    *
    * @type {string}
-   * @memberof InlineResponse200
+   * @memberof VerifierOutput
+   */
+  error?: string
+  /**
+   *
+   * @type {Claim}
+   * @memberof VerifierOutput
+   */
+  claim: Claim
+  /**
+   * unix timestamp verified at
+   * @type {string}
+   * @memberof VerifierOutput
    */
   at: string
+  /**
+   *
+   * @type {VerifierOutputActual}
+   * @memberof VerifierOutput
+   */
+  actual?: VerifierOutputActual
+}
+
+/**
+ * @export
+ * @enum {string}
+ */
+export enum VerifierOutputResultEnum {
+  Verified = 'Verified',
+  Failed = 'Failed',
+  Unsupported = 'Unsupported',
+}
+
+/**
+ * hex address got
+ * @export
+ * @interface VerifierOutputActual
+ */
+export interface VerifierOutputActual {
+  /**
+   *
+   * @type {string}
+   * @memberof VerifierOutputActual
+   */
+  propertyId: string
+  /**
+   *
+   * @type {string}
+   * @memberof VerifierOutputActual
+   */
+  evidence: string
 }
 
 /**
@@ -97,13 +146,13 @@ export const DefaultApiAxiosParamCreator = function (
   return {
     /**
      *
-     * @param {string} eoa EOA to verify.
+     * @param {string} eoa eoa hex address
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    eoaGet: async (eoa: string, options: any = {}): Promise<RequestArgs> => {
+    get: async (eoa: string, options: any = {}): Promise<RequestArgs> => {
       // verify required parameter 'eoa' is not null or undefined
-      assertParamExists('eoaGet', 'eoa', eoa)
+      assertParamExists('get', 'eoa', eoa)
       const localVarPath = `/{eoa}`.replace(
         `{${'eoa'}}`,
         encodeURIComponent(String(eoa)),
@@ -149,20 +198,20 @@ export const DefaultApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
-     * @param {string} eoa EOA to verify.
+     * @param {string} eoa eoa hex address
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async eoaGet(
+    async get(
       eoa: string,
       options?: any,
     ): Promise<
       (
         axios?: AxiosInstance,
         basePath?: string,
-      ) => AxiosPromise<Array<InlineResponse200>>
+      ) => AxiosPromise<Array<VerifierOutput>>
     > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.eoaGet(
+      const localVarAxiosArgs = await localVarAxiosParamCreator.get(
         eoa,
         options,
       )
@@ -189,13 +238,13 @@ export const DefaultApiFactory = function (
   return {
     /**
      *
-     * @param {string} eoa EOA to verify.
+     * @param {string} eoa eoa hex address
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    eoaGet(eoa: string, options?: any): AxiosPromise<Array<InlineResponse200>> {
+    get(eoa: string, options?: any): AxiosPromise<Array<VerifierOutput>> {
       return localVarFp
-        .eoaGet(eoa, options)
+        .get(eoa, options)
         .then((request) => request(axios, basePath))
     },
   }
@@ -210,14 +259,14 @@ export const DefaultApiFactory = function (
 export class DefaultApi extends BaseAPI {
   /**
    *
-   * @param {string} eoa EOA to verify.
+   * @param {string} eoa eoa hex address
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof DefaultApi
    */
-  public eoaGet(eoa: string, options?: any) {
+  public get(eoa: string, options?: any) {
     return DefaultApiFp(this.configuration)
-      .eoaGet(eoa, options)
+      .get(eoa, options)
       .then((request) => request(this.axios, this.basePath))
   }
 }

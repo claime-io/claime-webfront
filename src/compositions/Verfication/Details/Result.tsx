@@ -2,7 +2,7 @@ import dayjs from 'dayjs'
 import { ReactNode, VFC } from 'react'
 import { ExLinkIcon } from 'src/assets/svgs'
 import { Link } from 'src/elements/Link'
-import { SupportedPropertyType, VerificationStatus } from 'src/models'
+import { SupportedPropertyType, VerificationResultType } from 'src/models'
 import { codeblock, _lightgreen } from 'src/styles/colors'
 import {
   fontWeightLight,
@@ -22,16 +22,20 @@ import styled from 'styled-components'
 export type ResultProps = {
   type: SupportedPropertyType
   id: string
-  at: string
   method: string
-  status: VerificationStatus
   evidence: string
-  actual: string
+  result: VerificationResultType
+  actual?: {
+    id: string
+    evidence: string
+  }
+  at: string
+  error?: string
 }
 export const Result: VFC<ResultProps> = ({
   type,
   id,
-  status,
+  result,
   evidence,
   at,
   method,
@@ -58,7 +62,7 @@ export const Result: VFC<ResultProps> = ({
       </Items>
       <Items>
         <Item label="Verification Result">
-          <p>{status}</p>
+          <p>{result}</p>
         </Item>
         <Item label="Evidence">
           <p>
@@ -74,8 +78,10 @@ export const Result: VFC<ResultProps> = ({
       </Items>
       <Items>
         <Item label="Verfication Summary">
-          <p>{summaryByResult(status, actual)}</p>
-          <code>{actual}</code>
+          <p>{summaryByResult(result, id, actual)}</p>
+          <code>
+            {actual && (id !== actual?.id ? actual.id : actual.evidence)}
+          </code>
         </Item>
       </Items>
     </Content>

@@ -9,8 +9,8 @@
     "test": "jest --watch",
     "test:once": "jest",
     "gen:contract": "typechain --target ethers-v5 --out-dir src/__generated__/contract ./specs/registry-contract.json",
-    "gen:api:verifier": "openapi-generator-cli generate -g typescript-axios -i ./specs/claime-verifier-api.yaml -o ./src/__generated__/api/verifier && prettier -w src/__generated__/api/verifier/**/*.ts",
-    "update:api:verifier": "curl https://raw.githubusercontent.com/bridges-inc/claime-verifier/dev/docs/claime-verifier-api.yaml -o ./specs/claime-verifier-api.yaml",
+    "gen:api:verifier": "openapi-generator-cli generate -g typescript-axios -i ./specs/verifier-api.yaml -o ./src/__generated__/api/verifier && prettier -w src/__generated__/api/verifier/**/*.ts",
+    "update:api:verifier": "curl https://raw.githubusercontent.com/bridges-inc/claime-verifier/dev/docs/verifier-api.yaml -o ./specs/verifier-api.yaml",
     "gen:api:discord": "openapi-generator-cli generate -g typescript-axios -i ./specs/discord-app-api.yaml -o ./src/__generated__/api/discord && prettier -w src/__generated__/api/discord/**/*.ts",
     "update:api:discord": "curl https://raw.githubusercontent.com/bridges-inc/claime-verifier/dev/docs/discord-app-api.yaml -o ./specs/discord-app-api.yaml"
   },

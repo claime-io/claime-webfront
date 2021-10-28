@@ -7,12 +7,12 @@ export const SUPPORTED_PROPERTY_TYPES = [
 
 export type SupportedPropertyType = typeof SUPPORTED_PROPERTY_TYPES[number]
 
-export type VerificationStatus = 'Verified' | 'Failed' | 'Unknown'
+export type VerificationResultType = 'Verified' | 'Failed' | 'Unknown'
 
 export const SUPPORTED_METHODS = {
-  'Twitter Account': ['', 'Tweet'],
-  Domain: ['', 'TXT'],
-  Website: ['', 'MetaTag'],
+  'Twitter Account': ['Tweet'],
+  Domain: ['TXT'],
+  Website: ['Meta Tag'],
   'Discord User ID': [],
 } as const
 

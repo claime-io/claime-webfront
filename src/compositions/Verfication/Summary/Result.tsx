@@ -1,5 +1,5 @@
 import { VFC } from 'react'
-import { SupportedPropertyType, VerificationStatus } from 'src/models'
+import { SupportedPropertyType, VerificationResultType } from 'src/models'
 import { _inputbg } from 'src/styles/colors'
 import {
   fontWeightBold,
@@ -19,17 +19,17 @@ import styled, { css } from 'styled-components'
 type ResultProps = {
   type: SupportedPropertyType
   id: string
-  status: VerificationStatus
+  result: VerificationResultType
 }
-export const Result: VFC<ResultProps> = ({ type, id, status }) => (
-  <ResultDiv color={colorByStatus(status)}>
+export const Result: VFC<ResultProps> = ({ type, id, result }) => (
+  <ResultDiv color={colorByStatus(result)}>
     <Heading>
       <IconDiv>{IconByType(type)()}</IconDiv>
       <p>{type}</p>
     </Heading>
     <Content>
-      {IconByStatus(status)()}
-      <p>{status}</p>
+      {IconByStatus(result)()}
+      <p>{result}</p>
       <a href={urlByProperty(type, id)} target="_blank" rel="noreferrer">
         {idByProperty(type, id)}
       </a>
