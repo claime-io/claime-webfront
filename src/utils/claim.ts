@@ -13,7 +13,7 @@ export const CLAIM_KEY = 'claime-ownership-claim'
 
 export const toEvidence = (eoa: string) => `${CLAIM_KEY}=${eoa}`
 
-export const colorByStatus = (result: VerificationResultType) =>
+export const colorByResult = (result: VerificationResultType) =>
   result === 'Verified' ? verified : result === 'Failed' ? failed : unknown
 
 export const IconByStatus = (result: VerificationResultType) => {

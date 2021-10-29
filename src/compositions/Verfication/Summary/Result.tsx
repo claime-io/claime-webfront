@@ -8,7 +8,7 @@ import {
 } from 'src/styles/font'
 import { flexCenter } from 'src/styles/mixins'
 import {
-  colorByStatus,
+  colorByResult,
   IconByStatus,
   IconByType,
   idByProperty,
@@ -22,7 +22,7 @@ type ResultProps = {
   result: VerificationResultType
 }
 export const Result: VFC<ResultProps> = ({ type, id, result }) => (
-  <ResultDiv color={colorByStatus(result)}>
+  <ResultDiv color={colorByResult(result)}>
     <Heading>
       <IconDiv>{IconByType(type)()}</IconDiv>
       <p>{type}</p>
