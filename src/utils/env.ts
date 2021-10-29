@@ -7,3 +7,7 @@ export const HOSTNAME = isProd
 export const DISCORD_APP_API_ENDPOINT =
   process.env.NEXT_PUBLIC_DISCORD_APP_API_ENDPOINT ||
   'https://zomsfdy785.execute-api.us-east-1.amazonaws.com/prod'
+
+export const VERIFIER_API_ENDPOINT =
+  process.env.NEXT_PUBLIC_VERIFIER_API_ENDPOINT ||
+  'https://31yrpi7vs7.execute-api.us-east-1.amazonaws.com/prod'

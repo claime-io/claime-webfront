@@ -7,7 +7,7 @@ const DiscordClaimPage: Page<{}, DiscordVerificationParams> = ({ query }) => {
   return (
     <>
       <SEO noindex />
-      <Discord params={query} />
+      <Discord params={query as DiscordVerificationParams} />
     </>
   )
 }

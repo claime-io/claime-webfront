@@ -1,4 +1,4 @@
-export const black = '#1F271B'
+export const black = '#0C0C0C'
 export const white = '#FFFFFF'
 export const blue = '#29339B'
 export const lightBlue = '#1DA1F2'
@@ -16,6 +16,15 @@ export const purple = '#3c249c'
 export const darkpurple = '#1b1641'
 export const errorColor = '#F31431'
 export const disabledColor = '#b5b5b5'
+
+// new
+export const _inputbg = '#EBF2FA'
+export const _lightgreen = '#BAFF29'
+export const _border = '#747578'
+export const verified = '#06D6A0'
+export const failed = '#FF595E'
+export const unknown = '#747578'
+export const codeblock = '#7C7F8380'
 
 export type Colors =
   | typeof black

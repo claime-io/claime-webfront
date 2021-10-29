@@ -1,7 +1,9 @@
 import React, { ReactNode, VFC } from 'react'
-import { black, white } from 'src/styles/colors'
+import { bgGradientSrc } from 'src/assets/images'
+import { CloseIcon } from 'src/assets/svgs'
+import { white } from 'src/styles/colors'
 import { breakpoint, flexCenter } from 'src/styles/mixins'
-import styled, { css, SimpleInterpolation } from 'styled-components'
+import styled, { SimpleInterpolation } from 'styled-components'
 
 export type ModalProps = {
   isOpen: boolean
@@ -18,31 +20,53 @@ export const Modal: VFC<ModalProps & { children: ReactNode }> = ({
   return (
     <>
       {isOpen && (
-        <Overlay onClick={closeModal}>
+        <Container>
+          <OverlayGradient />
+          <Overlay />
           <div onClick={(e) => e.stopPropagation()}>
             <Contents styles={styles}>
               <div>{children}</div>
             </Contents>
           </div>
-        </Overlay>
+          {closeModal && (
+            <CloseButton onClick={closeModal}>
+              <CloseIcon />
+            </CloseButton>
+          )}
+        </Container>
       )}
     </>
   )
 }
-
-const Overlay = styled.div`
-  ${flexCenter}
+const CloseButton = styled.button`
+  position: fixed;
+  top: 32px;
+  right: 32px;
+`
+const OverlayGradient = styled.div`
   position: fixed;
   inset: 0;
   overflow: hidden;
-  background-color: ${black}80;
+  background-image: url(${bgGradientSrc});
+  background-size: cover;
+  opacity: 0.75;
+`
+const Overlay = styled.div`
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background-color: #000000bf;
+`
+const Container = styled.div`
+  ${flexCenter};
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
   z-index: 1000;
+
+  color: ${white};
 `
 
-const defaultStyle = css`
-  background-color: ${white}80;
-  backdrop-filter: blur(30px) brightness(150%);
-`
 const Contents = styled.div<{ styles?: SimpleInterpolation }>`
   max-width: 640px;
   max-height: 85vh;
@@ -55,7 +79,7 @@ const Contents = styled.div<{ styles?: SimpleInterpolation }>`
     margin: 0 auto;
     padding: 40px 32px;
     border-radius: 24px;
-    ${({ styles = defaultStyle }) => styles};
+    ${({ styles }) => styles};
   }
 
   @media ${breakpoint.m} {
