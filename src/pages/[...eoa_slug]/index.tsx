@@ -15,6 +15,7 @@ import {
   VerificationResultType,
 } from 'src/models'
 import { Page } from 'src/types'
+import { isProd } from 'src/utils/env'
 import { eoaSummary } from 'src/utils/routes'
 
 type VerificationContext = {
@@ -73,7 +74,7 @@ export const getStaticProps: GetStaticProps<any, VerificationContext> = async ({
   return JSON.parse(
     JSON.stringify({
       props: props,
-      revalidate: 86400,
+      revalidate: isProd ? 86400 : 1,
     }),
   )
 }
