@@ -1,3 +1,4 @@
+import { CodeBlock } from 'src/components/CodeBlock'
 import { toEvidence } from 'src/utils/claim'
 import { ClaimingForm } from './Form'
 
@@ -8,8 +9,8 @@ export const Domain = () => (
     placeholder="Enter your domain name"
     EvidenceFC={({ eoa }) => (
       <>
-        <p>Add TXT record</p>
-        <code>{toEvidence(eoa)}</code>
+        <p>{"Add TXT record below to your domain's DNS records"}</p>
+        <CodeBlock>{toEvidence(eoa)}</CodeBlock>
       </>
     )}
   />

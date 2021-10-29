@@ -6,7 +6,7 @@ export const Twitter = () => (
   <ClaimingForm
     propertyType="Twitter Account"
     method="Tweet"
-    placeholder=""
+    placeholder="Enter your tweet URL"
     EvidenceFC={({ eoa }) => (
       <CtaLink href={urlToTweetEvidence(eoa)}>Tweet Evidence</CtaLink>
     )}

@@ -101,6 +101,9 @@ const ClaimingDiv = styled.div`
     display: block;
     margin: 64px auto 0;
   }
+  p {
+    text-align: center;
+  }
 `
 
 const Main = styled.main`
