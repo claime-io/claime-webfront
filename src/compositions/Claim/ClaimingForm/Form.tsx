@@ -45,6 +45,7 @@ export const ClaimingForm: ClaimingFormFC = ({
                 placeholder={placeholder}
                 value={input}
                 onChange={onChangeInput}
+                disabled={claimable}
               />
               <CtaButton
                 onClick={() => verify(account)}
