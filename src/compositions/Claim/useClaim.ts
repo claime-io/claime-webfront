@@ -48,6 +48,7 @@ export const useClaim = <T extends SupportedPropertyType>(
       setErrorMessage(result.error || result.result)
       return
     }
+    setErrorMessage('')
     setVerifiedClaim(claim)
   }
 

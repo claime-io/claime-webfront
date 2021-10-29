@@ -46,8 +46,11 @@ export const ClaimingForm: ClaimingFormFC = ({
                 value={input}
                 onChange={onChangeInput}
               />
-              <CtaButton onClick={() => verify(account)} disabled={!input}>
-                Verify
+              <CtaButton
+                onClick={() => verify(account)}
+                disabled={!input || claimable}
+              >
+                {claimable ? 'Verified' : 'Verify'}
               </CtaButton>
             </VerificationDiv>
             {errorMessage && <p>{errorMessage}</p>}
