@@ -4,10 +4,11 @@ import { ExLinkIcon } from 'src/assets/svgs'
 import { CodeBlock } from 'src/components/CodeBlock'
 import { Link } from 'src/elements/Link'
 import { SupportedPropertyType, VerificationResultType } from 'src/models'
-import { _lightgreen } from 'src/styles/colors'
+import { white } from 'src/styles/colors'
 import { fontWeightLight, fontWeightMedium } from 'src/styles/font'
 import { flexCenter } from 'src/styles/mixins'
 import {
+  colorByResult,
   evidenceUrlByProperty,
   IconByType,
   idByProperty,
@@ -39,7 +40,7 @@ export const Result: VFC<ResultProps> = ({
   actual,
 }) => (
   <ResultDiv>
-    <IconDiv>{IconByType(type)()}</IconDiv>
+    <IconDiv result={result}>{IconByType(type)()}</IconDiv>
     <Content>
       <Items>
         <Item label="Property Type">
@@ -131,10 +132,11 @@ const Content = styled.div`
     margin-top: 36px;
   }
 `
-const IconDiv = styled.div`
+const IconDiv = styled.div<{ result: VerificationResultType }>`
   ${flexCenter};
   width: 64px;
-  background: ${_lightgreen};
+  color: ${white};
+  background: ${({ result }) => colorByResult(result)};
 `
 
 const ResultDiv = styled.div`
