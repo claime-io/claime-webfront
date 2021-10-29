@@ -4,6 +4,7 @@ import { useWallet } from 'src/hooks/useWallet'
 import { SupportedMethod, SupportedPropertyType } from 'src/models'
 import { _lightgreen } from 'src/styles/colors'
 import { fontWeightBold, fontWeightRegular } from 'src/styles/font'
+import { flexCenter } from 'src/styles/mixins'
 import styled from 'styled-components'
 import { useClaim } from '../useClaim'
 
@@ -36,7 +37,9 @@ export const ClaimingForm: ClaimingFormFC = ({
       <ClaimingDiv>
         {account ? (
           <>
-            <EvidenceFC eoa={account} />
+            <EvidenceDiv>
+              <EvidenceFC eoa={account} />
+            </EvidenceDiv>
             <VerificationDiv>
               <Input
                 placeholder={placeholder}
@@ -91,17 +94,30 @@ const VerificationDiv = styled.div`
     margin-left: 24px;
   }
 `
+const EvidenceDiv = styled.div`
+  ${flexCenter};
+  flex-direction: column;
+  > * {
+    width: fit-content;
+  }
+  ${CtaLink} {
+    display: block;
+    margin: 16px auto 0;
+  }
+`
 
 const ClaimingDiv = styled.div`
   margin-top: 120px;
   ${VerificationDiv} {
-    margin-top: 64px;
+    margin-top: 48px;
   }
   > ${CtaLink},> ${CtaButton} {
     display: block;
-    margin: 64px auto 0;
+    margin: 48px auto 0;
   }
   p {
+    font-size: 20px;
+    font-weight: ${fontWeightRegular};
     text-align: center;
   }
 `

@@ -9,7 +9,7 @@ export const Domain = () => (
     placeholder="Enter your domain name"
     EvidenceFC={({ eoa }) => (
       <>
-        <p>{"Add TXT record below to your domain's DNS records"}</p>
+        <p>{"Add the following TXT record to your domain's DNS records"}</p>
         <CodeBlock>{toEvidence(eoa)}</CodeBlock>
       </>
     )}

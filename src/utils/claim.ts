@@ -9,7 +9,7 @@ import {
 import { SupportedPropertyType, VerificationResultType } from 'src/models'
 import { failed, unknown, verified } from 'src/styles/colors'
 
-const CLAIM_KEY = 'claime-ownership-claim'
+export const CLAIM_KEY = 'claime-ownership-claim'
 
 export const toEvidence = (eoa: string) => `${CLAIM_KEY}=${eoa}`
 

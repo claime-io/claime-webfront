@@ -1,3 +1,4 @@
+import { CodeBlock } from 'src/components/CodeBlock'
 import { CtaLink } from 'src/components/Cta'
 import { toEvidence } from 'src/utils/claim'
 import { ClaimingForm } from './Form'
@@ -8,7 +9,11 @@ export const Twitter = () => (
     method="Tweet"
     placeholder="Enter your tweet URL"
     EvidenceFC={({ eoa }) => (
-      <CtaLink href={urlToTweetEvidence(eoa)}>Tweet Evidence</CtaLink>
+      <>
+        <p>{'Tweet following text via your twitter account.'}</p>
+        <CodeBlock>{toEvidence(eoa)}</CodeBlock>
+        <CtaLink href={urlToTweetEvidence(eoa)}>Tweet</CtaLink>
+      </>
     )}
     toClaimInput={toClaimInput}
   />

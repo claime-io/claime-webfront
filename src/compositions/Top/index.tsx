@@ -16,12 +16,12 @@ export const Top: VFC = () => {
       <Main>
         <h1>No more scams and frauds</h1>
         <Section>
-          <h2>Enter the wallet address you wish to verify.</h2>
+          <h2>Enter the wallet address you want to verify.</h2>
           <Search />
         </Section>
         <Section>
           <h2>
-            If you would like to claim your digital assets
+            If you would like to claim ownership of your digital assets
             <CtaLink href={CLAIM}>Get Started</CtaLink>
           </h2>
         </Section>
