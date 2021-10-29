@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from 'react'
+import { verifierApiClient } from 'src/api/verifierApiClient'
 import { useContract } from 'src/hooks/useContract'
 import { SupportedMethod, SupportedPropertyType } from 'src/models'
 
@@ -29,19 +30,30 @@ export const useClaim = <T extends SupportedPropertyType>(
     setVerifiedClaim(undefined)
   }
 
-  const verify = () => {
+  const verify = async (eoa: string) => {
     const { claim, errorMessage } = toClaimInput(input)
-    if (!claim && errorMessage) {
-      setErrorMessage(errorMessage)
+    if (!claim || errorMessage) {
+      setErrorMessage(errorMessage || 'Invalid input.')
       return
     }
-    setErrorMessage('')
+    const res = await verifierApiClient.testVerify(
+      eoa,
+      propertyType,
+      claim.propertyId,
+      method,
+      claim.evidence,
+    )
+    const result = res.data[0]
+    if (result.result !== 'Verified') {
+      setErrorMessage(result.error || result.result)
+      return
+    }
     setVerifiedClaim(claim)
   }
 
-  const registetClaim = () => {
+  const registerClaim = () => {
     if (!verifiedClaim) return
-    register({
+    return register({
       propertyType,
       method,
       ...verifiedClaim,
@@ -54,6 +66,6 @@ export const useClaim = <T extends SupportedPropertyType>(
     claimable: !!verifiedClaim,
     onChangeInput,
     verify,
-    registetClaim,
+    registerClaim,
   }
 }

@@ -28,7 +28,7 @@ export const ClaimingForm: ClaimingFormFC = ({
     errorMessage,
     onChangeInput,
     verify,
-    registetClaim,
+    registerClaim,
   } = useClaim(propertyType, method, toClaimInput)
   return (
     <Main>
@@ -43,12 +43,12 @@ export const ClaimingForm: ClaimingFormFC = ({
                 value={input}
                 onChange={onChangeInput}
               />
-              <CtaButton onClick={verify} disabled={!input}>
+              <CtaButton onClick={() => verify(account)} disabled={!input}>
                 Verify
               </CtaButton>
             </VerificationDiv>
             {errorMessage && <p>{errorMessage}</p>}
-            <CtaButton onClick={registetClaim} disabled={!claimable}>
+            <CtaButton onClick={registerClaim} disabled={!claimable}>
               Claim
             </CtaButton>
           </>
