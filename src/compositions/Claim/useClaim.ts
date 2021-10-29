@@ -8,7 +8,7 @@ type ClaimInput = {
   evidence: string
 }
 const defaultClaimInput = (propertyId: string) => ({
-  claim: { propertyId, evidence: propertyId },
+  claim: { propertyId, evidence: '' },
 })
 export const useClaim = <T extends SupportedPropertyType>(
   propertyType: T,
