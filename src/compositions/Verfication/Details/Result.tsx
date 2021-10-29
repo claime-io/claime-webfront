@@ -1,14 +1,11 @@
 import dayjs from 'dayjs'
 import { ReactNode, VFC } from 'react'
 import { ExLinkIcon } from 'src/assets/svgs'
+import { CodeBlock } from 'src/components/CodeBlock'
 import { Link } from 'src/elements/Link'
 import { SupportedPropertyType, VerificationResultType } from 'src/models'
-import { codeblock, _lightgreen } from 'src/styles/colors'
-import {
-  fontWeightLight,
-  fontWeightMedium,
-  fontWeightRegular,
-} from 'src/styles/font'
+import { _lightgreen } from 'src/styles/colors'
+import { fontWeightLight, fontWeightMedium } from 'src/styles/font'
 import { flexCenter } from 'src/styles/mixins'
 import {
   evidenceUrlByProperty,
@@ -79,9 +76,9 @@ export const Result: VFC<ResultProps> = ({
       <Items>
         <Item label="Verfication Summary">
           <p>{summaryByResult(result, id, actual)}</p>
-          <code>
+          <CodeBlock>
             {actual && (id !== actual?.id ? actual.id : actual.evidence)}
-          </code>
+          </CodeBlock>
         </Item>
       </Items>
     </Content>
@@ -110,15 +107,6 @@ const ItemDiv = styled.div`
   a {
     white-space: nowrap;
     text-decoration: underline;
-  }
-  code {
-    display: block;
-    width: 100%;
-    margin-top: 12px;
-    padding: 24px;
-    background: ${codeblock};
-    font-family: roboto;
-    font-weight: ${fontWeightRegular};
   }
   svg {
     margin-left: 6px;
