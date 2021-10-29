@@ -45,7 +45,7 @@ export const getStaticProps: GetStaticProps<any, VerificationContext> = async ({
       }),
     )
   }
-  const res = await verifierApiClient.get(eoa)
+  const res = await verifierApiClient.verify(eoa)
   const props: VerificationResultStaticProps = {
     eoa: eoa,
     results:

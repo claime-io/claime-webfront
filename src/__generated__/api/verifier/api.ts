@@ -146,14 +146,91 @@ export const DefaultApiAxiosParamCreator = function (
   return {
     /**
      *
+     * @param {string} eoa
+     * @param {string} propertyType
+     * @param {string} propertyId
+     * @param {string} method
+     * @param {string} evidence
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    testVerify: async (
+      eoa: string,
+      propertyType: string,
+      propertyId: string,
+      method: string,
+      evidence: string,
+      options: any = {},
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'eoa' is not null or undefined
+      assertParamExists('testVerify', 'eoa', eoa)
+      // verify required parameter 'propertyType' is not null or undefined
+      assertParamExists('testVerify', 'propertyType', propertyType)
+      // verify required parameter 'propertyId' is not null or undefined
+      assertParamExists('testVerify', 'propertyId', propertyId)
+      // verify required parameter 'method' is not null or undefined
+      assertParamExists('testVerify', 'method', method)
+      // verify required parameter 'evidence' is not null or undefined
+      assertParamExists('testVerify', 'evidence', evidence)
+      const localVarPath = `/test/verify/{eoa}`.replace(
+        `{${'eoa'}}`,
+        encodeURIComponent(String(eoa)),
+      )
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      if (propertyType !== undefined) {
+        localVarQueryParameter['propertyType'] = propertyType
+      }
+
+      if (propertyId !== undefined) {
+        localVarQueryParameter['propertyId'] = propertyId
+      }
+
+      if (method !== undefined) {
+        localVarQueryParameter['method'] = method
+      }
+
+      if (evidence !== undefined) {
+        localVarQueryParameter['evidence'] = evidence
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     *
      * @param {string} eoa eoa hex address
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    get: async (eoa: string, options: any = {}): Promise<RequestArgs> => {
+    verify: async (eoa: string, options: any = {}): Promise<RequestArgs> => {
       // verify required parameter 'eoa' is not null or undefined
-      assertParamExists('get', 'eoa', eoa)
-      const localVarPath = `/{eoa}`.replace(
+      assertParamExists('verify', 'eoa', eoa)
+      const localVarPath = `/verify/{eoa}`.replace(
         `{${'eoa'}}`,
         encodeURIComponent(String(eoa)),
       )
@@ -198,11 +275,49 @@ export const DefaultApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
+     * @param {string} eoa
+     * @param {string} propertyType
+     * @param {string} propertyId
+     * @param {string} method
+     * @param {string} evidence
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async testVerify(
+      eoa: string,
+      propertyType: string,
+      propertyId: string,
+      method: string,
+      evidence: string,
+      options?: any,
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string,
+      ) => AxiosPromise<Array<VerifierOutput>>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.testVerify(
+        eoa,
+        propertyType,
+        propertyId,
+        method,
+        evidence,
+        options,
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration,
+      )
+    },
+    /**
+     *
      * @param {string} eoa eoa hex address
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async get(
+    async verify(
       eoa: string,
       options?: any,
     ): Promise<
@@ -211,7 +326,7 @@ export const DefaultApiFp = function (configuration?: Configuration) {
         basePath?: string,
       ) => AxiosPromise<Array<VerifierOutput>>
     > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.get(
+      const localVarAxiosArgs = await localVarAxiosParamCreator.verify(
         eoa,
         options,
       )
@@ -238,13 +353,35 @@ export const DefaultApiFactory = function (
   return {
     /**
      *
+     * @param {string} eoa
+     * @param {string} propertyType
+     * @param {string} propertyId
+     * @param {string} method
+     * @param {string} evidence
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    testVerify(
+      eoa: string,
+      propertyType: string,
+      propertyId: string,
+      method: string,
+      evidence: string,
+      options?: any,
+    ): AxiosPromise<Array<VerifierOutput>> {
+      return localVarFp
+        .testVerify(eoa, propertyType, propertyId, method, evidence, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     *
      * @param {string} eoa eoa hex address
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    get(eoa: string, options?: any): AxiosPromise<Array<VerifierOutput>> {
+    verify(eoa: string, options?: any): AxiosPromise<Array<VerifierOutput>> {
       return localVarFp
-        .get(eoa, options)
+        .verify(eoa, options)
         .then((request) => request(axios, basePath))
     },
   }
@@ -259,14 +396,38 @@ export const DefaultApiFactory = function (
 export class DefaultApi extends BaseAPI {
   /**
    *
+   * @param {string} eoa
+   * @param {string} propertyType
+   * @param {string} propertyId
+   * @param {string} method
+   * @param {string} evidence
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public testVerify(
+    eoa: string,
+    propertyType: string,
+    propertyId: string,
+    method: string,
+    evidence: string,
+    options?: any,
+  ) {
+    return DefaultApiFp(this.configuration)
+      .testVerify(eoa, propertyType, propertyId, method, evidence, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   *
    * @param {string} eoa eoa hex address
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof DefaultApi
    */
-  public get(eoa: string, options?: any) {
+  public verify(eoa: string, options?: any) {
     return DefaultApiFp(this.configuration)
-      .get(eoa, options)
+      .verify(eoa, options)
       .then((request) => request(this.axios, this.basePath))
   }
 }
