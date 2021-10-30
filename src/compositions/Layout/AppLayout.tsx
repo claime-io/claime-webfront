@@ -36,6 +36,9 @@ export const Main = styled.main`
     h1 {
       font-size: 40px;
     }
+    h2 {
+      margin-top: 56px;
+    }
   }
   @media ${breakpoint.l} {
     max-width: 1080px;
