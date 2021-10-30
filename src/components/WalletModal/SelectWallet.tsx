@@ -88,7 +88,8 @@ export const SelectWallet: VFC<{
 const WalletsDiv = styled.div`
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  align-items: center;
+  flex-direction: column;
   margin: -12px;
   > * {
     margin: 12px;
@@ -109,6 +110,11 @@ const Layout = styled.div`
   }
   ${SubHeading} {
     margin-bottom: 40px;
+  }
+  @media ${breakpoint.s} {
+    ${WalletsDiv} {
+      flex-direction: row;
+    }
   }
   @media ${breakpoint.l} {
     padding: 24px 40px;
