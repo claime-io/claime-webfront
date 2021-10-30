@@ -4,10 +4,10 @@ import { useWalletModal } from 'src/components/WalletModal'
 import { Main } from 'src/compositions/Layout'
 import { useWallet } from 'src/hooks/useWallet'
 import { SupportedMethod, SupportedPropertyType } from 'src/models'
-import { _lightgreen } from 'src/styles/colors'
+import { failed, _lightgreen } from 'src/styles/colors'
 import { fontWeightRegular } from 'src/styles/font'
 import { breakpoint, flexCenter } from 'src/styles/mixins'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { useClaim } from '../useClaim'
 
 type ClaimingFormFC = <T extends SupportedPropertyType>(props: {
@@ -59,7 +59,7 @@ export const ClaimingForm: ClaimingFormFC = ({
                 {claimable ? 'Verified' : 'Verify'}
               </CtaButton>
             </VerificationDiv>
-            {errorMessage && <p>{errorMessage}</p>}
+            <ErrorMessage $hidden={!errorMessage}>{errorMessage}</ErrorMessage>
             <CtaButton onClick={registerClaim} disabled={!claimable}>
               Claim
             </CtaButton>
@@ -74,7 +74,15 @@ export const ClaimingForm: ClaimingFormFC = ({
     </ClaimingFormMain>
   )
 }
-
+const ErrorMessage = styled.p<{ $hidden: boolean }>`
+  color: ${failed};
+  height: 1em;
+  ${({ $hidden }) =>
+    $hidden &&
+    css`
+      visibility: hidden;
+    `}
+`
 const CtaButton = styled.button`
   display: block;
   width: fit-content;
@@ -135,6 +143,9 @@ const ClaimingDiv = styled.div`
     font-size: 20px;
     font-weight: ${fontWeightRegular};
     text-align: center;
+  }
+  ${ErrorMessage} {
+    margin-top: 16px;
   }
 `
 
