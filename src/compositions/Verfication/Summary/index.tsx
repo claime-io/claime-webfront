@@ -1,5 +1,6 @@
 import { VFC } from 'react'
-import { fontWeightBold } from 'src/styles/font'
+import { Main } from 'src/compositions/AppLayout'
+import { breakpoint } from 'src/styles/mixins'
 import styled from 'styled-components'
 import { Address } from './Address'
 import { Results, ResultsProps } from './Results'
@@ -7,29 +8,25 @@ import { Results, ResultsProps } from './Results'
 export type SummaryProps = ResultsProps
 
 export const Summary: VFC<SummaryProps> = (props) => (
-  <Main>
+  <SummaryMain>
     <h1>Ownership Verification Result</h1>
     <Address eoa={props.eoa} />
     <Results {...props} />
-  </Main>
+  </SummaryMain>
 )
-
-const Main = styled.main`
-  position: relative;
-  margin: 0 auto;
-  max-width: 1080px;
-
-  h1 {
-    margin-top: 100px;
-    font-size: 56px;
-    font-weight: ${fontWeightBold};
-    text-align: center;
-  }
+const SummaryMain = styled(Main)`
   ${Address} {
-    margin-top: 80px;
+    margin-top: 48px;
   }
   ${Results} {
-    margin-top: 56px;
+    margin-top: 32px;
   }
-  padding-bottom: 120px;
+  @media ${breakpoint.m} {
+    ${Address} {
+      margin-top: 80px;
+    }
+    ${Results} {
+      margin-top: 56px;
+    }
+  }
 `

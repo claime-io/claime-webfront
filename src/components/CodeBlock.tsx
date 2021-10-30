@@ -12,7 +12,7 @@ export const CodeBlock = styled.code`
   font-size: 14px;
   font-family: ${fontFamilyCode};
   font-weight: ${fontWeightRegular};
-  overflow-wrap: anywhere;
+  line-break: anywhere;
   ${breakpoint.m} {
     font-size: 16px;
     padding: 24px;

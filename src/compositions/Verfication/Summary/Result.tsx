@@ -66,13 +66,11 @@ const Heading = styled.div`
   position: relative;
   ${IconDiv} {
     position: absolute;
-    left: calc(50% - 108px);
+    left: calc(50% - 132px);
   }
   p {
-    width: 202px;
+    width: 208px;
     padding: 16px 0;
-    padding-left: 16px;
-    margin-left: 32px;
     border-radius: 24px;
 
     font-size: 16px;
