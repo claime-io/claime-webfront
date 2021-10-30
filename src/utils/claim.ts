@@ -8,12 +8,13 @@ import {
 } from 'src/assets/svgs'
 import { SupportedPropertyType, VerificationResultType } from 'src/models'
 import { failed, unknown, verified } from 'src/styles/colors'
+import { Colors } from 'src/styles/types'
 
 export const CLAIM_KEY = 'claime-ownership-claim'
 
 export const toEvidence = (eoa: string) => `${CLAIM_KEY}=${eoa}`
 
-export const colorByStatus = (result: VerificationResultType) =>
+export const colorByResult = (result: VerificationResultType): Colors =>
   result === 'Verified' ? verified : result === 'Failed' ? failed : unknown
 
 export const IconByStatus = (result: VerificationResultType) => {
@@ -62,9 +63,9 @@ export const evidenceUrlByProperty = (
     case 'Twitter Account':
       return `https://twitter.com/${id}/status/${evidence}`
     case 'Website':
-      return evidence
+      return id
     case 'Domain':
-      return `https://www.nslookup.io/dns-records/${evidence}`
+      return `https://www.nslookup.io/dns-records/${id}`
     default:
       return ''
   }

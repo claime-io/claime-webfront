@@ -77,9 +77,15 @@ const Contents = styled.div<{ styles?: SimpleInterpolation }>`
   > div {
     width: fit-content;
     margin: 0 auto;
-    padding: 40px 32px;
+    padding: 20px 16px;
     border-radius: 24px;
     ${({ styles }) => styles};
+  }
+
+  @media ${breakpoint.s} {
+    > div {
+      padding: 40px 32px;
+    }
   }
 
   @media ${breakpoint.m} {

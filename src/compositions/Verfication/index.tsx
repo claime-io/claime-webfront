@@ -1,5 +1,5 @@
 import { VFC } from 'react'
-import { AppLayout } from 'src/compositions/AppLayout'
+import { AppLayout } from 'src/compositions/Layout'
 import { Details, DetailsProps } from './Details'
 import { Summary, SummaryProps } from './Summary'
 

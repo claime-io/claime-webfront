@@ -11,8 +11,7 @@ export const Footer = styled.footer`
   font-size: 16px;
   font-weight: ${fontWeightLight};
 `
-
-export const DIscordFooter = styled.footer`
+export const DiscordFooter = styled.footer`
   position: relative;
   height: 48px;
   padding: 24px 0;

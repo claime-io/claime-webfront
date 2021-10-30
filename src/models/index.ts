@@ -1,8 +1,11 @@
-export const SUPPORTED_PROPERTY_TYPES = [
-  'Discord User ID',
+export const CLAIMABLE_PROPERTY_TYPES = [
   'Twitter Account',
   'Website',
   'Domain',
+] as const
+export const SUPPORTED_PROPERTY_TYPES = [
+  ...CLAIMABLE_PROPERTY_TYPES,
+  'Discord User ID',
 ] as const
 
 export type SupportedPropertyType = typeof SUPPORTED_PROPERTY_TYPES[number]

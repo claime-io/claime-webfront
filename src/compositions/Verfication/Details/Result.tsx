@@ -4,10 +4,12 @@ import { ExLinkIcon } from 'src/assets/svgs'
 import { CodeBlock } from 'src/components/CodeBlock'
 import { Link } from 'src/elements/Link'
 import { SupportedPropertyType, VerificationResultType } from 'src/models'
-import { _lightgreen } from 'src/styles/colors'
+import { white } from 'src/styles/colors'
 import { fontWeightLight, fontWeightMedium } from 'src/styles/font'
-import { flexCenter } from 'src/styles/mixins'
+import { breakpoint, flexCenter } from 'src/styles/mixins'
+import { Colors } from 'src/styles/types'
 import {
+  colorByResult,
   evidenceUrlByProperty,
   IconByType,
   idByProperty,
@@ -39,7 +41,7 @@ export const Result: VFC<ResultProps> = ({
   actual,
 }) => (
   <ResultDiv>
-    <IconDiv>{IconByType(type)()}</IconDiv>
+    <IconDiv $color={colorByResult(result)}>{IconByType(type)()}</IconDiv>
     <Content>
       <Items>
         <Item label="Property Type">
@@ -100,8 +102,8 @@ const ItemDiv = styled.div`
     white-space: nowrap;
   }
   p {
-    margin-top: 12px;
-    font-size: 24px;
+    margin-top: 8px;
+    font-size: 16px;
     font-weight: ${fontWeightMedium};
   }
   a {
@@ -119,27 +121,72 @@ const ItemDiv = styled.div`
 
 const Items = styled.div`
   display: flex;
+  flex-direction: column;
   ${ItemDiv} {
     flex: 1;
-    margin-right: 32px;
+    margin-top: 24px;
+  }
+  :first-child {
+    ${ItemDiv} {
+      :first-child {
+        margin-top: 0;
+      }
+    }
   }
 `
 const Content = styled.div`
   width: 100%;
-  margin-top: -36px;
-  ${Items} {
-    margin-top: 36px;
-  }
 `
-const IconDiv = styled.div`
-  ${flexCenter};
-  width: 64px;
-  background: ${_lightgreen};
+const IconDiv = styled.div<{ $color: Colors }>`
+  max-width: 64px;
+  min-width: 40px;
+  color: ${white};
+  background: ${({ $color }) => $color};
+  svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+    margin: 32px auto;
+    position: sticky;
+    top: 64px;
+  }
 `
 
 const ResultDiv = styled.div`
   display: flex;
   ${Content} {
-    margin-left: 24px;
+    margin-left: 16px;
+  }
+  @media ${breakpoint.m} {
+    ${IconDiv} {
+      ${flexCenter};
+      svg {
+        position: unset;
+      }
+    }
+    ${Content} {
+      margin-top: -36px;
+      margin-left: 24px;
+      ${Items} {
+        margin-top: 36px;
+        flex-direction: row;
+        ${ItemDiv} {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+  @media ${breakpoint.l} {
+    ${Content} {
+      ${Items} {
+        ${ItemDiv} {
+          margin-right: 32px;
+          p {
+            margin-top: 12px;
+            font-size: 24px;
+          }
+        }
+      }
+    }
   }
 `

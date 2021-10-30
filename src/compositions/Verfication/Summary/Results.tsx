@@ -5,7 +5,7 @@ import { CtaLink } from 'src/components/Cta'
 import { SupportedPropertyType, VerificationResultType } from 'src/models'
 import { _border } from 'src/styles/colors'
 import { fontWeightMedium, fontWeightSemiBold } from 'src/styles/font'
-import { centerLine } from 'src/styles/mixins'
+import { breakpoint, centerLine } from 'src/styles/mixins'
 import { eoaDetails } from 'src/utils/routes'
 import styled from 'styled-components'
 import { Result } from './Result'
@@ -28,7 +28,7 @@ const ResultsComponent: VFC<ResultsProps & { className?: string }> = ({
   className,
 }) => (
   <ResultSection className={className}>
-    <Timestamp>Timestamp: {at.toISOString()}</Timestamp>
+    <Timestamp>{`Timestamp:\n${at.toISOString()}`}</Timestamp>
     {results.length > 0 ? (
       <>
         <Items>
@@ -56,22 +56,22 @@ const NotFound = styled.p`
 
 const Items = styled.div`
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
   width: fit-content;
   width: 100%;
   > * {
-    width: 33.3333%;
-    margin-bottom: 102px;
-    :last-child {
-      margin: 0;
+    :not(:first-child) {
+      margin-top: 64px;
     }
   }
 `
 
 const Timestamp = styled.p`
-  font-size: 20px;
+  font-size: 16px;
   font-weight: ${fontWeightMedium};
+  text-align: center;
+  white-space: pre-wrap;
   ${centerLine(_border)};
 `
 
@@ -82,5 +82,31 @@ const ResultSection = styled.section`
   ${CtaLink} {
     display: block;
     margin: 0 auto;
+  }
+  @media ${breakpoint.s} {
+    ${Items} {
+      flex-direction: row;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      > * {
+        width: 50%;
+        margin-top: unset;
+        margin-bottom: 102px;
+        :last-child {
+          margin: 0;
+        }
+      }
+    }
+  }
+  @media ${breakpoint.m} {
+    ${Timestamp} {
+      font-size: 20px;
+      white-space: nowrap;
+    }
+    ${Items} {
+      > * {
+        width: 33.3333%;
+      }
+    }
   }
 `

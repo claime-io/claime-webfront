@@ -3,7 +3,7 @@ import { useRef, VFC } from 'react'
 import { ReloadIcon } from 'src/assets/svgs'
 import { black, _inputbg } from 'src/styles/colors'
 import { fontWeightRegular } from 'src/styles/font'
-import { flexCenter } from 'src/styles/mixins'
+import { breakpoint, flexCenter } from 'src/styles/mixins'
 import { fireOnKeys } from 'src/utils/listner'
 import styled from 'styled-components'
 
@@ -22,6 +22,7 @@ const AddressComponent: VFC<AddressProps & { className?: string }> = ({
   }
   return (
     <AddressDiv className={className}>
+      <p>{eoa}</p>
       <input
         ref={inputEl}
         defaultValue={eoa}
@@ -47,15 +48,40 @@ const IconButton = styled.button`
 
 const AddressDiv = styled.div`
   ${flexCenter};
-  input {
-    width: 530px;
-    padding: 24px 32px;
-    border: 1px solid;
-    border-radius: 40px;
-    font-size: 20px;
+  p {
+    font-size: 16px;
     font-weight: ${fontWeightRegular};
+    line-break: anywhere;
+    text-align: center;
   }
+  input,
   ${IconButton} {
-    margin-left: 16px;
+    display: none;
+  }
+  @media ${breakpoint.m} {
+    p {
+      display: none;
+    }
+    input {
+      display: unset;
+      width: 440px;
+      border: 1px solid;
+      padding: 12px 16px;
+      border-radius: 20px;
+      font-size: 16px;
+      font-weight: ${fontWeightRegular};
+    }
+    ${IconButton} {
+      display: flex;
+      margin-left: 16px;
+    }
+  }
+  @media ${breakpoint.l} {
+    input {
+      width: 560px;
+      padding: 24px 32px;
+      border-radius: 40px;
+      font-size: 20px;
+    }
   }
 `

@@ -26,7 +26,7 @@ type LinkFC = <T extends LinkBaseProps = LinkBaseProps>(
   props: LinkProps<T>,
 ) => JSX.Element
 
-export const Link: LinkFC = ({
+export const LinkElement: LinkFC = ({
   href,
   newTab,
   children,
@@ -54,6 +54,7 @@ export const Link: LinkFC = ({
     </StyledAnchorLink>
   )
 }
+export const Link = styled(LinkElement)``
 
 type AnchorLinkStyleProps = {
   disabled?: boolean

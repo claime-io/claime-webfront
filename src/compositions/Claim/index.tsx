@@ -1,5 +1,5 @@
 import { VFC } from 'react'
-import { AppLayout } from 'src/compositions/AppLayout'
+import { AppLayout } from 'src/compositions/Layout'
 import { Domain, Twitter, Website } from './ClaimingForm'
 import { PageType } from './common'
 import { ClaimTop } from './Top'

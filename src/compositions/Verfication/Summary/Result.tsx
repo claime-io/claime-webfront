@@ -7,8 +7,9 @@ import {
   fontWeightSemiBold,
 } from 'src/styles/font'
 import { flexCenter } from 'src/styles/mixins'
+import { Colors } from 'src/styles/types'
 import {
-  colorByStatus,
+  colorByResult,
   IconByStatus,
   IconByType,
   idByProperty,
@@ -22,7 +23,7 @@ type ResultProps = {
   result: VerificationResultType
 }
 export const Result: VFC<ResultProps> = ({ type, id, result }) => (
-  <ResultDiv color={colorByStatus(result)}>
+  <ResultDiv $color={colorByResult(result)}>
     <Heading>
       <IconDiv>{IconByType(type)()}</IconDiv>
       <p>{type}</p>
@@ -63,15 +64,14 @@ const Heading = styled.div`
   ${flexCenter};
   color: ${_inputbg};
   position: relative;
+  margin-left: 24px;
   ${IconDiv} {
     position: absolute;
-    left: calc(50% - 108px);
+    left: calc(50% - 132px);
   }
   p {
-    width: 202px;
+    width: 208px;
     padding: 16px 0;
-    padding-left: 16px;
-    margin-left: 32px;
     border-radius: 24px;
 
     font-size: 16px;
@@ -80,15 +80,15 @@ const Heading = styled.div`
     text-align: center;
   }
 `
-const ResultDiv = styled.div<{ color: string }>`
+const ResultDiv = styled.div<{ $color: Colors }>`
   ${Content} {
     margin: 48px auto 0;
   }
-  ${({ color }) => css`
-    color: ${color};
+  ${({ $color }) => css`
+    color: ${$color};
     ${Heading} {
       ${IconDiv}, p {
-        background-color: ${color};
+        background-color: ${$color};
       }
     }
   `}
