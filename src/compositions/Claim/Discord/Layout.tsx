@@ -53,7 +53,10 @@ export const Layout: VFC<LayoutProps> = ({ ...confirmationProps }) => {
         theme: 'discord',
         onClose: () => setStatus('confirmation'),
       },
-      { styles: discordModalStyle, inescapable: true },
+      {
+        inescapable: true,
+        styles: { contentsContainerStyles: discordModalStyle },
+      },
     )
   }
 

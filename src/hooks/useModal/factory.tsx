@@ -1,20 +1,24 @@
 import { VFC } from 'react'
-import { Modal } from 'src/components/Modal'
-import { SimpleInterpolation } from 'styled-components'
+import { Modal, ModalStyleProps } from 'src/components/Modal'
 import { useSWRLocal } from '../useSWRLocal'
 
 export type ModalOption = {
-  styles?: SimpleInterpolation
   inescapable?: boolean
+  styles?: ModalStyleProps
 }
 type ModalProps<T> = T & {
   onClose?: VoidFunction
 }
 type ModalOpener<P> = P extends ModalProps<P>
-  ? (props: ModalProps<P>, option?: ModalOption) => void
+  ? P extends Partial<P>
+    ? (props?: ModalProps<P>, option?: ModalOption) => void
+    : (props: ModalProps<P>, option?: ModalOption) => void
   : (option?: ModalOption) => void
 
-type UseModalInterface = <T>(Component: VFC<ModalContentProps<T>>) => {
+type UseModalInterface = <T>(
+  Component: VFC<ModalContentProps<T>>,
+  option?: ModalOption,
+) => {
   open: ModalOpener<T>
   close: VoidFunction
 }
@@ -34,10 +38,10 @@ export const createModal = (
     inescapable?: boolean
   } = {},
 ) => {
-  const useModal: UseModalInterface = (Component) => {
+  const useModal: UseModalInterface = (Component, componentOption) => {
     const { mutate } = useSWRLocal<ModalState | null>(`modal-${key}`)
     const open = (props: any, option?: ModalOption) =>
-      mutate({ Component, props, option })
+      mutate({ Component, props, option: { ...componentOption, ...option } })
     const close = () => mutate(null)
     return { open, close }
   }
@@ -46,7 +50,7 @@ export const createModal = (
     const { data, mutate } = useSWRLocal<ModalState | null>(`modal-${key}`)
     const close = () => {
       mutate(null)
-      data?.props.onClose && data?.props.onClose()
+      data?.props?.onClose && data.props.onClose()
     }
     const option = data?.option || {}
     const inescapable = config.inescapable || option.inescapable

@@ -3,39 +3,35 @@ import { bgGradientSrc } from 'src/assets/images'
 import { CloseIcon } from 'src/assets/svgs'
 import { white } from 'src/styles/colors'
 import { breakpoint, flexCenter } from 'src/styles/mixins'
-import styled, { SimpleInterpolation } from 'styled-components'
+import styled, { css, SimpleInterpolation } from 'styled-components'
 
 export type ModalProps = {
   isOpen: boolean
   closeModal?: () => void
-  styles?: SimpleInterpolation
+  styles?: ModalStyleProps
 }
 
 export const Modal: VFC<ModalProps & { children: ReactNode }> = ({
   isOpen,
-  styles,
   closeModal,
+  styles,
   children,
 }) => {
   return (
-    <>
-      {isOpen && (
-        <Container>
-          <OverlayGradient />
-          <Overlay />
-          <div onClick={(e) => e.stopPropagation()}>
-            <Contents styles={styles}>
-              <div>{children}</div>
-            </Contents>
-          </div>
-          {closeModal && (
-            <CloseButton onClick={closeModal}>
-              <CloseIcon />
-            </CloseButton>
-          )}
-        </Container>
+    <Container isOpen={isOpen} {...styles}>
+      <OverlayGradient />
+      <Overlay />
+      <div onClick={(e) => e.stopPropagation()}>
+        <ContentsContainer>
+          <div>{children}</div>
+        </ContentsContainer>
+      </div>
+      {closeModal && (
+        <CloseButton onClick={closeModal}>
+          <CloseIcon />
+        </CloseButton>
       )}
-    </>
+    </Container>
   )
 }
 const CloseButton = styled.button`
@@ -57,17 +53,7 @@ const Overlay = styled.div`
   overflow: hidden;
   background-color: #000000bf;
 `
-const Container = styled.div`
-  ${flexCenter};
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-  z-index: 1000;
-
-  color: ${white};
-`
-
-const Contents = styled.div<{ styles?: SimpleInterpolation }>`
+const ContentsContainer = styled.div`
   max-width: 640px;
   max-height: 85vh;
   width: 95vw;
@@ -79,7 +65,6 @@ const Contents = styled.div<{ styles?: SimpleInterpolation }>`
     margin: 0 auto;
     padding: 20px 16px;
     border-radius: 24px;
-    ${({ styles }) => styles};
   }
 
   @media ${breakpoint.s} {
@@ -98,4 +83,43 @@ const Contents = styled.div<{ styles?: SimpleInterpolation }>`
   @media ${breakpoint.l} {
     width: 100%;
   }
+`
+
+export type ModalStyleProps = {
+  contentsContainerStyles?: SimpleInterpolation
+  overlayStyles?: SimpleInterpolation
+  overlayGradientStyles?: SimpleInterpolation
+}
+const modalCloseStyle = css`
+  visibility: hidden;
+  opacity: 0;
+`
+const Container = styled.div<ModalStyleProps & { isOpen: boolean }>`
+  ${flexCenter};
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 1000;
+  transition: all 0.25s ease-in-out;
+  color: ${white};
+
+  ${({
+    isOpen,
+    contentsContainerStyles,
+    overlayStyles,
+    overlayGradientStyles,
+  }) => css`
+    ${!isOpen && modalCloseStyle};
+    ${OverlayGradient} {
+      ${overlayGradientStyles};
+    }
+    ${Overlay} {
+      ${overlayStyles};
+    }
+    ${ContentsContainer} {
+      > div {
+        ${contentsContainerStyles};
+      }
+    }
+  `}
 `
