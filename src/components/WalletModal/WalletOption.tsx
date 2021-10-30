@@ -2,7 +2,7 @@ import React, { VFC } from 'react'
 import { WalletType } from 'src/hooks/useWallet'
 import { white } from 'src/styles/colors'
 import { fontWeightRegular } from 'src/styles/font'
-import { absoluteFill, breakpoint, flexCenter } from 'src/styles/mixins'
+import { absoluteFill, flexCenter } from 'src/styles/mixins'
 import styled from 'styled-components'
 
 type Props = {
@@ -49,15 +49,16 @@ const WalletLabel = styled.span`
 const WalletOptionButton = styled.button`
   position: relative;
   ${flexCenter};
+  flex-direction: column;
   width: 200px;
   height: 200px;
   border-radius: 50%;
   color: ${white};
   > svg {
     display: inline-block;
-    height: 2em;
-    width: 2em;
-    margin-right: 16px;
+    height: 56px;
+    width: auto;
+    margin-bottom: 16px;
   }
 
   ::before {
@@ -77,14 +78,5 @@ const WalletOptionButton = styled.button`
   }
   > * {
     position: relative;
-  }
-  @media ${breakpoint.m} {
-    flex-direction: column;
-    > svg {
-      height: 56px;
-      width: auto;
-      margin-right: 0;
-      margin-bottom: 16px;
-    }
   }
 `

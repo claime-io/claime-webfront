@@ -64,6 +64,7 @@ const Heading = styled.div`
   ${flexCenter};
   color: ${_inputbg};
   position: relative;
+  margin-left: 24px;
   ${IconDiv} {
     position: absolute;
     left: calc(50% - 132px);

@@ -95,7 +95,8 @@ const WalletsDiv = styled.div`
   }
 `
 const Content = styled.div`
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
 `
 const Layout = styled.div`
   color: ${white};

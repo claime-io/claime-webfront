@@ -1,10 +1,12 @@
 import { VFC } from 'react'
 import { CtaLink, ctaStyle } from 'src/components/Cta'
+import { useWalletModal } from 'src/components/WalletModal'
+import { Main } from 'src/compositions/Layout'
 import { useWallet } from 'src/hooks/useWallet'
 import { SupportedMethod, SupportedPropertyType } from 'src/models'
 import { _lightgreen } from 'src/styles/colors'
-import { fontWeightBold, fontWeightRegular } from 'src/styles/font'
-import { flexCenter } from 'src/styles/mixins'
+import { fontWeightRegular } from 'src/styles/font'
+import { breakpoint, flexCenter } from 'src/styles/mixins'
 import styled from 'styled-components'
 import { useClaim } from '../useClaim'
 
@@ -23,6 +25,7 @@ export const ClaimingForm: ClaimingFormFC = ({
   EvidenceFC,
 }) => {
   const { account } = useWallet()
+  const { open } = useWalletModal()
   const {
     input,
     claimable,
@@ -32,8 +35,10 @@ export const ClaimingForm: ClaimingFormFC = ({
     registerClaim,
   } = useClaim(propertyType, method, toClaimInput)
   return (
-    <Main>
-      <h1>Claim {propertyType} Ownership</h1>
+    <ClaimingFormMain>
+      <h1>
+        Claim <span>{propertyType}</span> Ownership
+      </h1>
       <ClaimingDiv>
         {account ? (
           <>
@@ -60,10 +65,13 @@ export const ClaimingForm: ClaimingFormFC = ({
             </CtaButton>
           </>
         ) : (
-          'You need to connect your wallet to claim.'
+          <>
+            <p>You need to connect your wallet to claim.</p>
+            <CtaButton onClick={() => open({})}>Connect Wallet</CtaButton>
+          </>
         )}
       </ClaimingDiv>
-    </Main>
+    </ClaimingFormMain>
   )
 }
 
@@ -81,21 +89,25 @@ const CtaButton = styled.button`
 `
 const Input = styled.input`
   display: block;
-  width: 530px;
-  padding: 24px 32px;
+  width: 80%;
+  max-width: 530px;
+  padding: 12px 16px;
+  border-radius: 20px;
   border: 1px solid;
-  border-radius: 40px;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: ${fontWeightRegular};
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
 
 const VerificationDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
+  flex-direction: column;
   ${CtaButton} {
-    margin-left: 24px;
+    display: inline-block;
+    margin-top: 16px;
   }
 `
 const EvidenceDiv = styled.div`
@@ -111,7 +123,7 @@ const EvidenceDiv = styled.div`
 `
 
 const ClaimingDiv = styled.div`
-  margin-top: 120px;
+  margin-top: 64px;
   ${VerificationDiv} {
     margin-top: 48px;
   }
@@ -126,16 +138,12 @@ const ClaimingDiv = styled.div`
   }
 `
 
-const Main = styled.main`
-  position: relative;
-  margin: 0 auto;
-  max-width: 1080px;
-
+const ClaimingFormMain = styled(Main)`
   h1 {
-    margin-top: 100px;
-    font-size: 56px;
-    font-weight: ${fontWeightBold};
-    text-align: center;
+    white-space: pre-wrap;
+    span {
+      white-space: nowrap;
+    }
   }
   > p {
     margin-top: 32px;
@@ -143,5 +151,26 @@ const Main = styled.main`
     font-weight: ${fontWeightRegular};
     text-align: center;
   }
-  padding-bottom: 120px;
+  @media ${breakpoint.s} {
+    h1 {
+      white-space: unset;
+    }
+  }
+  @media ${breakpoint.m} {
+    ${ClaimingDiv} {
+      margin-top: 120px;
+      ${VerificationDiv} {
+        flex-direction: row;
+        ${Input} {
+          padding: 24px 32px;
+          border-radius: 40px;
+          font-size: 20px;
+        }
+        ${CtaButton} {
+          margin-top: 0px;
+          margin-left: 24px;
+        }
+      }
+    }
+  }
 `

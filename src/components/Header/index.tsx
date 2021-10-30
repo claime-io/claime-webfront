@@ -56,6 +56,7 @@ const Navigation = styled.nav`
 const StyledHeader = styled.header`
   padding-top: 20px;
   position: relative;
+  z-index: 1;
   ${ContentGuide} {
     display: flex;
     justify-content: space-between;

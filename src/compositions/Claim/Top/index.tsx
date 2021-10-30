@@ -15,14 +15,16 @@ export const ClaimTop: VFC = () => {
   const [selectedType, setSelectedType] = useState<SupportedPropertyType>()
   return (
     <ClaimTopMain>
+      <OuterDiv onClick={() => setSelectedType(undefined)} />
       <h1>Select your digital assets</h1>
       <h2>Select the type of property you want to claim ownership for</h2>
       <ScrollableDivWrapper>
         <Properties>
-          {CLAIMABLE_PROPERTY_TYPES.map((type, idx) => (
+          {CLAIMABLE_PROPERTY_TYPES.map((type) => (
             <Property
               key={type}
               type={type}
+              active={type === selectedType}
               onClick={(e) => {
                 setSelectedType(type)
                 e.currentTarget.scrollIntoView({
@@ -49,15 +51,20 @@ export const ClaimTop: VFC = () => {
 
 const Property: VFC<{
   type: SupportedPropertyType
+  active: boolean
   onClick: MouseEventHandler<HTMLButtonElement>
-}> = ({ type, onClick }) => (
-  <PropertyButton onClick={onClick}>
+}> = ({ type, active, onClick }) => (
+  <PropertyButton onClick={onClick} $active={active}>
     {IconByType(type)()}
     <p>{type}</p>
   </PropertyButton>
 )
+const OuterDiv = styled.div`
+  position: fixed !important;
+  inset: 0;
+`
 
-const PropertyButton = styled.button`
+const PropertyButton = styled.button<{ $active: boolean }>`
   ${flexCenter};
   flex-direction: column;
   flex-shrink: 0;
@@ -117,6 +124,10 @@ const Properties = styled.div`
 `
 
 const ClaimTopMain = styled(Main)`
+  a,
+  button {
+    position: relative;
+  }
   ${Properties} {
     margin: 80px auto;
     width: min-content;
