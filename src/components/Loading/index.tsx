@@ -1,5 +1,6 @@
 import { VFC } from 'react'
 import { CircleStroke } from 'src/assets/svgs'
+import { useLoadingModal } from 'src/hooks/useModal'
 import { white } from 'src/styles/colors'
 import { absoluteFill } from 'src/styles/mixins'
 import styled, { css, keyframes } from 'styled-components'
@@ -14,6 +15,15 @@ export const CirclesLoading = styled(({ className }) => (
     <Circle strokeWidth={1} size={240} opacity={0.5} />
   </Circles>
 ))``
+
+export const useCirclesLoadingModal = () =>
+  useLoadingModal(CirclesLoading, {
+    styles: {
+      overlayGradientStyles: css`
+        opacity: 0.25;
+      `,
+    },
+  })
 
 const keyframes1 = keyframes`
   0%{

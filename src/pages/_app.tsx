@@ -5,6 +5,7 @@ import { VFC } from 'react'
 import { Favicons } from 'src/components/Favicons'
 import { DEVELOPERS_EOA } from 'src/constants/about'
 import { getLibrary } from 'src/external/wallets'
+import { useTransitionLoading } from 'src/hooks/useLoading'
 import { ModalPortal } from 'src/hooks/useModal'
 import 'src/styles/fonts.css'
 import { GlobalStyles } from 'src/styles/global-styles'
@@ -16,6 +17,7 @@ import { extractPathname, SERVICE_URL } from 'src/utils/routes'
 const MyApp: VFC<AppProps> = ({ Component, pageProps, router }) => {
   const { asPath } = router
   const pageUrl = `${SERVICE_URL}${extractPathname(asPath)}`
+  useTransitionLoading()
   return (
     <>
       <Head>
