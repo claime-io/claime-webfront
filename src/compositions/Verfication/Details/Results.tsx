@@ -1,5 +1,6 @@
 import { VFC } from 'react'
 import { fontWeightSemiBold } from 'src/styles/font'
+import { breakpoint } from 'src/styles/mixins'
 import styled from 'styled-components'
 import { Result, ResultProps } from './Result'
 
@@ -26,13 +27,21 @@ const ResultsComponent: VFC<ResultsProps & { className?: string }> = ({
 export const Results = styled(ResultsComponent)``
 
 const NotFound = styled.p`
-  font-size: 32px;
+  font-size: 24px;
   font-weight: ${fontWeightSemiBold};
   text-align: center;
 `
 
 const ResultSection = styled.section`
   > * {
-    margin-top: 80px;
+    margin-top: 40px;
+  }
+  @media ${breakpoint.l} {
+    ${NotFound} {
+      font-size: 32px;
+    }
+    > * {
+      margin-top: 80px;
+    }
   }
 `

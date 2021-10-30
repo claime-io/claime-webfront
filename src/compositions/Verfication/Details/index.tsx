@@ -4,6 +4,7 @@ import { ArrowRightIcon } from 'src/assets/svgs'
 import { ctaStyle } from 'src/components/Cta'
 import { _lightgreen } from 'src/styles/colors'
 import { fontWeightBold, fontWeightRegular } from 'src/styles/font'
+import { breakpoint } from 'src/styles/mixins'
 import styled from 'styled-components'
 import { Results, ResultsProps } from './Results'
 
@@ -36,26 +37,41 @@ const CtaButton = styled.button`
 `
 const Main = styled.main`
   position: relative;
-  margin: 0 auto;
-  max-width: 1080px;
-
+  margin: 0 5vw;
   h1 {
-    margin-top: 100px;
-    font-size: 56px;
+    margin-top: 64px;
+    font-size: 28px;
     font-weight: ${fontWeightBold};
     text-align: center;
   }
   h2 {
-    margin-top: 80px;
-    font-size: 20px;
+    margin-top: 16px;
+    font-size: 16px;
     font-weight: ${fontWeightRegular};
     text-align: center;
+    overflow-wrap: break-word;
   }
   ${Results} {
     margin-top: 56px;
   }
   ${CtaButton} {
-    margin: 120px auto 0;
+    margin: 48px auto 0;
   }
-  padding-bottom: 120px;
+  padding-bottom: 40px;
+
+  @media ${breakpoint.l} {
+    max-width: 1080px;
+    margin: 0 auto;
+    h1 {
+      margin-top: 100px;
+      font-size: 56px;
+    }
+    h2 {
+      margin-top: 80px;
+      font-size: 20px;
+    }
+    ${CtaButton} {
+      margin: 120px auto 0;
+    }
+  }
 `
