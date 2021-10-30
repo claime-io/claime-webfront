@@ -7,6 +7,7 @@ import {
   fontWeightSemiBold,
 } from 'src/styles/font'
 import { flexCenter } from 'src/styles/mixins'
+import { Colors } from 'src/styles/types'
 import {
   colorByResult,
   IconByStatus,
@@ -22,7 +23,7 @@ type ResultProps = {
   result: VerificationResultType
 }
 export const Result: VFC<ResultProps> = ({ type, id, result }) => (
-  <ResultDiv color={colorByResult(result)}>
+  <ResultDiv $color={colorByResult(result)}>
     <Heading>
       <IconDiv>{IconByType(type)()}</IconDiv>
       <p>{type}</p>
@@ -80,15 +81,15 @@ const Heading = styled.div`
     text-align: center;
   }
 `
-const ResultDiv = styled.div<{ color: string }>`
+const ResultDiv = styled.div<{ $color: Colors }>`
   ${Content} {
     margin: 48px auto 0;
   }
-  ${({ color }) => css`
-    color: ${color};
+  ${({ $color }) => css`
+    color: ${$color};
     ${Heading} {
       ${IconDiv}, p {
-        background-color: ${color};
+        background-color: ${$color};
       }
     }
   `}

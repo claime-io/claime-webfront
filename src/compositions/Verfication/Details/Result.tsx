@@ -7,6 +7,7 @@ import { SupportedPropertyType, VerificationResultType } from 'src/models'
 import { white } from 'src/styles/colors'
 import { fontWeightLight, fontWeightMedium } from 'src/styles/font'
 import { breakpoint, flexCenter } from 'src/styles/mixins'
+import { Colors } from 'src/styles/types'
 import {
   colorByResult,
   evidenceUrlByProperty,
@@ -40,7 +41,7 @@ export const Result: VFC<ResultProps> = ({
   actual,
 }) => (
   <ResultDiv>
-    <IconDiv $result={result}>{IconByType(type)()}</IconDiv>
+    <IconDiv $color={colorByResult(result)}>{IconByType(type)()}</IconDiv>
     <Content>
       <Items>
         <Item label="Property Type">
@@ -136,11 +137,11 @@ const Items = styled.div`
 const Content = styled.div`
   width: 100%;
 `
-const IconDiv = styled.div<{ $result: VerificationResultType }>`
+const IconDiv = styled.div<{ $color: Colors }>`
   max-width: 64px;
   min-width: 40px;
   color: ${white};
-  background: ${({ $result }) => colorByResult($result)};
+  background: ${({ $color }) => $color};
   svg {
     width: 24px;
     height: 24px;
