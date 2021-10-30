@@ -4,7 +4,7 @@ import { white } from 'src/styles/colors'
 import { absoluteFill } from 'src/styles/mixins'
 import styled, { css, keyframes } from 'styled-components'
 
-export const CiclesLoading = styled(({ className }) => (
+export const CirclesLoading = styled(({ className }) => (
   <Circles className={className}>
     <Circle strokeWidth={12} size={122} />
     <Circle strokeWidth={6} size={176} />

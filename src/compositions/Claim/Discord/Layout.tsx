@@ -1,7 +1,7 @@
 import { useEffect, useState, VFC } from 'react'
 import { DiscordFooter } from 'src/components/Footer'
 import { Header } from 'src/components/Header/Discord'
-import { CiclesLoading } from 'src/components/Loading'
+import { CirclesLoading } from 'src/components/Loading'
 import {
   FullScreenContainer,
   initializeDiscordParticles,
@@ -103,7 +103,7 @@ export const Layout: VFC<LayoutProps> = ({ ...confirmationProps }) => {
             <>
               <Heading>Verifying now...</Heading>
               <Text>It may take a few minutes to verify.</Text>
-              <CiclesLoading />
+              <CirclesLoading />
             </>
           )}
           {status === 'succeeded' && (
@@ -141,7 +141,7 @@ const Content = styled.div`
   ${Heading} + * {
     margin-top: 24px;
   }
-  ${CiclesLoading} {
+  ${CirclesLoading} {
     margin-top: 64px;
   }
   ${InformationDiv} {
