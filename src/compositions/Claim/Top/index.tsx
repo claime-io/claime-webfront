@@ -8,7 +8,7 @@ import { fontWeightSemiBold } from 'src/styles/font'
 import { flexCenter } from 'src/styles/mixins'
 import { IconByType } from 'src/utils/claim'
 import { claimProperty } from 'src/utils/routes'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { PAGE_TYPE_DICT } from '../common'
 
 export const ClaimTop: VFC = () => {
@@ -63,7 +63,21 @@ const OuterDiv = styled.div`
   position: fixed !important;
   inset: 0;
 `
-
+const activeStyle = css`
+  color: ${black};
+  background-color: ${_lightgreen};
+  width: 200px;
+  height: 200px;
+  svg {
+    width: 64px;
+    height: 64px;
+  }
+  p {
+    height: unset;
+    margin-top: 16px;
+    clip-path: inset(0);
+  }
+`
 const PropertyButton = styled.button<{ $active: boolean }>`
   ${flexCenter};
   flex-direction: column;
@@ -87,22 +101,10 @@ const PropertyButton = styled.button<{ $active: boolean }>`
     white-space: nowrap;
     clip-path: inset(0 50%);
   }
-  :hover,
-  :focus {
-    color: ${black};
-    background-color: ${_lightgreen};
-    width: 200px;
-    height: 200px;
-    svg {
-      width: 64px;
-      height: 64px;
-    }
-    p {
-      height: unset;
-      margin-top: 16px;
-      clip-path: inset(0);
-    }
+  :hover {
+    ${activeStyle};
   }
+  ${({ $active }) => $active && activeStyle};
 `
 const Properties = styled.div`
   display: flex;
