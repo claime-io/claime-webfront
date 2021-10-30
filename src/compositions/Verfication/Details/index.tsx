@@ -15,7 +15,7 @@ export type DetailsProps = {
 
 export const Details: VFC<DetailsProps> = ({ eoa, results }) => (
   <DetailsMain>
-    <h1>Details of Ownership Verification Result</h1>
+    <h1>Details of Ownership Verification Results</h1>
     <h2>{eoa}</h2>
     <Results results={results} />
     <CtaButton onClick={Router.back}>

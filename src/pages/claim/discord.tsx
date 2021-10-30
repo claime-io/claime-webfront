@@ -6,7 +6,7 @@ import { Page } from 'src/types'
 const DiscordClaimPage: Page<{}, DiscordVerificationParams> = ({ query }) => {
   return (
     <>
-      <SEO noindex />
+      <SEO pageTitle="NFT ownership verification for Discord" noindex />
       <Discord params={query as DiscordVerificationParams} />
     </>
   )

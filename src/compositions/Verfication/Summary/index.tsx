@@ -9,7 +9,7 @@ export type SummaryProps = ResultsProps
 
 export const Summary: VFC<SummaryProps> = (props) => (
   <SummaryMain>
-    <h1>Ownership Verification Result</h1>
+    <h1>Ownership Verification Results</h1>
     <Address eoa={props.eoa} />
     <Results {...props} />
   </SummaryMain>

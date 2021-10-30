@@ -90,7 +90,7 @@ const EOAVerificationResultPage: Page<
   }, [type])
   return (
     <>
-      <SEO noindex />
+      <SEO pageTitle={`Verification results of ${eoa}`} noindex />
       <VerificationResult
         eoa={eoa}
         results={results}
