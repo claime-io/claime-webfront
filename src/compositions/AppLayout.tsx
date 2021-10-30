@@ -30,7 +30,6 @@ export const Main = styled.main`
     font-size: 16px;
     font-weight: ${fontWeightRegular};
     text-align: center;
-    line-break: anywhere;
   }
   @media ${breakpoint.m} {
     h1 {

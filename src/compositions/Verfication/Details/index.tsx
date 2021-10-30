@@ -36,6 +36,9 @@ const CtaButton = styled.button`
   }
 `
 const DetailsMain = styled(Main)`
+  h2 {
+    line-break: anywhere;
+  }
   ${Results} {
     margin-top: 56px;
   }
