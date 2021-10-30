@@ -8,19 +8,21 @@ type WithLoadingFn = <P, R>(
 
 export const useLoading = () => {
   const { open, close } = useCirclesLoadingModal()
+  const openInescapable = () => open({}, { inescapable: true })
   const withLoadingAsync: WithLoadingFn = (fn) => (p) => {
-    open()
+    openInescapable()
     return fn(p).finally(close)
   }
   return {
     withLoadingAsync,
-    open,
+    open: openInescapable,
     close,
   }
 }
 
 export const useTransitionLoading = () => {
   const { open, close } = useCirclesLoadingModal()
+  const openInescapable = () => open({}, { inescapable: true })
   const router = useRouter()
   const endLoad = () => {
     window.scrollTo({ top: 0, behavior: 'auto' })
@@ -28,11 +30,11 @@ export const useTransitionLoading = () => {
   }
   useEffect(() => {
     close()
-    router.events.on('routeChangeStart', open)
+    router.events.on('routeChangeStart', openInescapable)
     router.events.on('routeChangeComplete', endLoad)
     router.events.on('routeChangeError', endLoad)
     return () => {
-      router.events.off('routeChangeStart', open)
+      router.events.off('routeChangeStart', openInescapable)
       router.events.off('routeChangeComplete', endLoad)
       router.events.off('routeChangeError', endLoad)
     }

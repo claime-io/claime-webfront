@@ -2,6 +2,7 @@ import { VFC } from 'react'
 import { CtaLink, ctaStyle } from 'src/components/Cta'
 import { useWalletModal } from 'src/components/WalletModal'
 import { Main } from 'src/compositions/Layout'
+import { useLoading } from 'src/hooks/useLoading'
 import { useWallet } from 'src/hooks/useWallet'
 import { SupportedMethod, SupportedPropertyType } from 'src/models'
 import { failed, _lightgreen } from 'src/styles/colors'
@@ -26,6 +27,7 @@ export const ClaimingForm: ClaimingFormFC = ({
 }) => {
   const { account } = useWallet()
   const { open } = useWalletModal()
+  const { withLoadingAsync } = useLoading()
   const {
     input,
     claimable,
@@ -53,14 +55,17 @@ export const ClaimingForm: ClaimingFormFC = ({
                 disabled={claimable}
               />
               <CtaButton
-                onClick={() => verify(account)}
+                onClick={withLoadingAsync(() => verify(account))}
                 disabled={!input || claimable}
               >
                 {claimable ? 'Verified' : 'Verify'}
               </CtaButton>
             </VerificationDiv>
             <ErrorMessage $hidden={!errorMessage}>{errorMessage}</ErrorMessage>
-            <CtaButton onClick={registerClaim} disabled={!claimable}>
+            <CtaButton
+              onClick={withLoadingAsync(registerClaim)}
+              disabled={!claimable}
+            >
               Claim
             </CtaButton>
           </>

@@ -1,3 +1,4 @@
+import { ContractTransaction } from '@ethersproject/contracts'
 import { ChangeEvent, useState } from 'react'
 import { verifierApiClient } from 'src/api/verifierApiClient'
 import { useContract } from 'src/hooks/useContract'
@@ -52,8 +53,8 @@ export const useClaim = <T extends SupportedPropertyType>(
     setVerifiedClaim(claim)
   }
 
-  const registerClaim = () => {
-    if (!verifiedClaim) return
+  const registerClaim = (): Promise<void | ContractTransaction> => {
+    if (!verifiedClaim) return Promise.resolve()
     return register({
       propertyType,
       method,
