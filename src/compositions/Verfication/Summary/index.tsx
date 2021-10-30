@@ -1,5 +1,5 @@
 import { VFC } from 'react'
-import { Main } from 'src/compositions/AppLayout'
+import { Main } from 'src/compositions/Layout'
 import { breakpoint } from 'src/styles/mixins'
 import styled from 'styled-components'
 import { Address } from './Address'

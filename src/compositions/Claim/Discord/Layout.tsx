@@ -1,4 +1,5 @@
 import { useEffect, useState, VFC } from 'react'
+import { DiscordFooter } from 'src/components/Footer'
 import { Header } from 'src/components/Header/Discord'
 import { CiclesLoading } from 'src/components/Loading'
 import {
@@ -8,7 +9,6 @@ import {
 } from 'src/components/Particles'
 import { falling, rising, slow } from 'src/components/Particles/discord'
 import { useWalletModal } from 'src/components/WalletModal'
-import { DIscordFooter } from 'src/compositions/Top/styles'
 import { discord, white } from 'src/styles/colors'
 import { breakpoint, flexCenter } from 'src/styles/mixins'
 import styled, { css } from 'styled-components'
@@ -121,7 +121,7 @@ export const Layout: VFC<LayoutProps> = ({ ...confirmationProps }) => {
           )}
         </Content>
       </Main>
-      <DIscordFooter>©︎2021 CLAIME</DIscordFooter>
+      <DiscordFooter>©︎2021 CLAIME</DiscordFooter>
     </>
   )
 }

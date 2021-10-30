@@ -1,10 +1,11 @@
 import { ReactNode, VFC } from 'react'
 import { Background } from 'src/components/Background'
+import { Footer } from 'src/components/Footer'
 import { Header } from 'src/components/Header'
 import { fontWeightBold, fontWeightRegular } from 'src/styles/font'
 import { breakpoint } from 'src/styles/mixins'
 import styled from 'styled-components'
-import { Footer } from './Top/styles'
+import { PAGE_GUIDE_MARGIN } from './styles'
 
 export const AppLayout: VFC<{ children: ReactNode }> = ({ children }) => (
   <>
@@ -17,7 +18,7 @@ export const AppLayout: VFC<{ children: ReactNode }> = ({ children }) => (
 
 export const Main = styled.main`
   position: relative;
-  margin: 0 3vw;
+  margin: 0 ${PAGE_GUIDE_MARGIN};
   padding-bottom: 40px;
   h1 {
     margin-top: 64px;
