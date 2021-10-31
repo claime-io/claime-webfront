@@ -1,4 +1,4 @@
-import { ContractTransaction } from '@ethersproject/contracts'
+import { ContractReceipt } from '@ethersproject/contracts'
 import { ChangeEvent, useState } from 'react'
 import { verifierApiClient } from 'src/api/verifierApiClient'
 import { useContract } from 'src/hooks/useContract'
@@ -51,13 +51,14 @@ export const useClaim = <T extends SupportedPropertyType>(
     setVerifiedClaim(claim)
   }
 
-  const registerClaim = (): Promise<void | ContractTransaction> => {
+  const registerClaim = async (): Promise<void | ContractReceipt> => {
     if (!verifiedClaim) return Promise.resolve()
-    return register({
+    const tx = await register({
       propertyType,
       method,
       ...verifiedClaim,
     })
+    return tx.wait(1)
   }
 
   return {
