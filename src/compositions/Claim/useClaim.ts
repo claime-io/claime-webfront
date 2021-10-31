@@ -34,8 +34,7 @@ export const useClaim = <T extends SupportedPropertyType>(
   const verify = async (eoa: string) => {
     const { claim, errorMessage } = toClaimInput(input)
     if (!claim || errorMessage) {
-      setErrorMessage(errorMessage || 'Invalid input.')
-      return
+      return Promise.reject(errorMessage || 'Invalid input.')
     }
     const res = await verifierApiClient.testVerify(
       eoa,
@@ -46,8 +45,7 @@ export const useClaim = <T extends SupportedPropertyType>(
     )
     const result = res.data[0]
     if (result.result !== 'Verified') {
-      setErrorMessage(result.error || result.result)
-      return
+      return Promise.reject(result.error || result.result)
     }
     setErrorMessage('')
     setVerifiedClaim(claim)

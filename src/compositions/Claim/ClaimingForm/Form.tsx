@@ -1,4 +1,4 @@
-import { VFC } from 'react'
+import { useState, VFC } from 'react'
 import { CtaLink, ctaStyle } from 'src/components/Cta'
 import { useWalletModal } from 'src/components/WalletModal'
 import { Main } from 'src/compositions/Layout'
@@ -28,14 +28,13 @@ export const ClaimingForm: ClaimingFormFC = ({
   const { account } = useWallet()
   const { open } = useWalletModal()
   const { withLoadingAsync } = useLoading()
-  const {
-    input,
-    claimable,
-    errorMessage,
-    onChangeInput,
-    verify,
-    registerClaim,
-  } = useClaim(propertyType, method, toClaimInput)
+  const [errorMessageVerify, setErrorMessageVerify] = useState('')
+  const [errorMessageClaim, setErrorMessageClaim] = useState('')
+  const { input, claimable, onChangeInput, verify, registerClaim } = useClaim(
+    propertyType,
+    method,
+    toClaimInput,
+  )
   return (
     <ClaimingFormMain>
       <h1>
@@ -55,19 +54,32 @@ export const ClaimingForm: ClaimingFormFC = ({
                 disabled={claimable}
               />
               <CtaButton
-                onClick={withLoadingAsync(() => verify(account))}
+                onClick={withLoadingAsync(() =>
+                  verify(account)
+                    .then(() => setErrorMessageVerify(''))
+                    .catch(setErrorMessageVerify),
+                )}
                 disabled={!input || claimable}
               >
                 {claimable ? 'Verified' : 'Verify'}
               </CtaButton>
             </VerificationDiv>
-            <ErrorMessage $hidden={!errorMessage}>{errorMessage}</ErrorMessage>
+            <ErrorMessage $hidden={!errorMessageVerify}>
+              {errorMessageVerify}
+            </ErrorMessage>
             <CtaButton
-              onClick={withLoadingAsync(registerClaim)}
+              onClick={withLoadingAsync(() =>
+                registerClaim()
+                  .then(() => setErrorMessageClaim(''))
+                  .catch((err) => setErrorMessageClaim(err.message)),
+              )}
               disabled={!claimable}
             >
               Claim
             </CtaButton>
+            <ErrorMessage $hidden={!errorMessageClaim}>
+              {errorMessageClaim}
+            </ErrorMessage>
           </>
         ) : (
           <>
