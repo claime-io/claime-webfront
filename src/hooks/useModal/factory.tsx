@@ -1,6 +1,5 @@
 import { VFC } from 'react'
 import { Modal, ModalStyleProps } from 'src/components/Modal'
-import { useSWRLocal } from '../useSWRLocal'
 
 export type ModalOption = {
   inescapable?: boolean
@@ -15,13 +14,14 @@ type ModalOpener<P> = P extends ModalProps<P>
     : (props: ModalProps<P>, option?: ModalOption) => void
   : (option?: ModalOption) => void
 
-type UseModalInterface = <T>(
+type UseModalFn = <T>(
   Component: VFC<ModalContentProps<T>>,
   option?: ModalOption,
 ) => {
   open: ModalOpener<T>
   close: VoidFunction
 }
+
 export type ModalContentProps<T> = T & {
   closeModal: VoidFunction
 }
@@ -32,39 +32,47 @@ export type ModalState<T = any> = {
   option?: ModalOption
 }
 
+type ModalStateHandler = <T = any>() => {
+  state: ModalState | null | undefined
+  mutate: (state: ModalState<T> | null | undefined) => void
+}
+
 export const createModal = (
-  key: string,
+  useModalState: ModalStateHandler,
   config: {
     inescapable?: boolean
   } = {},
 ) => {
-  const useModal: UseModalInterface = (Component, componentOption) => {
-    const { mutate } = useSWRLocal<ModalState | null>(`modal-${key}`)
-    const open = (props: any, option?: ModalOption) =>
-      mutate({ Component, props, option: { ...componentOption, ...option } })
-    const close = () => mutate(null)
-    return { open, close }
+  const useModal: UseModalFn = (Component, componentOption) => {
+    const { state, mutate } = useModalState()
+    return {
+      open: (props: any, option?: ModalOption) =>
+        mutate({ Component, props, option: { ...componentOption, ...option } }),
+      close: () => {
+        mutate(null)
+        state?.props?.onClose && state.props.onClose()
+      },
+    }
   }
 
   const ModalFC = () => {
-    const { data, mutate } = useSWRLocal<ModalState | null>(`modal-${key}`)
+    const { state, mutate } = useModalState()
     const close = () => {
       mutate(null)
-      data?.props?.onClose && data.props.onClose()
+      state?.props?.onClose && state.props.onClose()
     }
-    const option = data?.option || {}
+    const option = state?.option || {}
     const inescapable = config.inescapable || option.inescapable
     return (
       <Modal
-        isOpen={!!data}
+        isOpen={!!state}
         closeModal={inescapable ? undefined : close}
         styles={option.styles}
       >
-        {data && <data.Component {...data.props} closeModal={close} />}
+        {state && <state.Component {...state.props} closeModal={close} />}
       </Modal>
     )
   }
-
   return {
     useModal,
     Modal: ModalFC,
