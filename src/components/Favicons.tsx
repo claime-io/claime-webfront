@@ -25,7 +25,7 @@ export const Favicons = () => (
       href="/favicons/safari-pinned-tab.svg"
       color="#29339B"
     />
-    <link rel="shortcut icon" href="/favicons/favicon.ico" />
+    <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
     <meta name="apple-mobile-web-app-title" content="Claime" />
     <meta name="application-name" content="Claime" />
     <meta name="msapplication-TileColor" content="#ffffff" />
