@@ -32,7 +32,7 @@ export const SEO: React.FC<SEOProps> = (props) => {
 
   const title = pageTitle ? `${pageTitle} | ${siteTitle}` : siteTitle
   const siteDescription = description
-  const siteImage = image.startsWith('https') ? image : `${siteUrl}/${image}`
+  const siteImage = image.startsWith('https') ? image : `${siteUrl}${image}`
   const metaData = [
     {
       name: 'description',
