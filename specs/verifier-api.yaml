@@ -92,14 +92,19 @@ components:
         actual:
           type: object
           description: hex address got
-          required:
-            - propertyId
-            - evidence
           properties:
             propertyId:
               type: string
-            evidence:
-              type: string
+            evidences:
+              type: array
+              items:
+                type: string
+            eoas:
+              type: array
+              items:
+                type: string
+          required:
+            - propertyId
       required:
         - result
         - claim

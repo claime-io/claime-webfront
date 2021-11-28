@@ -26,7 +26,7 @@ export type ResultProps = {
   result: VerificationResultType
   actual?: {
     id: string
-    evidence: string
+    evidences?: string[]
   }
   at: string
   error?: string
@@ -79,7 +79,8 @@ export const Result: VFC<ResultProps> = ({
         <Item label="Verfication Summary">
           <p>{summaryByResult(result, id, actual)}</p>
           <CodeBlock>
-            {actual && (id !== actual?.id ? actual.id : actual.evidence)}
+            {actual &&
+              (id !== actual?.id ? actual.id : actual.evidences?.join('/n'))}
           </CodeBlock>
         </Item>
       </Items>

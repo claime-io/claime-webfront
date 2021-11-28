@@ -85,13 +85,13 @@ export const summaryByResult = (
   id: string,
   actual?: {
     id: string
-    evidence: string
+    evidences?: string[]
   },
 ) =>
   result === 'Verified'
     ? 'Claim matched:'
     : id !== actual?.id
     ? 'Property ID not matched'
-    : actual?.evidence?.includes(CLAIM_KEY)
+    : actual?.evidences?.find((each) => each.includes(CLAIM_KEY))
     ? 'Claim not matched:'
     : 'Claim not found.'

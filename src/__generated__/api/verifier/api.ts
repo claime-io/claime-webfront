@@ -130,10 +130,16 @@ export interface VerifierOutputActual {
   propertyId: string
   /**
    *
-   * @type {string}
+   * @type {Array<string>}
    * @memberof VerifierOutputActual
    */
-  evidence: string
+  evidences?: Array<string>
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof VerifierOutputActual
+   */
+  eoas?: Array<string>
 }
 
 /**

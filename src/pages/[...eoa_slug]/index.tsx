@@ -63,7 +63,7 @@ export const getStaticProps: GetStaticProps<any, VerificationContext> = async ({
           actual: actual
             ? {
                 id: actual.propertyId,
-                evidence: actual.evidence,
+                evidences: actual.evidences,
               }
             : undefined,
           at: at,
