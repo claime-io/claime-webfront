@@ -25,8 +25,8 @@ export type SupportedMethod<T extends SupportedPropertyType> =
 export type Claim = {
   propertyType: SupportedPropertyType
   propertyId: string
+  method: string
   evidence: string
-  method?: string
 }
 
 export const discordUserIDClaim = (userId: string): Claim => ({

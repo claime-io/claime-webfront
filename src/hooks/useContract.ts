@@ -14,9 +14,9 @@ export const useContract = () => {
   }, [signer, chainId])
 
   const register = useCallback(
-    async ({ propertyType, propertyId, evidence, method = '' }: Claim) => {
+    async ({ propertyType, propertyId, method, evidence }: Claim) => {
       if (!contract) throw new Error()
-      return contract.register(propertyType, propertyId, evidence, method)
+      return contract.register(propertyType, propertyId, method, evidence)
     },
     [contract],
   )
