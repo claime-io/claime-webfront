@@ -64,12 +64,12 @@ export const useWallet = (): WalletInterface => {
     if (activeWalletType !== 'Metamask') return
     const { ethereum } = window
     const removeAllListners = () => {
-      ethereum.removeAllListeners('chainChanged')
-      ethereum.removeAllListeners('accountsChanged')
+      ethereum?.removeAllListeners('chainChanged')
+      ethereum?.removeAllListeners('accountsChanged')
     }
     if (ethereum && hasMetaMask() && signer !== null) {
       removeAllListners()
-      ethereum.on('chainChanged', (accounts: string[]) => {
+      ethereum.on('accountsChanged', (accounts: string[]) => {
         if (!accounts.length) {
           disconnect()
           return
@@ -78,7 +78,7 @@ export const useWallet = (): WalletInterface => {
           console.error('Failed to activate after accounts changed', error)
         })
       })
-      ethereum.on('accountsChanged', () =>
+      ethereum.on('chainChanged', () =>
         connect(metamaskConnector).catch((error) => {
           console.error('Failed to activate after chain changed', error)
         }),
