@@ -15,9 +15,16 @@ export type DetailsProps = {
   results: ResultsProps['results']
   at: Dayjs
   isOwner: boolean
+  isRealtime?: boolean
 }
 
-export const Details: VFC<DetailsProps> = ({ eoa, results, at, isOwner }) => (
+export const Details: VFC<DetailsProps> = ({
+  eoa,
+  results,
+  at,
+  isOwner,
+  isRealtime,
+}) => (
   <DetailsMain>
     <h1>Details of Ownership Verification Results</h1>
     <h2>{eoa}</h2>
@@ -26,7 +33,7 @@ export const Details: VFC<DetailsProps> = ({ eoa, results, at, isOwner }) => (
       <ArrowRightIcon />
       Back
     </CtaButton>
-    <Note generatedAt={at} isOwner={isOwner} />
+    {!isRealtime && <Note generatedAt={at} isOwner={isOwner} />}
   </DetailsMain>
 )
 

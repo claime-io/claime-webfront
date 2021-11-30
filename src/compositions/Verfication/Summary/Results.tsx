@@ -16,6 +16,7 @@ export type ResultsProps = {
   results: VerificationResult[]
   at: Dayjs
   isOwner: boolean
+  isRealtime?: boolean
 }
 
 const ResultsComponent: VFC<ResultsProps & { className?: string }> = ({
@@ -23,6 +24,7 @@ const ResultsComponent: VFC<ResultsProps & { className?: string }> = ({
   results,
   at,
   isOwner,
+  isRealtime,
   className,
 }) => (
   <ResultSection className={className}>
@@ -42,7 +44,7 @@ const ResultsComponent: VFC<ResultsProps & { className?: string }> = ({
     ) : (
       <NotFound>Claim Not Found.</NotFound>
     )}
-    <Note generatedAt={at} isOwner={isOwner} />
+    {!isRealtime && <Note generatedAt={at} isOwner={isOwner} />}
   </ResultSection>
 )
 export const Results = styled(ResultsComponent)``
