@@ -3,6 +3,7 @@ import { useWeb3React } from '@web3-react/core'
 import { ethers } from 'ethers'
 import { useCallback, useEffect } from 'react'
 import { hasMetaMask, metamaskConnector } from 'src/external/wallets/metamask'
+import { Claim } from 'src/models'
 import { useSWRLocal } from '../useSWRLocal'
 
 export type WalletType = 'Metamask' | 'WalletConnect'
@@ -22,6 +23,7 @@ export type WalletInterface = {
   signer: ethers.providers.JsonRpcSigner | null | undefined
   connect: (params: WalletConnector) => Promise<void>
   disconnect: () => void
+  sign: (claim: Claim) => Promise<[string, string]>
 }
 export const useWallet = (): WalletInterface => {
   const { library, error, account, active, chainId, activate, deactivate } =
@@ -52,6 +54,15 @@ export const useWallet = (): WalletInterface => {
     await mutateSigner(null)
     await mutateWeb3Provider(null)
   }, [deactivate, activeWalletType, onDisconnect])
+
+  const sign = useCallback(
+    async (claim: Claim): Promise<[string, string]> => {
+      if (!signer) throw new Error()
+      const message = JSON.stringify(claim)
+      return [await signer?.signMessage(message), message]
+    },
+    [signer],
+  )
 
   useEffect(() => {
     if (!library) return
@@ -109,5 +120,6 @@ export const useWallet = (): WalletInterface => {
     signer,
     connect,
     disconnect,
+    sign,
   }
 }
