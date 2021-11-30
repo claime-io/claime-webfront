@@ -25,7 +25,7 @@ export const metamaskConnector: WalletConnector<InjectedConnector> = {
 export const requestSwitchChain = async (chainId: number) => {
   const { ethereum } = window
   if (!ethereum?.isMetaMask)
-    return Promise.reject('Your wallet needs to switch network manually.')
+    return Promise.reject('Your wallet needs to switch networks manually.')
   try {
     const chainIdHex = `0x${(+BigNumber.from(chainId)).toString(16)}`
     await ethereum.request({
@@ -35,7 +35,7 @@ export const requestSwitchChain = async (chainId: number) => {
     return
   } catch (e) {
     return Promise.reject(
-      'Failed to switch network.\n\nPlease switch network manually.',
+      'Failed to switch the network.\n\nPlease try to switch the network manually.',
     )
   }
 }
