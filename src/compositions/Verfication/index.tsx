@@ -6,6 +6,7 @@ import { useVerificationResult } from 'src/hooks/useVerificationResults'
 import { useWallet } from 'src/hooks/useWallet'
 import { distinctByProperty } from 'src/models'
 import { black } from 'src/styles/colors'
+import { fontWeightMedium } from 'src/styles/font'
 import { flexCenter } from 'src/styles/mixins'
 import { equals } from 'src/utils/address'
 import styled from 'styled-components'
@@ -60,17 +61,27 @@ export const MyVerificationResults = () => {
         {isValidating ? (
           <CirclesLoading />
         ) : (
-          <div>You need to connect wallet to see your verification results</div>
+          <p>
+            You need to connect wallet to see verification results of your
+            claims
+          </p>
         )}
       </MyVerificationResultsContent>
     </AppLayout>
   )
 }
 const MyVerificationResultsContent = styled.div`
+  position: relative;
   ${flexCenter};
-  width: 100%;
   height: 100%;
+  margin: 0 5%;
+
   svg {
     stroke: ${black};
+  }
+  p {
+    font-size: 24px;
+    font-weight: ${fontWeightMedium};
+    text-align: center;
   }
 `
