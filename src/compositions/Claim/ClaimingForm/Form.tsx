@@ -1,4 +1,4 @@
-import Router from 'next/router'
+import router from 'next/router'
 import { useState, VFC } from 'react'
 import { CtaLink, ctaStyle } from 'src/components/Cta'
 import { useWalletModal } from 'src/components/WalletModal'
@@ -9,7 +9,7 @@ import { SupportedMethod, SupportedPropertyType } from 'src/models'
 import { failed, _lightgreen } from 'src/styles/colors'
 import { fontWeightRegular } from 'src/styles/font'
 import { breakpoint, flexCenter } from 'src/styles/mixins'
-import { eoaSummary } from 'src/utils/routes'
+import { ME } from 'src/utils/routes'
 import styled, { css } from 'styled-components'
 import { useClaim } from '../useClaim'
 
@@ -74,7 +74,7 @@ export const ClaimingForm: ClaimingFormFC = ({
                 registerClaim()
                   .then(() => {
                     setErrorMessageClaim('')
-                    Router.push(eoaSummary(account))
+                    router.push(ME)
                   })
                   .catch((err) => setErrorMessageClaim(err.message)),
               )}

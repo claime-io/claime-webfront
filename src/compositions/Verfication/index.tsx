@@ -9,6 +9,7 @@ import { black } from 'src/styles/colors'
 import { fontWeightMedium } from 'src/styles/font'
 import { flexCenter } from 'src/styles/mixins'
 import { equals } from 'src/utils/address'
+import { CLAIM } from 'src/utils/routes'
 import styled from 'styled-components'
 import { Details, DetailsProps } from './Details'
 import { Summary } from './Summary'
@@ -32,13 +33,9 @@ export const VerificationResult: VFC<VerificationResultProps> = ({
   return (
     <AppLayout>
       {type === 'details' ? (
-        <Details {...props} isOwner={isOwner} />
+        <Details {...props} />
       ) : (
-        <Summary
-          {...props}
-          results={distinctByProperty(props.results)}
-          isOwner={isOwner}
-        />
+        <Summary {...props} results={distinctByProperty(props.results)} />
       )}
     </AppLayout>
   )
@@ -53,6 +50,7 @@ export const MyVerificationResults = () => {
       results={data || []}
       at={dayjs()}
       type="details"
+      backTo={CLAIM}
       isRealtime
     />
   ) : (

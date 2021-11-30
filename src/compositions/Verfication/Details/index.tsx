@@ -1,5 +1,5 @@
 import { Dayjs } from 'dayjs'
-import Router from 'next/router'
+import router from 'next/router'
 import { VFC } from 'react'
 import { ArrowRightIcon } from 'src/assets/svgs'
 import { ctaStyle } from 'src/components/Cta'
@@ -14,8 +14,8 @@ export type DetailsProps = {
   eoa: string
   results: ResultsProps['results']
   at: Dayjs
-  isOwner: boolean
   isRealtime?: boolean
+  backTo?: string
 }
 
 export const Details: VFC<DetailsProps> = ({
@@ -23,13 +23,14 @@ export const Details: VFC<DetailsProps> = ({
   results,
   at,
   isRealtime,
+  backTo,
 }) => (
   <DetailsMain>
     <h1>Details of Ownership Verification Results</h1>
     <h2>{eoa}</h2>
     {!isRealtime && <RevalidateAt generatedAt={at} />}
     <Results results={results} />
-    <CtaButton onClick={Router.back}>
+    <CtaButton onClick={backTo ? () => router.push(backTo) : router.back}>
       <ArrowRightIcon />
       Back
     </CtaButton>
