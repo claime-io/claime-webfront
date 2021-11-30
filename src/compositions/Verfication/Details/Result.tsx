@@ -13,6 +13,7 @@ import {
   evidenceUrlByProperty,
   IconByType,
   idByProperty,
+  networkLabel,
   summaryByResult,
   urlByProperty,
 } from 'src/utils/claim'
@@ -26,6 +27,7 @@ export const Result: VFC<ResultProps> = ({
   evidence,
   at,
   method,
+  network,
   actual,
 }) => (
   <ResultDiv>
@@ -70,6 +72,11 @@ export const Result: VFC<ResultProps> = ({
             {actual &&
               (id !== actual?.id ? actual.id : actual.evidences?.join('/n'))}
           </CodeBlock>
+        </Item>
+      </Items>
+      <Items>
+        <Item label="Claimed Network">
+          <p>{networkLabel(network)}</p>
         </Item>
       </Items>
     </Content>

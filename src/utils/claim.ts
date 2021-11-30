@@ -95,3 +95,12 @@ export const summaryByResult = (
     : actual?.evidences?.find((each) => each.includes(CLAIM_KEY))
     ? 'Claim not matched:'
     : 'Claim not found.'
+
+const NETWORK_DICT: { [key in string]: string } = {
+  mainnet: 'Ethereum Mainnet',
+  rinkeby: 'Ethereum Testnet Rinkeby',
+  mumbai: 'Polygon Testnet Mumbai',
+} as const
+
+export const networkLabel = (network: string) =>
+  NETWORK_DICT[network] || 'unknown'
