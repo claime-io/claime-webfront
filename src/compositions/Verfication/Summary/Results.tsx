@@ -8,14 +8,13 @@ import { fontWeightMedium, fontWeightSemiBold } from 'src/styles/font'
 import { breakpoint, centerLine } from 'src/styles/mixins'
 import { eoaDetails } from 'src/utils/routes'
 import styled from 'styled-components'
-import { Note } from '../Note'
+import { RevalidateAt } from '../Note'
 import { Result } from './Result'
 
 export type ResultsProps = {
   eoa: string
   results: VerificationResult[]
   at: Dayjs
-  isOwner: boolean
   isRealtime?: boolean
 }
 
@@ -23,12 +22,12 @@ const ResultsComponent: VFC<ResultsProps & { className?: string }> = ({
   eoa,
   results,
   at,
-  isOwner,
   isRealtime,
   className,
 }) => (
   <ResultSection className={className}>
     <Timestamp>{`Timestamp:\n${at.toISOString()}`}</Timestamp>
+    {!isRealtime && <RevalidateAt generatedAt={at} />}
     {results.length > 0 ? (
       <>
         <Items>
@@ -44,7 +43,6 @@ const ResultsComponent: VFC<ResultsProps & { className?: string }> = ({
     ) : (
       <NotFound>Claim Not Found.</NotFound>
     )}
-    {!isRealtime && <Note generatedAt={at} isOwner={isOwner} />}
   </ResultSection>
 )
 export const Results = styled(ResultsComponent)``
@@ -78,14 +76,14 @@ const Timestamp = styled.p`
 
 const ResultSection = styled.section`
   ${Timestamp} {
+    margin-bottom: 24px;
+  }
+  ${RevalidateAt} {
     margin-bottom: 72px;
   }
   ${CtaLink} {
     display: block;
     margin: 0 auto;
-  }
-  ${Note} {
-    margin-top: 48px;
   }
   @media ${breakpoint.s} {
     ${Items} {
