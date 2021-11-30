@@ -1,3 +1,4 @@
+import { Dayjs } from 'dayjs'
 import Router from 'next/router'
 import { VFC } from 'react'
 import { ArrowRightIcon } from 'src/assets/svgs'
@@ -6,14 +7,17 @@ import { Main } from 'src/compositions/Layout'
 import { _lightgreen } from 'src/styles/colors'
 import { breakpoint } from 'src/styles/mixins'
 import styled from 'styled-components'
+import { Note } from '../Note'
 import { Results, ResultsProps } from './Results'
 
 export type DetailsProps = {
   eoa: string
   results: ResultsProps['results']
+  at: Dayjs
+  isOwner: boolean
 }
 
-export const Details: VFC<DetailsProps> = ({ eoa, results }) => (
+export const Details: VFC<DetailsProps> = ({ eoa, results, at, isOwner }) => (
   <DetailsMain>
     <h1>Details of Ownership Verification Results</h1>
     <h2>{eoa}</h2>
@@ -22,6 +26,7 @@ export const Details: VFC<DetailsProps> = ({ eoa, results }) => (
       <ArrowRightIcon />
       Back
     </CtaButton>
+    <Note generatedAt={at} isOwner={isOwner} />
   </DetailsMain>
 )
 
@@ -44,6 +49,9 @@ const DetailsMain = styled(Main)`
   }
   ${CtaButton} {
     margin: 48px auto 0;
+  }
+  ${Note} {
+    margin-top: 48px;
   }
   @media ${breakpoint.l} {
     ${CtaButton} {

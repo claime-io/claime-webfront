@@ -8,6 +8,7 @@ import { fontWeightMedium, fontWeightSemiBold } from 'src/styles/font'
 import { breakpoint, centerLine } from 'src/styles/mixins'
 import { eoaDetails } from 'src/utils/routes'
 import styled from 'styled-components'
+import { Note } from '../Note'
 import { Result } from './Result'
 
 export type ResultsProps = {
@@ -19,12 +20,14 @@ export type ResultsProps = {
     result: VerificationResultType
   }[]
   at: Dayjs
+  isOwner: boolean
 }
 
 const ResultsComponent: VFC<ResultsProps & { className?: string }> = ({
   eoa,
   results,
   at,
+  isOwner,
   className,
 }) => (
   <ResultSection className={className}>
@@ -44,6 +47,7 @@ const ResultsComponent: VFC<ResultsProps & { className?: string }> = ({
     ) : (
       <NotFound>Claim Not Found.</NotFound>
     )}
+    <Note generatedAt={at} isOwner={isOwner} />
   </ResultSection>
 )
 export const Results = styled(ResultsComponent)``
@@ -82,6 +86,9 @@ const ResultSection = styled.section`
   ${CtaLink} {
     display: block;
     margin: 0 auto;
+  }
+  ${Note} {
+    margin-top: 48px;
   }
   @media ${breakpoint.s} {
     ${Items} {

@@ -1,4 +1,5 @@
 import dayjs from 'dayjs'
+import { ethers } from 'ethers'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import Router from 'next/router'
 import { useEffect } from 'react'
@@ -9,6 +10,7 @@ import {
   VerificationResult,
   VerificationResultProps,
 } from 'src/compositions/Verfication'
+import { RESULT_TTL_SEC } from 'src/constants/misc'
 import { Page } from 'src/types'
 import { isProd } from 'src/utils/env'
 import { eoaSummary } from 'src/utils/routes'
@@ -31,16 +33,10 @@ export const getStaticProps: GetStaticProps<any, VerificationContext> = async ({
   params,
 }) => {
   const [eoa] = params?.eoa_slug || []
-  if (!eoa) {
-    return JSON.parse(
-      JSON.stringify({
-        props: {
-          eoa: '',
-          resuts: [],
-          at: dayjs().toString(),
-        },
-      }),
-    )
+  if (!eoa || !ethers.utils.isAddress(eoa)) {
+    return {
+      notFound: true,
+    }
   }
   const res = await verify(eoa, params?.network)
   const props: VerificationResultStaticProps = {
@@ -51,7 +47,7 @@ export const getStaticProps: GetStaticProps<any, VerificationContext> = async ({
   return JSON.parse(
     JSON.stringify({
       props: props,
-      revalidate: isProd ? 86400 : 1,
+      revalidate: isProd ? RESULT_TTL_SEC : 1,
     }),
   )
 }

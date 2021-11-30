@@ -1,6 +1,5 @@
 import { VFC } from 'react'
 import { Main } from 'src/compositions/Layout'
-import { distinctByProperty } from 'src/models'
 import { breakpoint } from 'src/styles/mixins'
 import styled from 'styled-components'
 import { Address } from './Address'
@@ -12,7 +11,7 @@ export const Summary: VFC<SummaryProps> = (props) => (
   <SummaryMain>
     <h1>Ownership Verification Results</h1>
     <Address eoa={props.eoa} />
-    <Results {...props} results={distinctByProperty(props.results)} />
+    <Results {...props} />
   </SummaryMain>
 )
 const SummaryMain = styled(Main)`

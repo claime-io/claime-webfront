@@ -6,6 +6,8 @@ export const DISCLAIMER = '/' // TODO
 export const eoaSummary = (eoa: string) => `/${eoa}`
 export const eoaDetails = (eoa: string) => `/${eoa}/details`
 export const CLAIM = `/claim`
+export const ME = '/me'
+
 export const claimProperty = (type: PageType) => `${CLAIM}/${type}`
 
 export const SERVICE_URL = `https://${HOSTNAME}`
