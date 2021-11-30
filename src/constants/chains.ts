@@ -1,3 +1,5 @@
+import { isProd } from 'src/utils/env'
+
 export enum BuiltInChainId {
   MAINNET = 1,
   RINKEBY = 4,
@@ -64,3 +66,28 @@ export const CHAIN_INFO: ChainInfo = {
 
 export const getExplorer = (chainId: number | undefined) =>
   chainId ? CHAIN_INFO[chainId].explorer : undefined
+
+const NETWORK_DICT: { [key in string]: string } = {
+  mainnet: 'Ethereum Mainnet',
+  matic: 'Polygon Mainnet',
+  polygon: 'Polygon Mainnet',
+  rinkeby: 'Ethereum Testnet Rinkeby',
+  mumbai: 'Polygon Testnet Mumbai',
+} as const
+
+const SHORTEN_NETWORK_DICT_BY_ID: { [key in number]: string } = {
+  [BuiltInChainId.MAINNET]: 'Ethereum Mainnet',
+  [BuiltInChainId.MATIC]: 'Polygon Mainnet',
+  [BuiltInChainId.RINKEBY]: 'Rinkeby Testnet',
+  [BuiltInChainId.MUMBAI]: 'Mumbai Testnet',
+} as const
+
+export const networkLabel = (arg: string) => NETWORK_DICT[arg] || 'unknown'
+
+export const networkLabelShort = (arg: number | undefined) =>
+  (arg && SHORTEN_NETWORK_DICT_BY_ID[arg]) || 'unknown'
+
+export const chainIdEthereum = () =>
+  isProd ? BuiltInChainId.MAINNET : BuiltInChainId.RINKEBY
+export const chainIdPolygon = () =>
+  isProd ? BuiltInChainId.MATIC : BuiltInChainId.MUMBAI

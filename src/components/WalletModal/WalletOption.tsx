@@ -1,13 +1,8 @@
 import React, { VFC } from 'react'
-import { WalletType } from 'src/hooks/useWallet'
-import { white } from 'src/styles/colors'
-import { fontWeightRegular } from 'src/styles/font'
-import { absoluteFill, flexCenter } from 'src/styles/mixins'
-import styled from 'styled-components'
+import { ModalOption } from '../Modal/ModalOption'
 
 type Props = {
-  type: WalletType
-  label?: string
+  label: string
   Icon: SvgrComponent
   notInstalled?: boolean
   hasEnabled?: boolean
@@ -17,7 +12,6 @@ type Props = {
 }
 
 export const WalletOption: VFC<Props> = ({
-  type,
   label,
   Icon,
   notInstalled,
@@ -26,7 +20,9 @@ export const WalletOption: VFC<Props> = ({
   onNotInstalled,
   onClick,
 }) => (
-  <WalletOptionButton
+  <ModalOption
+    label={label}
+    Icon={Icon}
     onClick={
       notInstalled && onNotInstalled
         ? onNotInstalled
@@ -34,49 +30,5 @@ export const WalletOption: VFC<Props> = ({
         ? onAlreadyEnabled
         : onClick
     }
-  >
-    <Icon />
-    <WalletLabel>{label || type}</WalletLabel>
-  </WalletOptionButton>
+  />
 )
-
-const WalletLabel = styled.span`
-  font-size: 20px;
-  font-weight: ${fontWeightRegular};
-  white-space: nowrap;
-`
-
-const WalletOptionButton = styled.button`
-  position: relative;
-  ${flexCenter};
-  flex-direction: column;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  color: ${white};
-  > svg {
-    display: inline-block;
-    height: 56px;
-    width: auto;
-    margin-bottom: 16px;
-  }
-
-  ::before {
-    content: '';
-    ${absoluteFill};
-    transition: all 0.25s ease-in-out;
-    border-radius: 50%;
-    border: 1px solid ${white}00;
-  }
-  :hover,
-  :focus {
-    ::before {
-      background-color: ${white}26;
-      backdrop-filter: blur(30px) brightness(1.15);
-      border: 1px solid ${white};
-    }
-  }
-  > * {
-    position: relative;
-  }
-`

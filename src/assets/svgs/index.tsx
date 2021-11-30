@@ -22,12 +22,16 @@ import VerifiedIcon from './icon_verified.svg'
 import WalletConnectIcon from './icon_walletconnect.svg'
 import WebsiteIcon from './icon_website.svg'
 import DiscordLogo from './logo_discord.svg'
+import EthereumLogo from './logo_ethereum.svg'
+import PolygonLogo from './logo_polygon.svg'
 
 export {
   ClaimeLogo,
   ClaimeLogoText,
   DiscordIcon,
   DiscordLogo,
+  EthereumLogo,
+  PolygonLogo,
   MetamaskIcon,
   WalletConnectIcon,
   BackIcon,

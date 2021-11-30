@@ -2,6 +2,7 @@ import dayjs from 'dayjs'
 import { ReactNode, VFC } from 'react'
 import { ExLinkIcon } from 'src/assets/svgs'
 import { CodeBlock } from 'src/components/CodeBlock'
+import { networkLabel } from 'src/constants/chains'
 import { Link } from 'src/elements/Link'
 import { VerificationResult } from 'src/models'
 import { white } from 'src/styles/colors'
@@ -13,7 +14,6 @@ import {
   evidenceUrlByProperty,
   IconByType,
   idByProperty,
-  networkLabel,
   summaryByResult,
   urlByProperty,
 } from 'src/utils/claim'
