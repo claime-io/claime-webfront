@@ -3,7 +3,7 @@ import { ReactNode, VFC } from 'react'
 import { ExLinkIcon } from 'src/assets/svgs'
 import { CodeBlock } from 'src/components/CodeBlock'
 import { Link } from 'src/elements/Link'
-import { SupportedPropertyType, VerificationResultType } from 'src/models'
+import { VerificationResult } from 'src/models'
 import { white } from 'src/styles/colors'
 import { fontWeightLight, fontWeightMedium } from 'src/styles/font'
 import { breakpoint, flexCenter } from 'src/styles/mixins'
@@ -18,19 +18,7 @@ import {
 } from 'src/utils/claim'
 import styled from 'styled-components'
 
-export type ResultProps = {
-  type: SupportedPropertyType
-  id: string
-  method: string
-  evidence: string
-  result: VerificationResultType
-  actual?: {
-    id: string
-    evidences?: string[]
-  }
-  at: string
-  error?: string
-}
+export type ResultProps = VerificationResult
 export const Result: VFC<ResultProps> = ({
   type,
   id,

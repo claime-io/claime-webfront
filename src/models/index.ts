@@ -29,6 +29,21 @@ export type Claim = {
   evidence: string
 }
 
+export type VerificationResult = {
+  type: SupportedPropertyType
+  id: string
+  method: string
+  evidence: string
+  result: VerificationResultType
+  network: string
+  actual?: {
+    id: string
+    evidences?: string[]
+  }
+  at: string
+  error?: string
+}
+
 export const discordUserIDClaim = (userId: string): Claim => ({
   propertyType: 'Discord User ID',
   propertyId: userId,
@@ -46,3 +61,16 @@ export const isSupported = (type: string, method: string) => {
   if (!methods) return false
   return (methods as readonly string[]).includes(method)
 }
+
+export const distinctByProperty = (results: VerificationResult[]) =>
+  results.reduce<VerificationResult[]>((prev, current) => {
+    for (let i = 0; i < prev.length; i++) {
+      const each = prev[i]
+      if (each.type === current.type && each.id === current.id) {
+        if (each.result !== 'Verified' && current.result !== 'Unknown')
+          prev.splice(i, 1, current)
+        return prev
+      }
+    }
+    return prev.concat(current)
+  }, [])
