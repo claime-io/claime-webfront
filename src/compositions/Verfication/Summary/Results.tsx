@@ -2,7 +2,7 @@ import { Dayjs } from 'dayjs'
 import { VFC } from 'react'
 import { ArrowRightIcon } from 'src/assets/svgs'
 import { CtaLink } from 'src/components/Cta'
-import { SupportedPropertyType, VerificationResultType } from 'src/models'
+import { resultKey, VerificationResult } from 'src/models'
 import { _border } from 'src/styles/colors'
 import { fontWeightMedium, fontWeightSemiBold } from 'src/styles/font'
 import { breakpoint, centerLine } from 'src/styles/mixins'
@@ -13,12 +13,7 @@ import { Result } from './Result'
 
 export type ResultsProps = {
   eoa: string
-  results: {
-    type: SupportedPropertyType
-    id: string
-    method: string
-    result: VerificationResultType
-  }[]
+  results: VerificationResult[]
   at: Dayjs
   isOwner: boolean
 }
@@ -36,7 +31,7 @@ const ResultsComponent: VFC<ResultsProps & { className?: string }> = ({
       <>
         <Items>
           {results.map((each) => (
-            <Result key={`${each.type}_${each.id}_${each.method}`} {...each} />
+            <Result key={resultKey(each)} {...each} />
           ))}
           <div />
         </Items>

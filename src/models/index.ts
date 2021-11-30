@@ -43,6 +43,8 @@ export type VerificationResult = {
   at: string
   error?: string
 }
+export const resultKey = (result: VerificationResult) =>
+  `${result.type}_${result.id}_${result.method}_${result.network}`
 
 export const discordUserIDClaim = (userId: string): Claim => ({
   propertyType: 'Discord User ID',
