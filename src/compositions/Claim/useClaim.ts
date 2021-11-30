@@ -22,7 +22,7 @@ export const useClaim = <T extends SupportedPropertyType>(
   const [input, setInput] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   const [verifiedClaim, setVerifiedClaim] = useState<ClaimInput>()
-  const { register } = useContract()
+  const { register, isNetworkWrong } = useContract()
 
   const onChangeInput = ({
     target: { value },
@@ -64,6 +64,7 @@ export const useClaim = <T extends SupportedPropertyType>(
   return {
     input,
     errorMessage,
+    isNetworkWrong,
     claimable: !!verifiedClaim,
     onChangeInput,
     verify,

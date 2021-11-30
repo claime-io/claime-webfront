@@ -1,6 +1,7 @@
 import router from 'next/router'
 import { useState, VFC } from 'react'
 import { CtaLink, ctaStyle } from 'src/components/Cta'
+import { useNetworkModal } from 'src/components/NetworkModal'
 import { useWalletModal } from 'src/components/WalletModal'
 import { Main } from 'src/compositions/Layout'
 import { useLoading } from 'src/hooks/useLoading'
@@ -20,7 +21,20 @@ type ClaimingFormFC = <T extends SupportedPropertyType>(props: {
   placeholder: string
   EvidenceFC: VFC<{ eoa: string }>
 }) => JSX.Element
-export const ClaimingForm: ClaimingFormFC = ({
+export const ClaimingForm: ClaimingFormFC = (props) => {
+  return (
+    <ClaimingFormMain>
+      <h1>
+        Claim <span>{props.propertyType}</span> Ownership
+      </h1>
+      <ClaimingDiv>
+        <FormContent {...props} />
+      </ClaimingDiv>
+    </ClaimingFormMain>
+  )
+}
+
+const FormContent: ClaimingFormFC = ({
   propertyType,
   method,
   toClaimInput,
@@ -28,74 +42,79 @@ export const ClaimingForm: ClaimingFormFC = ({
   EvidenceFC,
 }) => {
   const { account } = useWallet()
-  const { open } = useWalletModal()
+  const { open: openWalletModal } = useWalletModal()
+  const { open: openNetworkModal } = useNetworkModal()
   const { withLoadingAsync } = useLoading()
   const [errorMessageVerify, setErrorMessageVerify] = useState('')
   const [errorMessageClaim, setErrorMessageClaim] = useState('')
-  const { input, claimable, onChangeInput, verify, registerClaim } = useClaim(
-    propertyType,
-    method,
-    toClaimInput,
-  )
+  const {
+    input,
+    claimable,
+    isNetworkWrong,
+    onChangeInput,
+    verify,
+    registerClaim,
+  } = useClaim(propertyType, method, toClaimInput)
+  if (!account)
+    return (
+      <>
+        <p>You need to connect your wallet to claim.</p>
+        <CtaButton onClick={() => openWalletModal()}>Connect Wallet</CtaButton>
+      </>
+    )
+  if (isNetworkWrong)
+    return (
+      <>
+        <p>You need to switch to a supported network.</p>
+        <CtaButton onClick={() => openNetworkModal()}>Swtich Network</CtaButton>
+      </>
+    )
   return (
-    <ClaimingFormMain>
-      <h1>
-        Claim <span>{propertyType}</span> Ownership
-      </h1>
-      <ClaimingDiv>
-        {account ? (
-          <>
-            <EvidenceDiv>
-              <EvidenceFC eoa={account} />
-            </EvidenceDiv>
-            <VerificationDiv>
-              <Input
-                placeholder={placeholder}
-                value={input}
-                onChange={onChangeInput}
-                disabled={claimable}
-              />
-              <CtaButton
-                onClick={withLoadingAsync(() =>
-                  verify(account)
-                    .then(() => setErrorMessageVerify(''))
-                    .catch(setErrorMessageVerify),
-                )}
-                disabled={!input || claimable}
-              >
-                {claimable ? 'Verified' : 'Verify'}
-              </CtaButton>
-            </VerificationDiv>
-            <ErrorMessage $hidden={!errorMessageVerify}>
-              {errorMessageVerify}
-            </ErrorMessage>
-            <CtaButton
-              onClick={withLoadingAsync(() =>
-                registerClaim()
-                  .then(() => {
-                    setErrorMessageClaim('')
-                    router.push(ME)
-                  })
-                  .catch((err) => setErrorMessageClaim(err.message)),
-              )}
-              disabled={!claimable}
-            >
-              Claim
-            </CtaButton>
-            <ErrorMessage $hidden={!errorMessageClaim}>
-              {errorMessageClaim}
-            </ErrorMessage>
-          </>
-        ) : (
-          <>
-            <p>You need to connect your wallet to claim.</p>
-            <CtaButton onClick={() => open({})}>Connect Wallet</CtaButton>
-          </>
+    <>
+      <EvidenceDiv>
+        <EvidenceFC eoa={account} />
+      </EvidenceDiv>
+      <VerificationDiv>
+        <Input
+          placeholder={placeholder}
+          value={input}
+          onChange={onChangeInput}
+          disabled={claimable}
+        />
+        <CtaButton
+          onClick={withLoadingAsync(() =>
+            verify(account)
+              .then(() => setErrorMessageVerify(''))
+              .catch(setErrorMessageVerify),
+          )}
+          disabled={!input || claimable}
+        >
+          {claimable ? 'Verified' : 'Verify'}
+        </CtaButton>
+      </VerificationDiv>
+      <ErrorMessage $hidden={!errorMessageVerify}>
+        {errorMessageVerify}
+      </ErrorMessage>
+      <CtaButton
+        onClick={withLoadingAsync(() =>
+          registerClaim()
+            .then(() => {
+              setErrorMessageClaim('')
+              router.push(ME)
+            })
+            .catch((err) => setErrorMessageClaim(err.message)),
         )}
-      </ClaimingDiv>
-    </ClaimingFormMain>
+        disabled={!claimable}
+      >
+        Claim
+      </CtaButton>
+      <ErrorMessage $hidden={!errorMessageClaim}>
+        {errorMessageClaim}
+      </ErrorMessage>
+    </>
   )
 }
+
 const ErrorMessage = styled.p<{ $hidden: boolean }>`
   color: ${failed};
   height: 1em;
