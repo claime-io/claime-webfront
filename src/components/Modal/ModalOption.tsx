@@ -1,7 +1,7 @@
 import React, { VFC } from 'react'
 import { white } from 'src/styles/colors'
 import { fontWeightRegular } from 'src/styles/font'
-import { absoluteFill, flexCenter } from 'src/styles/mixins'
+import { absoluteFill, breakpoint, flexCenter } from 'src/styles/mixins'
 import styled from 'styled-components'
 
 type Props = {
@@ -27,15 +27,15 @@ const ModalOptionButton = styled.button`
   position: relative;
   ${flexCenter};
   flex-direction: column;
-  width: 200px;
-  height: 200px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   color: ${white};
   > svg {
     display: inline-block;
-    height: 56px;
+    height: 48px;
     width: auto;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
   }
 
   ::before {
@@ -55,5 +55,13 @@ const ModalOptionButton = styled.button`
   }
   > * {
     position: relative;
+  }
+  @media ${breakpoint.m} {
+    width: 200px;
+    height: 200px;
+    > svg {
+      height: 56px;
+      margin-bottom: 16px;
+    }
   }
 `

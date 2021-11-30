@@ -106,18 +106,14 @@ const StyledHeader = styled.header`
       max-width: 50%;
     }
     ${Navigation} {
-      ${Link},${Button} {
-        display: none;
-      }
+      display: none;
     }
   }
   @media ${breakpoint.m} {
     padding-top: 40px;
     ${ContentGuide} {
       ${Navigation} {
-        ${Link},${Button} {
-          display: unset;
-        }
+        display: flex;
       }
     }
   }

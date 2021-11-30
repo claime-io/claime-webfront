@@ -71,15 +71,16 @@ const Content = styled.div`
   ${Heading} {
     position: absolute;
     top: -64px;
-    left: 0;
-    right: 0;
+    left: -60px;
+    right: -60px;
     margin: auto;
+    text-align: center;
   }
   ${ErrorMessage} {
     position: absolute;
-    bottom: -40px;
-    left: 0;
-    right: 0;
+    bottom: -64px;
+    left: -60px;
+    right: -60px;
     margin: auto;
     text-align: center;
   }
