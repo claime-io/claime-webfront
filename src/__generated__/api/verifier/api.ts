@@ -67,6 +67,12 @@ export interface Claim {
    * @memberof Claim
    */
   evidence: string
+  /**
+   *
+   * @type {string}
+   * @memberof Claim
+   */
+  network: string
 }
 /**
  *
@@ -230,10 +236,15 @@ export const DefaultApiAxiosParamCreator = function (
     /**
      *
      * @param {string} eoa eoa hex address
+     * @param {string} [network]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    verify: async (eoa: string, options: any = {}): Promise<RequestArgs> => {
+    verify: async (
+      eoa: string,
+      network?: string,
+      options: any = {},
+    ): Promise<RequestArgs> => {
       // verify required parameter 'eoa' is not null or undefined
       assertParamExists('verify', 'eoa', eoa)
       const localVarPath = `/verify/{eoa}`.replace(
@@ -254,6 +265,10 @@ export const DefaultApiAxiosParamCreator = function (
       }
       const localVarHeaderParameter = {} as any
       const localVarQueryParameter = {} as any
+
+      if (network !== undefined) {
+        localVarQueryParameter['network'] = network
+      }
 
       setSearchParams(localVarUrlObj, localVarQueryParameter, options.query)
       let headersFromBaseOptions =
@@ -320,11 +335,13 @@ export const DefaultApiFp = function (configuration?: Configuration) {
     /**
      *
      * @param {string} eoa eoa hex address
+     * @param {string} [network]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async verify(
       eoa: string,
+      network?: string,
       options?: any,
     ): Promise<
       (
@@ -334,6 +351,7 @@ export const DefaultApiFp = function (configuration?: Configuration) {
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.verify(
         eoa,
+        network,
         options,
       )
       return createRequestFunction(
@@ -382,12 +400,17 @@ export const DefaultApiFactory = function (
     /**
      *
      * @param {string} eoa eoa hex address
+     * @param {string} [network]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    verify(eoa: string, options?: any): AxiosPromise<Array<VerifierOutput>> {
+    verify(
+      eoa: string,
+      network?: string,
+      options?: any,
+    ): AxiosPromise<Array<VerifierOutput>> {
       return localVarFp
-        .verify(eoa, options)
+        .verify(eoa, network, options)
         .then((request) => request(axios, basePath))
     },
   }
@@ -427,13 +450,14 @@ export class DefaultApi extends BaseAPI {
   /**
    *
    * @param {string} eoa eoa hex address
+   * @param {string} [network]
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof DefaultApi
    */
-  public verify(eoa: string, options?: any) {
+  public verify(eoa: string, network?: string, options?: any) {
     return DefaultApiFp(this.configuration)
-      .verify(eoa, options)
+      .verify(eoa, network, options)
       .then((request) => request(this.axios, this.basePath))
   }
 }
