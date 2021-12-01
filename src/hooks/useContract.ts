@@ -6,17 +6,19 @@ import { useWallet } from './useWallet'
 
 export const useContract = () => {
   const { signer, chainId } = useWallet()
+  const contractAddress = useMemo(
+    () => (chainId ? getContractAddress(chainId) : undefined),
+    [chainId],
+  )
   const contract = useMemo(() => {
-    if (!chainId || !signer) return undefined
-    const contractAddress = getContractAddress(chainId)
-    if (!contractAddress) return undefined
+    if (!contractAddress || !signer) return undefined
     return RegistryContract__factory.connect(contractAddress, signer)
-  }, [signer, chainId])
+  }, [signer, contractAddress])
 
   const register = useCallback(
-    async ({ propertyType, propertyId, evidence, method = '' }: Claim) => {
+    async ({ propertyType, propertyId, method, evidence }: Claim) => {
       if (!contract) throw new Error()
-      return contract.register(propertyType, propertyId, evidence, method)
+      return contract.register(propertyType, propertyId, method, evidence)
     },
     [contract],
   )
@@ -32,5 +34,6 @@ export const useContract = () => {
   return {
     register,
     sign,
+    isNetworkWrong: !contractAddress,
   }
 }

@@ -3,6 +3,7 @@ import { useWeb3React } from '@web3-react/core'
 import { ethers } from 'ethers'
 import { useCallback, useEffect } from 'react'
 import { hasMetaMask, metamaskConnector } from 'src/external/wallets/metamask'
+import { Claim } from 'src/models'
 import { useSWRLocal } from '../useSWRLocal'
 
 export type WalletType = 'Metamask' | 'WalletConnect'
@@ -22,6 +23,7 @@ export type WalletInterface = {
   signer: ethers.providers.JsonRpcSigner | null | undefined
   connect: (params: WalletConnector) => Promise<void>
   disconnect: () => void
+  sign: (claim: Claim) => Promise<[string, string]>
 }
 export const useWallet = (): WalletInterface => {
   const { library, error, account, active, chainId, activate, deactivate } =
@@ -53,6 +55,15 @@ export const useWallet = (): WalletInterface => {
     await mutateWeb3Provider(null)
   }, [deactivate, activeWalletType, onDisconnect])
 
+  const sign = useCallback(
+    async (claim: Claim): Promise<[string, string]> => {
+      if (!signer) throw new Error()
+      const message = JSON.stringify(claim)
+      return [await signer?.signMessage(message), message]
+    },
+    [signer],
+  )
+
   useEffect(() => {
     if (!library) return
     const provider = library as ethers.providers.Web3Provider
@@ -64,12 +75,12 @@ export const useWallet = (): WalletInterface => {
     if (activeWalletType !== 'Metamask') return
     const { ethereum } = window
     const removeAllListners = () => {
-      ethereum.removeAllListeners('chainChanged')
-      ethereum.removeAllListeners('accountsChanged')
+      ethereum?.removeAllListeners('chainChanged')
+      ethereum?.removeAllListeners('accountsChanged')
     }
     if (ethereum && hasMetaMask() && signer !== null) {
       removeAllListners()
-      ethereum.on('chainChanged', (accounts: string[]) => {
+      ethereum.on('accountsChanged', (accounts: string[]) => {
         if (!accounts.length) {
           disconnect()
           return
@@ -78,7 +89,7 @@ export const useWallet = (): WalletInterface => {
           console.error('Failed to activate after accounts changed', error)
         })
       })
-      ethereum.on('accountsChanged', () =>
+      ethereum.on('chainChanged', () =>
         connect(metamaskConnector).catch((error) => {
           console.error('Failed to activate after chain changed', error)
         }),
@@ -109,5 +120,6 @@ export const useWallet = (): WalletInterface => {
     signer,
     connect,
     disconnect,
+    sign,
   }
 }

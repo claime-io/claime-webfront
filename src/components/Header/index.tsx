@@ -1,20 +1,26 @@
+import router from 'next/router'
 import { VFC } from 'react'
+import { ReloadIcon } from 'src/assets/svgs'
+import { networkLabelShort } from 'src/constants/chains'
+import { getContractAddress } from 'src/constants/contractAddresses'
 import { Link } from 'src/elements/Link'
 import { useWallet } from 'src/hooks/useWallet'
-import { black, white } from 'src/styles/colors'
+import { black, errorColor, white } from 'src/styles/colors'
 import { fontWeightLight } from 'src/styles/font'
 import { ContentGuide } from 'src/styles/global-styles'
-import { breakpoint } from 'src/styles/mixins'
+import { breakpoint, flexCenter } from 'src/styles/mixins'
 import { shortenAddress } from 'src/utils/address'
-import { GITHUB_URL, TOP } from 'src/utils/routes'
+import { eoaSummary, GITHUB_URL, TOP } from 'src/utils/routes'
 import styled, { css } from 'styled-components'
 import { ctaStyle } from '../Cta'
 import { Logo } from '../Logo'
+import { useNetworkModal } from '../NetworkModal'
 import { useWalletModal } from '../WalletModal'
 
 export const Header: VFC = () => {
-  const { account } = useWallet()
-  const { open } = useWalletModal()
+  const { account, chainId } = useWallet()
+  const { open: openWalletModal } = useWalletModal()
+  const { open: openNetworkModal } = useNetworkModal()
   return (
     <StyledHeader>
       <ContentGuide>
@@ -23,14 +29,48 @@ export const Header: VFC = () => {
         </Link>
         <Navigation>
           <Link href={GITHUB_URL}>GitHub</Link>
-          <Button onClick={() => open({})} connected={!!account}>
-            {account ? shortenAddress(account) : 'Connect Wallet'}
-          </Button>
+          {chainId &&
+            (getContractAddress(chainId) ? (
+              <NetworkButton onClick={() => openNetworkModal()}>
+                <ReloadIcon />
+                {networkLabelShort(chainId)}
+              </NetworkButton>
+            ) : (
+              <NetworkButton onClick={() => openNetworkModal()} isWrong>
+                <ReloadIcon /> Wrong Network
+              </NetworkButton>
+            ))}
+          {account ? (
+            <Button onClick={() => router.push(eoaSummary(account))} connected>
+              {shortenAddress(account)}
+            </Button>
+          ) : (
+            <Button onClick={() => openWalletModal()} connected={false}>
+              Connect Wallet
+            </Button>
+          )}
         </Navigation>
       </ContentGuide>
     </StyledHeader>
   )
 }
+
+const NetworkButton = styled.button<{ isWrong?: boolean }>`
+  ${ctaStyle};
+  ${flexCenter};
+  svg {
+    width: 1.1em;
+    height: 1.1em;
+    margin-right: 8px;
+  }
+  width: 200px;
+  ${({ isWrong }) =>
+    isWrong &&
+    css`
+      background-color: ${errorColor};
+      color: ${white};
+    `}
+`
 
 const Button = styled.button<{ connected: boolean }>`
   ${ctaStyle};
@@ -66,18 +106,14 @@ const StyledHeader = styled.header`
       max-width: 50%;
     }
     ${Navigation} {
-      ${Link},${Button} {
-        display: none;
-      }
+      display: none;
     }
   }
   @media ${breakpoint.m} {
     padding-top: 40px;
     ${ContentGuide} {
       ${Navigation} {
-        ${Link},${Button} {
-          display: unset;
-        }
+        display: flex;
       }
     }
   }

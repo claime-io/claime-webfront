@@ -21,3 +21,5 @@ export const UNITS = [
 
 export const unitLabel = (value: typeof UNITS[number]['value']) =>
   UNITS.find((each) => each.value === value)?.label
+
+export const RESULT_TTL_SEC = 3600

@@ -25,7 +25,6 @@ export const useTransitionLoading = () => {
   const openInescapable = () => open({}, { inescapable: true })
   const router = useRouter()
   const endLoad = () => {
-    window.scrollTo({ top: 0, behavior: 'auto' })
     close()
   }
   useEffect(() => {

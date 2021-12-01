@@ -21,6 +21,11 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/VerifierOutput'
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: network
     parameters:
       - schema:
           type: string
@@ -121,8 +126,11 @@ components:
           type: string
         evidence:
           type: string
+        network:
+          type: string
       required:
         - propertyType
         - propertyId
         - method
         - evidence
+        - network

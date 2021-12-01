@@ -1,4 +1,5 @@
 import { VFC } from 'react'
+import { resultKey } from 'src/models'
 import { fontWeightSemiBold } from 'src/styles/font'
 import { breakpoint } from 'src/styles/mixins'
 import styled from 'styled-components'
@@ -16,7 +17,7 @@ const ResultsComponent: VFC<ResultsProps & { className?: string }> = ({
     {results.length > 0 ? (
       <>
         {results.map((each) => (
-          <Result key={`${each.type}_${each.id}_${each.method}`} {...each} />
+          <Result key={resultKey(each)} {...each} />
         ))}
       </>
     ) : (

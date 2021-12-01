@@ -2,8 +2,9 @@ import dayjs from 'dayjs'
 import { ReactNode, VFC } from 'react'
 import { ExLinkIcon } from 'src/assets/svgs'
 import { CodeBlock } from 'src/components/CodeBlock'
+import { networkLabel } from 'src/constants/chains'
 import { Link } from 'src/elements/Link'
-import { SupportedPropertyType, VerificationResultType } from 'src/models'
+import { VerificationResult } from 'src/models'
 import { white } from 'src/styles/colors'
 import { fontWeightLight, fontWeightMedium } from 'src/styles/font'
 import { breakpoint, flexCenter } from 'src/styles/mixins'
@@ -18,19 +19,7 @@ import {
 } from 'src/utils/claim'
 import styled from 'styled-components'
 
-export type ResultProps = {
-  type: SupportedPropertyType
-  id: string
-  method: string
-  evidence: string
-  result: VerificationResultType
-  actual?: {
-    id: string
-    evidences?: string[]
-  }
-  at: string
-  error?: string
-}
+export type ResultProps = VerificationResult
 export const Result: VFC<ResultProps> = ({
   type,
   id,
@@ -38,6 +27,7 @@ export const Result: VFC<ResultProps> = ({
   evidence,
   at,
   method,
+  network,
   actual,
 }) => (
   <ResultDiv>
@@ -82,6 +72,11 @@ export const Result: VFC<ResultProps> = ({
             {actual &&
               (id !== actual?.id ? actual.id : actual.evidences?.join('/n'))}
           </CodeBlock>
+        </Item>
+      </Items>
+      <Items>
+        <Item label="Claimed Network">
+          <p>{networkLabel(network)}</p>
         </Item>
       </Items>
     </Content>

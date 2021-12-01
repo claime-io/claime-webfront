@@ -36,9 +36,7 @@ export const LinkElement: LinkFC = ({
   if (href && href.startsWith('/') && !newTab)
     return (
       <NextLink href={href} {...props} passHref>
-        <StyledAnchorLink className={className} disabled={!href}>
-          {children}
-        </StyledAnchorLink>
+        <StyledAnchorLink className={className}>{children}</StyledAnchorLink>
       </NextLink>
     )
   return (
@@ -48,7 +46,6 @@ export const LinkElement: LinkFC = ({
       className={className}
       target="_blank"
       rel="noreferrer"
-      disabled={!href}
     >
       {children}
     </StyledAnchorLink>
@@ -56,16 +53,12 @@ export const LinkElement: LinkFC = ({
 }
 export const Link = styled(LinkElement)``
 
-type AnchorLinkStyleProps = {
-  disabled?: boolean
-}
-
 const disabledStyle = css`
   opacity: 0.5;
   cursor: not-allowed;
 `
 
-const StyledAnchorLink = styled.a<AnchorLinkStyleProps>`
+const StyledAnchorLink = styled.a`
   cursor: pointer;
-  ${({ disabled }) => disabled && disabledStyle};
+  ${({ href }) => !href && disabledStyle};
 `

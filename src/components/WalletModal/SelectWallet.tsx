@@ -60,7 +60,7 @@ export const SelectWallet: VFC<{
               <WalletsDiv>
                 {!isMobile && (
                   <WalletOption
-                    type="Metamask"
+                    label="Metamask"
                     Icon={MetamaskIcon}
                     notInstalled={!hasMetaMask()}
                     onNotInstalled={() => window.open(METAMASK_URL, '_blank')}
@@ -70,7 +70,6 @@ export const SelectWallet: VFC<{
                   />
                 )}
                 <WalletOption
-                  type="WalletConnect"
                   label="Wallet Connect"
                   Icon={WalletConnectIcon}
                   hasEnabled={activeWalletType === 'WalletConnect'}
