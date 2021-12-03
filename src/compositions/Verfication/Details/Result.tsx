@@ -38,12 +38,10 @@ export const Result: VFC<ResultProps> = ({
           <p>{type}</p>
         </Item>
         <Item label="Property">
-          <p>
-            <Link href={urlByProperty(type, id)}>
-              {idByProperty(type, id)}
-              <ExLinkIcon />
-            </Link>
-          </p>
+          <Link href={urlByProperty(type, id)}>
+            <span>{idByProperty(type, id)}</span>
+            <ExLinkIcon />
+          </Link>
         </Item>
         <Item label="Verification Method">
           <p>{method}</p>
@@ -54,12 +52,10 @@ export const Result: VFC<ResultProps> = ({
           <p>{result}</p>
         </Item>
         <Item label="Evidence">
-          <p>
-            <Link href={evidenceUrlByProperty(type, id, evidence)}>
-              Show Evidence
-              <ExLinkIcon />
-            </Link>
-          </p>
+          <Link href={evidenceUrlByProperty(type, id, evidence)}>
+            <span>Show Evidence</span>
+            <ExLinkIcon />
+          </Link>
         </Item>
         <Item label="Timestamp">
           <p>{dayjs(at).toISOString()}</p>
@@ -97,10 +93,23 @@ const ItemDiv = styled.div`
     font-weight: ${fontWeightLight};
     white-space: nowrap;
   }
-  p {
+  p,
+  ${Link} {
     margin-top: 8px;
     font-size: 16px;
     font-weight: ${fontWeightMedium};
+  }
+  ${Link} {
+    display: flex;
+    align-items: flex-end;
+    span {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    svg {
+      flex-shrink: 0;
+    }
   }
   a {
     white-space: nowrap;
@@ -109,8 +118,8 @@ const ItemDiv = styled.div`
   svg {
     margin-left: 6px;
     margin-bottom: 2px;
-    width: 20px;
-    height: 20px;
+    width: min(1em, 20px);
+    height: min(1em, 20px);
     vertical-align: bottom;
   }
 `
@@ -121,6 +130,9 @@ const Items = styled.div`
   ${ItemDiv} {
     flex: 1;
     margin-top: 24px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   :first-child {
     ${ItemDiv} {
@@ -131,7 +143,8 @@ const Items = styled.div`
   }
 `
 const Content = styled.div`
-  width: 100%;
+  flex: 1;
+  min-width: 0;
 `
 const IconDiv = styled.div<{ $color: Colors }>`
   max-width: 64px;
@@ -167,6 +180,7 @@ const ResultDiv = styled.div`
         margin-top: 36px;
         flex-direction: row;
         ${ItemDiv} {
+          margin-right: 16px;
           margin-top: 0;
         }
       }
@@ -177,7 +191,8 @@ const ResultDiv = styled.div`
       ${Items} {
         ${ItemDiv} {
           margin-right: 32px;
-          p {
+          p,
+          span {
             margin-top: 12px;
             font-size: 24px;
           }

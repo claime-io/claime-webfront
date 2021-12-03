@@ -51,6 +51,11 @@ const Content = styled.div`
     font-size: 16px;
     font-weight: ${fontWeightLight};
     text-decoration: underline;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
   }
 `
 const IconDiv = styled.div`
