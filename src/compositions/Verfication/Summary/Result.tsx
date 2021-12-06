@@ -86,6 +86,7 @@ const Heading = styled.div`
   }
 `
 const ResultDiv = styled.div<{ $color: Colors }>`
+  width: 100%;
   ${Content} {
     margin: 48px auto 0;
   }
