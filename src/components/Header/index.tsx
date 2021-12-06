@@ -64,7 +64,7 @@ const NetworkButton = styled.button<{ isWrong?: boolean }>`
     height: 1.1em;
     margin-right: 8px;
   }
-  width: 200px;
+  width: fit-content;
   ${({ isWrong }) =>
     isWrong &&
     css`
