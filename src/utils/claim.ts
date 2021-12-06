@@ -9,10 +9,13 @@ import {
 import { SupportedPropertyType, VerificationResultType } from 'src/models'
 import { failed, unknown, verified } from 'src/styles/colors'
 import { Colors } from 'src/styles/types'
+import { eoaSummary, fullURL } from './routes'
 
 export const CLAIM_KEY = 'claime-ownership-claim'
 
 export const toEvidence = (eoa: string) => `${CLAIM_KEY}=${eoa}`
+export const toEvidenceWithURL = (eoa: string) =>
+  `${toEvidence(eoa)}\n\nSee results in Claime:\n${fullURL(eoaSummary(eoa))}`
 
 export const colorByResult = (result: VerificationResultType): Colors =>
   result === 'Verified' ? verified : result === 'Failed' ? failed : unknown
