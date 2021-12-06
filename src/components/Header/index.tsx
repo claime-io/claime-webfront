@@ -10,7 +10,7 @@ import { fontWeightLight } from 'src/styles/font'
 import { ContentGuide } from 'src/styles/global-styles'
 import { breakpoint, flexCenter } from 'src/styles/mixins'
 import { shortenAddress } from 'src/utils/address'
-import { eoaSummary, GITHUB_URL, TOP } from 'src/utils/routes'
+import { DISCLAIMER_URL, eoaSummary, GITHUB_URL, TOP } from 'src/utils/routes'
 import styled, { css } from 'styled-components'
 import { ctaStyle } from '../Cta'
 import { Logo } from '../Logo'
@@ -29,6 +29,7 @@ export const Header: VFC = () => {
         </Link>
         <Navigation>
           <Link href={GITHUB_URL}>GitHub</Link>
+          <Link href={DISCLAIMER_URL}>Disclaimer</Link>
           {chainId &&
             (getContractAddress(chainId) ? (
               <NetworkButton onClick={() => openNetworkModal()}>

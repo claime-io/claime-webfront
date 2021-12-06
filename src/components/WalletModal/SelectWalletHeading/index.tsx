@@ -1,6 +1,6 @@
 import { VFC } from 'react'
 import { DiscordLogo } from 'src/assets/svgs'
-import { DISCLAIMER } from 'src/utils/routes'
+import { DISCLAIMER_URL } from 'src/utils/routes'
 import { Heading, InlineLink, SubHeading } from '../../Modal/styles'
 import { WalletModalTheme } from '../types'
 
@@ -21,7 +21,7 @@ const DefaultHeading = () => (
     <SubHeading>
       All blockchain wallet connections should be made at your own risk. To read
       the disclaimer,{' '}
-      <InlineLink href={DISCLAIMER} newTab>
+      <InlineLink href={DISCLAIMER_URL} newTab>
         click here
       </InlineLink>
       .
