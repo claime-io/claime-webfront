@@ -8,7 +8,7 @@ export const RevalidateAt = styled<
 >(({ generatedAt, className }) => (
   <p className={className}>
     {`This results will be cached until ${generatedAt
-      .add(RESULT_TTL_SEC, 'sec')
+      .add(RESULT_TTL_SEC, 'seconds')
       .toISOString()}`}
   </p>
 ))`
