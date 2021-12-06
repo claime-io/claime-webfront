@@ -16,7 +16,7 @@ export const ClaimTop: VFC = () => {
   return (
     <ClaimTopMain>
       <OuterDiv onClick={() => setSelectedType(undefined)} />
-      <h1>Select your digital assets</h1>
+      <h1>Claim ownership of your digital properties</h1>
       <h2>Select the type of property you want to claim ownership for</h2>
       <ScrollableDivWrapper>
         <Properties>

@@ -19,7 +19,7 @@ export const Top: VFC = () => (
       </Section>
       <Section>
         <h2>
-          If you would like to claim ownership of your digital assets
+          If you would like to claim ownership of your digital properties
           <CtaLink href={CLAIM}>Get Started</CtaLink>
         </h2>
       </Section>
