@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { VFC } from 'react'
 import { Favicons } from 'src/components/Favicons'
-import { DEVELOPERS_EOA } from 'src/constants/about'
+import { DEVELOPERS_EOA, OWNER_EOA } from 'src/constants/about'
 import { getLibrary } from 'src/external/wallets'
 import { useTransitionLoading } from 'src/hooks/useLoading'
 import { ModalPortal } from 'src/hooks/useModal'
@@ -23,6 +23,7 @@ const MyApp: VFC<AppProps> = ({ Component, pageProps, router }) => {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name={CLAIM_KEY} content={DEVELOPERS_EOA} />
+        <meta name={CLAIM_KEY} content={OWNER_EOA} />
         <meta property="og:url" content={pageUrl} />
         <link rel="canonical" href={pageUrl} />
       </Head>
