@@ -1,6 +1,6 @@
 import { CodeBlock } from 'src/components/CodeBlock'
 import { CtaLink } from 'src/components/Cta'
-import { toEvidence } from 'src/utils/claim'
+import { toEvidence, toEvidenceWithURL } from 'src/utils/claim'
 import { ClaimingForm } from './Form'
 
 export const Twitter = () => (
@@ -29,4 +29,6 @@ const toClaimInput = (url: string) => {
 }
 
 const urlToTweetEvidence = (eoa: string) =>
-  `https://twitter.com/intent/tweet?text=${encodeURIComponent(toEvidence(eoa))}`
+  `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+    toEvidenceWithURL(eoa),
+  )}`

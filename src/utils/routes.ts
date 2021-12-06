@@ -18,3 +18,5 @@ export const SUPPORT_URL =
 export const METAMASK_URL = 'https://metamask.io/'
 
 export const extractPathname = (path: string = '') => path.split(/[?#]/)[0]
+
+export const fullURL = (path: string) => `${SERVICE_URL}${path}`
