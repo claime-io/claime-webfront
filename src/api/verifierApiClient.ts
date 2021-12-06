@@ -28,26 +28,25 @@ export const verify = async (
   network?: string,
 ): Promise<VerificationResult[]> => {
   const res = await verifierApiClient.verify(eoa, network)
-  return (
-    res.data
-      ?.filter(({ claim: { propertyType, method } }) =>
-        isSupported(propertyType, method),
-      )
-      .map(({ claim, result, actual, at, error }) => ({
-        type: claim.propertyType as SupportedPropertyType,
-        id: claim.propertyId,
-        method: claim.method,
-        evidence: claim.evidence,
-        network: claim.network,
-        result: result as VerificationResultType,
-        actual: actual
-          ? {
-              id: actual.propertyId,
-              evidences: actual.evidences,
-            }
-          : undefined,
-        at: at,
-        error,
-      })) || []
-  )
+  if (!res.data?.length) return []
+  return res.data
+    .filter(({ claim: { propertyType, method } }) =>
+      isSupported(propertyType, method),
+    )
+    .map(({ claim, result, actual, at, error }) => ({
+      type: claim.propertyType as SupportedPropertyType,
+      id: claim.propertyId,
+      method: claim.method,
+      evidence: claim.evidence,
+      network: claim.network,
+      result: result as VerificationResultType,
+      actual: actual
+        ? {
+            id: actual.propertyId,
+            evidences: actual.evidences,
+          }
+        : undefined,
+      at: at,
+      error,
+    }))
 }

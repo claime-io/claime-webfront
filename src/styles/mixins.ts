@@ -59,7 +59,7 @@ export const flexCenter = css`
 
 const size = {
   s: '520px',
-  m: '768px',
+  m: '820px',
   l: '1200px',
 }
 
