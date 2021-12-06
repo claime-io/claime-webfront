@@ -1,4 +1,4 @@
-import { CtaButton } from 'src/components/Button'
+import { CtaButton } from 'src/components/Cta'
 import { discord, white } from 'src/styles/colors'
 import {
   fontWeightBold,

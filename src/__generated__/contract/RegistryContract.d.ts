@@ -22,22 +22,15 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 interface RegistryContractInterface extends ethers.utils.Interface {
   functions: {
     "allClaimKeys(address,uint256)": FunctionFragment;
-    "allClaimRefs(address)": FunctionFragment;
     "allClaims(uint256)": FunctionFragment;
     "listClaims(address)": FunctionFragment;
     "register(string,string,string,string)": FunctionFragment;
-    "registerRef(string,string)": FunctionFragment;
     "remove(string,string,string)": FunctionFragment;
-    "removeRef()": FunctionFragment;
   };
 
   encodeFunctionData(
     functionFragment: "allClaimKeys",
     values: [string, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "allClaimRefs",
-    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "allClaims",
@@ -49,60 +42,45 @@ interface RegistryContractInterface extends ethers.utils.Interface {
     values: [string, string, string, string]
   ): string;
   encodeFunctionData(
-    functionFragment: "registerRef",
-    values: [string, string]
-  ): string;
-  encodeFunctionData(
     functionFragment: "remove",
     values: [string, string, string]
   ): string;
-  encodeFunctionData(functionFragment: "removeRef", values?: undefined): string;
 
   decodeFunctionResult(
     functionFragment: "allClaimKeys",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "allClaimRefs",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "allClaims", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "listClaims", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "register", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "registerRef",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "remove", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "removeRef", data: BytesLike): Result;
 
   events: {
-    "ClaimRefRemoved(address)": EventFragment;
-    "ClaimRefUpdated(address,tuple)": EventFragment;
-    "ClaimRemoved(address,string,string)": EventFragment;
+    "ClaimRemoved(address,tuple)": EventFragment;
     "ClaimUpdated(address,tuple)": EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: "ClaimRefRemoved"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "ClaimRefUpdated"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ClaimRemoved"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ClaimUpdated"): EventFragment;
 }
 
-export type ClaimRefRemovedEvent = TypedEvent<[string] & { claimer: string }>;
-
-export type ClaimRefUpdatedEvent = TypedEvent<
-  [string, [string, string] & { ref: string; key: string }] & {
-    claimer: string;
-    ref: [string, string] & { ref: string; key: string };
-  }
->;
-
 export type ClaimRemovedEvent = TypedEvent<
-  [string, string, string] & {
+  [
+    string,
+    [string, string, string, string] & {
+      propertyType: string;
+      propertyId: string;
+      method: string;
+      evidence: string;
+    }
+  ] & {
     claimer: string;
-    propertyType: string;
-    propertyId: string;
+    claim: [string, string, string, string] & {
+      propertyType: string;
+      propertyId: string;
+      method: string;
+      evidence: string;
+    };
   }
 >;
 
@@ -112,16 +90,16 @@ export type ClaimUpdatedEvent = TypedEvent<
     [string, string, string, string] & {
       propertyType: string;
       propertyId: string;
-      evidence: string;
       method: string;
+      evidence: string;
     }
   ] & {
     claimer: string;
     claim: [string, string, string, string] & {
       propertyType: string;
       propertyId: string;
-      evidence: string;
       method: string;
+      evidence: string;
     };
   }
 >;
@@ -176,11 +154,6 @@ export class RegistryContract extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
-    allClaimRefs(
-      arg0: string,
-      overrides?: CallOverrides
-    ): Promise<[string, string] & { ref: string; key: string }>;
-
     allClaims(
       arg0: BigNumberish,
       overrides?: CallOverrides
@@ -188,27 +161,21 @@ export class RegistryContract extends BaseContract {
       [string, string, string, string] & {
         propertyType: string;
         propertyId: string;
-        evidence: string;
         method: string;
+        evidence: string;
       }
     >;
 
     listClaims(
       account: string,
       overrides?: CallOverrides
-    ): Promise<[BigNumber[], [string, string]]>;
+    ): Promise<[BigNumber[]]>;
 
     register(
       propertyType: string,
       propertyId: string,
-      evidence: string,
       method: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    registerRef(
-      ref: string,
-      key: string,
+      evidence: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -216,10 +183,6 @@ export class RegistryContract extends BaseContract {
       propertyType: string,
       propertyId: string,
       method: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    removeRef(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
@@ -230,11 +193,6 @@ export class RegistryContract extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  allClaimRefs(
-    arg0: string,
-    overrides?: CallOverrides
-  ): Promise<[string, string] & { ref: string; key: string }>;
-
   allClaims(
     arg0: BigNumberish,
     overrides?: CallOverrides
@@ -242,27 +200,18 @@ export class RegistryContract extends BaseContract {
     [string, string, string, string] & {
       propertyType: string;
       propertyId: string;
-      evidence: string;
       method: string;
+      evidence: string;
     }
   >;
 
-  listClaims(
-    account: string,
-    overrides?: CallOverrides
-  ): Promise<[BigNumber[], [string, string]]>;
+  listClaims(account: string, overrides?: CallOverrides): Promise<BigNumber[]>;
 
   register(
     propertyType: string,
     propertyId: string,
-    evidence: string,
     method: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  registerRef(
-    ref: string,
-    key: string,
+    evidence: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -273,21 +222,12 @@ export class RegistryContract extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  removeRef(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
   callStatic: {
     allClaimKeys(
       arg0: string,
       arg1: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
-
-    allClaimRefs(
-      arg0: string,
-      overrides?: CallOverrides
-    ): Promise<[string, string] & { ref: string; key: string }>;
 
     allClaims(
       arg0: BigNumberish,
@@ -296,27 +236,21 @@ export class RegistryContract extends BaseContract {
       [string, string, string, string] & {
         propertyType: string;
         propertyId: string;
-        evidence: string;
         method: string;
+        evidence: string;
       }
     >;
 
     listClaims(
       account: string,
       overrides?: CallOverrides
-    ): Promise<[BigNumber[], [string, string]]>;
+    ): Promise<BigNumber[]>;
 
     register(
       propertyType: string,
       propertyId: string,
-      evidence: string,
       method: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    registerRef(
-      ref: string,
-      key: string,
+      evidence: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -326,51 +260,55 @@ export class RegistryContract extends BaseContract {
       method: string,
       overrides?: CallOverrides
     ): Promise<void>;
-
-    removeRef(overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {
-    "ClaimRefRemoved(address)"(
-      claimer?: null
-    ): TypedEventFilter<[string], { claimer: string }>;
-
-    ClaimRefRemoved(
-      claimer?: null
-    ): TypedEventFilter<[string], { claimer: string }>;
-
-    "ClaimRefUpdated(address,tuple)"(
+    "ClaimRemoved(address,tuple)"(
       claimer?: null,
-      ref?: null
+      claim?: null
     ): TypedEventFilter<
-      [string, [string, string] & { ref: string; key: string }],
-      { claimer: string; ref: [string, string] & { ref: string; key: string } }
-    >;
-
-    ClaimRefUpdated(
-      claimer?: null,
-      ref?: null
-    ): TypedEventFilter<
-      [string, [string, string] & { ref: string; key: string }],
-      { claimer: string; ref: [string, string] & { ref: string; key: string } }
-    >;
-
-    "ClaimRemoved(address,string,string)"(
-      claimer?: null,
-      propertyType?: null,
-      propertyId?: null
-    ): TypedEventFilter<
-      [string, string, string],
-      { claimer: string; propertyType: string; propertyId: string }
+      [
+        string,
+        [string, string, string, string] & {
+          propertyType: string;
+          propertyId: string;
+          method: string;
+          evidence: string;
+        }
+      ],
+      {
+        claimer: string;
+        claim: [string, string, string, string] & {
+          propertyType: string;
+          propertyId: string;
+          method: string;
+          evidence: string;
+        };
+      }
     >;
 
     ClaimRemoved(
       claimer?: null,
-      propertyType?: null,
-      propertyId?: null
+      claim?: null
     ): TypedEventFilter<
-      [string, string, string],
-      { claimer: string; propertyType: string; propertyId: string }
+      [
+        string,
+        [string, string, string, string] & {
+          propertyType: string;
+          propertyId: string;
+          method: string;
+          evidence: string;
+        }
+      ],
+      {
+        claimer: string;
+        claim: [string, string, string, string] & {
+          propertyType: string;
+          propertyId: string;
+          method: string;
+          evidence: string;
+        };
+      }
     >;
 
     "ClaimUpdated(address,tuple)"(
@@ -382,8 +320,8 @@ export class RegistryContract extends BaseContract {
         [string, string, string, string] & {
           propertyType: string;
           propertyId: string;
-          evidence: string;
           method: string;
+          evidence: string;
         }
       ],
       {
@@ -391,8 +329,8 @@ export class RegistryContract extends BaseContract {
         claim: [string, string, string, string] & {
           propertyType: string;
           propertyId: string;
-          evidence: string;
           method: string;
+          evidence: string;
         };
       }
     >;
@@ -406,8 +344,8 @@ export class RegistryContract extends BaseContract {
         [string, string, string, string] & {
           propertyType: string;
           propertyId: string;
-          evidence: string;
           method: string;
+          evidence: string;
         }
       ],
       {
@@ -415,8 +353,8 @@ export class RegistryContract extends BaseContract {
         claim: [string, string, string, string] & {
           propertyType: string;
           propertyId: string;
-          evidence: string;
           method: string;
+          evidence: string;
         };
       }
     >;
@@ -429,8 +367,6 @@ export class RegistryContract extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    allClaimRefs(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
-
     allClaims(
       arg0: BigNumberish,
       overrides?: CallOverrides
@@ -441,14 +377,8 @@ export class RegistryContract extends BaseContract {
     register(
       propertyType: string,
       propertyId: string,
-      evidence: string,
       method: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    registerRef(
-      ref: string,
-      key: string,
+      evidence: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -458,21 +388,12 @@ export class RegistryContract extends BaseContract {
       method: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
-
-    removeRef(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     allClaimKeys(
       arg0: string,
       arg1: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    allClaimRefs(
-      arg0: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -489,14 +410,8 @@ export class RegistryContract extends BaseContract {
     register(
       propertyType: string,
       propertyId: string,
-      evidence: string,
       method: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    registerRef(
-      ref: string,
-      key: string,
+      evidence: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -504,10 +419,6 @@ export class RegistryContract extends BaseContract {
       propertyType: string,
       propertyId: string,
       method: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    removeRef(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };

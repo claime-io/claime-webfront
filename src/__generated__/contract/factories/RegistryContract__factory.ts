@@ -19,61 +19,33 @@ const _abi = [
         name: "claimer",
         type: "address",
       },
-    ],
-    name: "ClaimRefRemoved",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "claimer",
-        type: "address",
-      },
       {
         components: [
           {
             internalType: "string",
-            name: "ref",
+            name: "propertyType",
             type: "string",
           },
           {
             internalType: "string",
-            name: "key",
+            name: "propertyId",
+            type: "string",
+          },
+          {
+            internalType: "string",
+            name: "method",
+            type: "string",
+          },
+          {
+            internalType: "string",
+            name: "evidence",
             type: "string",
           },
         ],
         indexed: false,
-        internalType: "struct IClaimRegistry.ClaimRef",
-        name: "ref",
+        internalType: "struct IClaimRegistry.Claim",
+        name: "claim",
         type: "tuple",
-      },
-    ],
-    name: "ClaimRefUpdated",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "claimer",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "propertyType",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "propertyId",
-        type: "string",
       },
     ],
     name: "ClaimRemoved",
@@ -102,12 +74,12 @@ const _abi = [
           },
           {
             internalType: "string",
-            name: "evidence",
+            name: "method",
             type: "string",
           },
           {
             internalType: "string",
-            name: "method",
+            name: "evidence",
             type: "string",
           },
         ],
@@ -147,30 +119,6 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    name: "allClaimRefs",
-    outputs: [
-      {
-        internalType: "string",
-        name: "ref",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "key",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
         internalType: "uint256",
         name: "",
         type: "uint256",
@@ -190,12 +138,12 @@ const _abi = [
       },
       {
         internalType: "string",
-        name: "evidence",
+        name: "method",
         type: "string",
       },
       {
         internalType: "string",
-        name: "method",
+        name: "evidence",
         type: "string",
       },
     ],
@@ -217,11 +165,6 @@ const _abi = [
         name: "",
         type: "uint256[]",
       },
-      {
-        internalType: "string[2]",
-        name: "",
-        type: "string[2]",
-      },
     ],
     stateMutability: "view",
     type: "function",
@@ -240,34 +183,16 @@ const _abi = [
       },
       {
         internalType: "string",
-        name: "evidence",
+        name: "method",
         type: "string",
       },
       {
         internalType: "string",
-        name: "method",
+        name: "evidence",
         type: "string",
       },
     ],
     name: "register",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "ref",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "key",
-        type: "string",
-      },
-    ],
-    name: "registerRef",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -291,13 +216,6 @@ const _abi = [
       },
     ],
     name: "remove",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "removeRef",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

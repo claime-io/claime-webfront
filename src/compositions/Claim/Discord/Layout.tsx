@@ -1,5 +1,7 @@
 import { useEffect, useState, VFC } from 'react'
-import { CiclesLoading } from 'src/components/Loading'
+import { DiscordFooter } from 'src/components/Footer'
+import { Header } from 'src/components/Header/Discord'
+import { CirclesLoading } from 'src/components/Loading'
 import {
   FullScreenContainer,
   initializeDiscordParticles,
@@ -51,7 +53,10 @@ export const Layout: VFC<LayoutProps> = ({ ...confirmationProps }) => {
         theme: 'discord',
         onClose: () => setStatus('confirmation'),
       },
-      { styles: discordModalStyle, inescapable: true },
+      {
+        inescapable: true,
+        styles: { contentsContainerStyles: discordModalStyle },
+      },
     )
   }
 
@@ -84,6 +89,7 @@ export const Layout: VFC<LayoutProps> = ({ ...confirmationProps }) => {
 
   return (
     <>
+      <Header />
       <Main>
         <FullScreenContainer scale={bgScale}>
           <Particles type="discord" />
@@ -100,7 +106,7 @@ export const Layout: VFC<LayoutProps> = ({ ...confirmationProps }) => {
             <>
               <Heading>Verifying now...</Heading>
               <Text>It may take a few minutes to verify.</Text>
-              <CiclesLoading />
+              <CirclesLoading />
             </>
           )}
           {status === 'succeeded' && (
@@ -118,6 +124,7 @@ export const Layout: VFC<LayoutProps> = ({ ...confirmationProps }) => {
           )}
         </Content>
       </Main>
+      <DiscordFooter>©︎2021 CLAIME</DiscordFooter>
     </>
   )
 }
@@ -137,7 +144,7 @@ const Content = styled.div`
   ${Heading} + * {
     margin-top: 24px;
   }
-  ${CiclesLoading} {
+  ${CirclesLoading} {
     margin-top: 64px;
   }
   ${InformationDiv} {

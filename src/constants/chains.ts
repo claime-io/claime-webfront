@@ -1,11 +1,10 @@
+import { isProd } from 'src/utils/env'
+
 export enum BuiltInChainId {
   MAINNET = 1,
-  ROPSTEN = 3,
   RINKEBY = 4,
-  GOELRI = 5,
-  KOVAN = 42,
   MATIC = 137,
-  GANACHE = 1337,
+  MUMBAI = 80001,
 }
 
 type BuiltInChainInfo = {
@@ -24,12 +23,9 @@ const ExplorerBaseUrl: {
   readonly [chainId in BuiltInChainId]: string
 } = {
   [BuiltInChainId.MAINNET]: 'https://etherscan.io',
-  [BuiltInChainId.ROPSTEN]: 'https://ropsten.etherscan.io',
   [BuiltInChainId.RINKEBY]: 'https://rinkeby.etherscan.io',
-  [BuiltInChainId.GOELRI]: 'https://goerli.etherscan.io',
-  [BuiltInChainId.KOVAN]: 'https://kovan.etherscan.io',
   [BuiltInChainId.MATIC]: 'https://polygonscan.com',
-  [BuiltInChainId.GANACHE]: '',
+  [BuiltInChainId.MUMBAI]: 'https://mumbai.polygonscan.com/',
 }
 const INFURA_ID = '602183a665b846d7af6d11341f98261a'
 
@@ -37,12 +33,9 @@ export const RpcUrls: {
   readonly [chainId in BuiltInChainId]: string
 } = {
   [BuiltInChainId.MAINNET]: `https://mainnet.infura.io/v3/${INFURA_ID}`,
-  [BuiltInChainId.ROPSTEN]: `https://ropsten.infura.io/v3/${INFURA_ID}`,
   [BuiltInChainId.RINKEBY]: `https://rinkeby.infura.io/v3/${INFURA_ID}`,
-  [BuiltInChainId.GOELRI]: `https://goerli.infura.io/v3/${INFURA_ID}`,
-  [BuiltInChainId.KOVAN]: `https://kovan.infura.io/v3/${INFURA_ID}`,
   [BuiltInChainId.MATIC]: `https://polygon-mainnet.g.alchemy.com/v2/9apanUOHDQhhzl4RJHtcxY8SpMbH3QWJ`,
-  [BuiltInChainId.GANACHE]: '',
+  [BuiltInChainId.MUMBAI]: 'https://matic-mumbai.chainstacklabs.com',
 }
 
 const defaultExplorerFactory = (
@@ -57,30 +50,44 @@ export const CHAIN_INFO: ChainInfo = {
     explorer: defaultExplorerFactory(ExplorerBaseUrl[BuiltInChainId.MAINNET]),
     label: 'Mainnet',
   },
-  [BuiltInChainId.ROPSTEN]: {
-    explorer: defaultExplorerFactory(ExplorerBaseUrl[BuiltInChainId.ROPSTEN]),
-    label: 'Ropsten',
-  },
   [BuiltInChainId.RINKEBY]: {
     explorer: defaultExplorerFactory(ExplorerBaseUrl[BuiltInChainId.RINKEBY]),
     label: 'Rinkeby',
-  },
-  [BuiltInChainId.GOELRI]: {
-    explorer: defaultExplorerFactory(ExplorerBaseUrl[BuiltInChainId.GOELRI]),
-    label: 'Goerli',
-  },
-  [BuiltInChainId.KOVAN]: {
-    explorer: defaultExplorerFactory(ExplorerBaseUrl[BuiltInChainId.KOVAN]),
-    label: 'Kovan',
   },
   [BuiltInChainId.MATIC]: {
     explorer: defaultExplorerFactory(ExplorerBaseUrl[BuiltInChainId.MATIC]),
     label: 'MATIC',
   },
-  [BuiltInChainId.GANACHE]: {
-    label: 'Ganache',
+  [BuiltInChainId.MUMBAI]: {
+    explorer: defaultExplorerFactory(ExplorerBaseUrl[BuiltInChainId.MUMBAI]),
+    label: 'MUMBAI',
   },
 }
 
 export const getExplorer = (chainId: number | undefined) =>
   chainId ? CHAIN_INFO[chainId].explorer : undefined
+
+const NETWORK_DICT: { [key in string]: string } = {
+  mainnet: 'Ethereum Mainnet',
+  matic: 'Polygon Mainnet',
+  polygon: 'Polygon Mainnet',
+  rinkeby: 'Ethereum Testnet Rinkeby',
+  mumbai: 'Polygon Testnet Mumbai',
+} as const
+
+const SHORTEN_NETWORK_DICT_BY_ID: { [key in number]: string } = {
+  [BuiltInChainId.MAINNET]: 'Ethereum Mainnet',
+  [BuiltInChainId.MATIC]: 'Polygon Mainnet',
+  [BuiltInChainId.RINKEBY]: 'Rinkeby Testnet',
+  [BuiltInChainId.MUMBAI]: 'Mumbai Testnet',
+} as const
+
+export const networkLabel = (arg: string) => NETWORK_DICT[arg] || 'unknown'
+
+export const networkLabelShort = (arg: number | undefined) =>
+  (arg && SHORTEN_NETWORK_DICT_BY_ID[arg]) || 'unknown'
+
+export const chainIdEthereum = () =>
+  isProd ? BuiltInChainId.MAINNET : BuiltInChainId.RINKEBY
+export const chainIdPolygon = () =>
+  isProd ? BuiltInChainId.MATIC : BuiltInChainId.MUMBAI

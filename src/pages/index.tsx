@@ -1,11 +1,11 @@
 import type { NextPage } from 'next'
 import { SEO } from 'src/components/SEO'
-import { UnderDevelopment } from 'src/compositions/UnderDevelopment'
+import { Top } from 'src/compositions/Top'
 
 const TopPage: NextPage = () => (
   <>
     <SEO />
-    <UnderDevelopment />
+    <Top />
   </>
 )
 export default TopPage

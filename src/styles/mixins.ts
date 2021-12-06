@@ -29,7 +29,26 @@ export const absoluteFill = css`
   left: 0;
   margin: auto;
 `
-
+export const centerLine = (borderColor: string) => css`
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  ::before {
+    content: '';
+    display: inline-block;
+    flex: 1;
+    border-top: 1px solid ${borderColor};
+    margin-right: 1em;
+  }
+  ::after {
+    content: '';
+    display: inline-block;
+    flex: 1;
+    border-top: 1px solid ${borderColor};
+    margin-left: 1em;
+  }
+`
 export const defaultShadow = `8px 8px 3px #00000029`
 
 export const flexCenter = css`
@@ -39,9 +58,9 @@ export const flexCenter = css`
 `
 
 const size = {
-  s: '480px',
-  m: '560px',
-  l: '1280px',
+  s: '520px',
+  m: '768px',
+  l: '1200px',
 }
 
 export const breakpoint = {

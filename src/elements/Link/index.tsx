@@ -8,15 +8,14 @@ type LinkBaseProps = {
   className?: string
 }
 
-type InternalLink = { href?: `/${string}` }
+type InternalLink = { href?: `/${string}` | '/' }
 
 type InternalLinkProps = {
   newTab?: boolean
 } & NextLinkProps
 
 type ExternalLinkProps = {
-  newTab?: never
-  children: ReactNode
+  newTab?: boolean
 } & AnchorHTMLAttributes<HTMLAnchorElement>
 
 type LinkProps<T extends LinkBaseProps> = T & T extends InternalLink
@@ -27,19 +26,17 @@ type LinkFC = <T extends LinkBaseProps = LinkBaseProps>(
   props: LinkProps<T>,
 ) => JSX.Element
 
-export const Link: LinkFC = ({
+export const LinkElement: LinkFC = ({
   href,
   newTab,
   children,
   className,
   ...props
 }) => {
-  if (href && (href.startsWith('/') || newTab))
+  if (href && href.startsWith('/') && !newTab)
     return (
       <NextLink href={href} {...props} passHref>
-        <StyledAnchorLink className={className} disabled={!href}>
-          {children}
-        </StyledAnchorLink>
+        <StyledAnchorLink className={className}>{children}</StyledAnchorLink>
       </NextLink>
     )
   return (
@@ -49,23 +46,19 @@ export const Link: LinkFC = ({
       className={className}
       target="_blank"
       rel="noreferrer"
-      disabled={!href}
     >
       {children}
     </StyledAnchorLink>
   )
 }
-
-type AnchorLinkStyleProps = {
-  disabled?: boolean
-}
+export const Link = styled(LinkElement)``
 
 const disabledStyle = css`
   opacity: 0.5;
   cursor: not-allowed;
 `
 
-const StyledAnchorLink = styled.a<AnchorLinkStyleProps>`
+const StyledAnchorLink = styled.a`
   cursor: pointer;
-  ${({ disabled }) => disabled && disabledStyle};
+  ${({ href }) => !href && disabledStyle};
 `

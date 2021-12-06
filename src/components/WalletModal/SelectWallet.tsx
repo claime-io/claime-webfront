@@ -5,6 +5,7 @@ import { Heading, ModalBackIcon, SubHeading } from 'src/components/Modal/styles'
 import { connector } from 'src/external/wallets'
 import { hasMetaMask } from 'src/external/wallets/metamask'
 import { useWallet, WalletType } from 'src/hooks/useWallet'
+import { white } from 'src/styles/colors'
 import { breakpoint } from 'src/styles/mixins'
 import { METAMASK_URL } from 'src/utils/routes'
 import styled from 'styled-components'
@@ -59,7 +60,7 @@ export const SelectWallet: VFC<{
               <WalletsDiv>
                 {!isMobile && (
                   <WalletOption
-                    type="Metamask"
+                    label="Metamask"
                     Icon={MetamaskIcon}
                     notInstalled={!hasMetaMask()}
                     onNotInstalled={() => window.open(METAMASK_URL, '_blank')}
@@ -69,7 +70,6 @@ export const SelectWallet: VFC<{
                   />
                 )}
                 <WalletOption
-                  type="WalletConnect"
                   label="Wallet Connect"
                   Icon={WalletConnectIcon}
                   hasEnabled={activeWalletType === 'WalletConnect'}
@@ -87,16 +87,19 @@ export const SelectWallet: VFC<{
 const WalletsDiv = styled.div`
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  align-items: center;
+  flex-direction: column;
   margin: -12px;
   > * {
     margin: 12px;
   }
 `
 const Content = styled.div`
-  max-width: 400px;
+  width: 100%;
+  max-width: 500px;
 `
 const Layout = styled.div`
+  color: ${white};
   ${Heading} {
     margin-bottom: 16px;
     svg {
@@ -106,6 +109,11 @@ const Layout = styled.div`
   }
   ${SubHeading} {
     margin-bottom: 40px;
+  }
+  @media ${breakpoint.s} {
+    ${WalletsDiv} {
+      flex-direction: row;
+    }
   }
   @media ${breakpoint.l} {
     padding: 24px 40px;

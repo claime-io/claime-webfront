@@ -13,8 +13,12 @@ const LogoDiv = styled.div`
   display: flex;
   align-items: center;
   > svg {
+    :first-child {
+      width: 28px;
+      height: 28px;
+    }
     :not(:first-child) {
-      margin-left: 12px;
+      margin-left: 8px;
     }
   }
 `

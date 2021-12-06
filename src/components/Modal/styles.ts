@@ -1,20 +1,25 @@
 import { BackIcon } from 'src/assets/svgs'
-import { fontWeightBold, fontWeightMedium } from 'src/styles/font'
+import { Link } from 'src/elements/Link'
+import { fontWeightBold, fontWeightLight } from 'src/styles/font'
+import { breakpoint } from 'src/styles/mixins'
 import styled from 'styled-components'
 
 export const Heading = styled.h2`
-  font-size: 32px;
+  font-size: 28px;
   font-weight: ${fontWeightBold};
   line-height: 1.25;
   text-align: center;
+  white-space: nowrap;
+  @media ${breakpoint.m} {
+    font-size: 48px;
+  }
 `
 
 export const SubHeading = styled.h3`
-  font-size: 20px;
-  font-weight: ${fontWeightMedium};
+  font-size: 16px;
+  font-weight: ${fontWeightLight};
   text-align: center;
-  letter-spacing: -0.04em;
-  line-height: 1.35;
+  line-height: 1.4;
 `
 
 export const Description = styled.p`
@@ -27,4 +32,8 @@ export const ModalBackIcon = styled(BackIcon)`
   top: 24px;
   left: 24px;
   cursor: pointer;
+`
+
+export const InlineLink = styled(Link)`
+  text-decoration: underline;
 `
