@@ -10,7 +10,7 @@ export const ME = '/me'
 export const claimProperty = (type: PageType) => `${CLAIM}/${type}`
 
 export const SERVICE_URL = `https://${HOSTNAME}`
-export const GITHUB_URL = `https://github.com/orgs/bridges-inc/repositories?q=claime`
+export const GITHUB_URL = `https://github.com/claime-io`
 export const DISCLAIMER_URL =
   'https://github.com/bridges-inc/claime-verifier/blob/main/DISCLAIMER.md'
 export const SUPPORT_URL =
